@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "755838143681",
+    "project_id": "mr-bio",
+    "storage_bucket": "mr-bio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755838143681:android:e271661833aa220618d840",
+        "android_client_info": {
+          "package_name": "com.example.bio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755838143681-8miaen5ipkbboug96kmr0ug9lof36cs7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bio",
+            "certificate_hash": "944754b8f5b5705619604313cff8eea52b17544f"
+          }
+        },
+        {
+          "client_id": "755838143681-0l2i26nppaqimqbq99kr3tmp9f5b1af8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFCVqL9xGSky8daMUFBDqnIl7cJ11lbKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755838143681-0l2i26nppaqimqbq99kr3tmp9f5b1af8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
