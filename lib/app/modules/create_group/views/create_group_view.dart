@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../config/utils/colors.dart';
 import '../controllers/create_group_controller.dart';
 
 class CreateGroupView extends GetView<CreateGroupController> {
@@ -19,15 +20,72 @@ class CreateGroupView extends GetView<CreateGroupController> {
           init: CreateGroupController(),
           builder: (_) {
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
                 MyTextFeild(
+                  width: context.width * 0.8,
                   controller: _.groubNameController,
                   hintText: 'أدخل إسم المجموعه',
                   labelText: "إسم المجموعه",
                 ),
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MyTextFeild(
+                      width: context.width * 0.45,
+                      controller: _.groubPriceController,
+                      hintText: 'أدخل سعر الشهر ',
+                      labelText: 'سعر الشهر ',
+                    ),
+                    MyTextFeild(
+                      width: context.width * 0.45,
+                      controller: _.groubSemenarsController,
+                      hintText: 'أدخل عدد الحصص',
+                      labelText: ' عدد الحصص',
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.width * 0.1),
+                  child: const Divider(
+                    thickness: 1,
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    "الطلاب",
+                    style: context.textTheme.bodyText2!
+                        .copyWith(color: AppColors.primary, fontSize: 18),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: context.width * 0.1),
+                  child: const Divider(
+                    thickness: 1,
+                  ),
+                ),
+                MyTextFeild(
+                  width: context.width * 0.8,
+                  controller: _.groubNameController,
+                  hintText: 'أدخل إسم الطالب',
+                  labelText: "إسم الطالب",
+                ),
               ],
             );
           }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: AppColors.primary,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
