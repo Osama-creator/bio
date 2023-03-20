@@ -61,8 +61,10 @@ class CreateGroupView extends GetView<CreateGroupController> {
                 Center(
                   child: Text(
                     "الطلاب",
-                    style: context.textTheme.bodyText2!
-                        .copyWith(color: AppColors.primary, fontSize: 18),
+                    style: context.textTheme.headline6!.copyWith(
+                        color: AppColors.primary,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
