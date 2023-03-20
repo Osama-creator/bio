@@ -12,6 +12,9 @@ ThemeData getThemDataLight() => ThemeData(
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.primary,
       ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.primary,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
