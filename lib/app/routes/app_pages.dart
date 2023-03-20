@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/create_group/bindings/create_group_binding.dart';
+import '../modules/create_group/views/create_group_view.dart';
 import '../modules/groups_list/bindings/groups_list_binding.dart';
 import '../modules/groups_list/views/groups_list_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -22,6 +24,11 @@ class AppPages {
       name: _Paths.GROUPS_LIST,
       page: () => const GroupsListView(),
       binding: GroupsListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_GROUP,
+      page: () => const CreateGroupView(),
+      binding: CreateGroupBinding(),
     ),
   ];
 }

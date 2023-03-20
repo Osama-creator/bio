@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/groups_list_controller.dart';
 
 class GroupsListView extends GetView<GroupsListController> {
@@ -32,8 +33,13 @@ class GroupsListView extends GetView<GroupsListController> {
           );
         },
       ),
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: const Icon(Icons.add)),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed(Routes.CREATE_GROUP);
+        },
+        backgroundColor: AppColors.primary,
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
