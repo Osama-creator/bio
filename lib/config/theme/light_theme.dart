@@ -45,7 +45,7 @@ ThemeData getThemDataLight() => ThemeData(
               color: AppColors.white),
           headline6: GoogleFonts.cairo(
               fontSize: 20.0,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
               color: AppColors.white),
           bodyText1: GoogleFonts.cairo(fontSize: 20, color: AppColors.white),
           bodyText2: GoogleFonts.cairo(fontSize: 18, color: AppColors.white),
