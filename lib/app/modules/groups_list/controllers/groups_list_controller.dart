@@ -19,6 +19,9 @@ class GroupsListController extends GetxController {
         groupList.add(Group(
           name: category['name'],
           id: category.id,
+          price: category['price'],
+          sessions: category['sessions'],
+          // students: category['studenst'],
         ));
       }
     } catch (e) {
