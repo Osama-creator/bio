@@ -33,8 +33,25 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                 const MyDivider(),
                 Text(
                   "الطلاب",
-                  style: context.textTheme.bodyText2!
-                      .copyWith(color: AppColors.primary),
+                  style: context.textTheme.bodyText2!.copyWith(
+                      color: AppColors.primary, fontWeight: FontWeight.bold),
+                ),
+                const MyDivider(),
+                const MyDivider(),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.args.students?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      final student = controller.args.students![index];
+                      return MyListTile(
+                        title: student.name,
+                        fontSize: 18,
+                        fontWeight: FontWeight.normal,
+                        fontColor: AppColors.grey,
+                        subTile: "غياب: ${student.absence.toString()}",
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

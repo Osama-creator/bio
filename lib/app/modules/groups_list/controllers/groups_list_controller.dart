@@ -2,6 +2,7 @@ import 'package:bio/app/data/models/group_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../data/models/student_model.dart';
 import '../../../routes/app_pages.dart';
 
 class GroupsListController extends GetxController {
@@ -12,18 +13,43 @@ class GroupsListController extends GetxController {
   Future<void> getData() async {
     isLoading = true;
     try {
-      QuerySnapshot categories =
+      QuerySnapshot groups =
           await FirebaseFirestore.instance.collection('groups').get();
       groupList.clear();
-      for (var category in categories.docs) {
-        groupList.add(Group(
-          name: category['name'],
-          id: category.id,
-          price: category['price'],
-          sessions: category['sessions'],
-          // students: category['studenst'],
-        ));
+      for (var groupI in groups.docs) {
+        List<Studen> students = [];
+        List<Map<String, dynamic>> studentsData =
+            List<Map<String, dynamic>>.from(groupI['studenst'] ?? []);
+        for (var studentData in studentsData) {
+          Studen student = Studen(
+            name: studentData['name'],
+            id: studentData['id'],
+            absence: studentData['absence'],
+          );
+          students.add(student);
+        }
+        Group group = Group(
+          name: groupI['name'],
+          id: groupI.id,
+          price: groupI['price'],
+          sessions: groupI['sessions'],
+          students: students,
+        );
+        groupList.add(group);
       }
+
+      // QuerySnapshot categories =
+      //     await FirebaseFirestore.instance.collection('groups').get();
+      // groupList.clear();
+      // for (var category in categories.docs) {
+      //   groupList.add(Group(
+      //     name: category['name'],
+      //     id: category.id,
+      //     price: category['price'],
+      //     sessions: category['sessions'],
+      //     // students: category['studenst'],
+      //   ));
+      // }
     } catch (e) {
       Get.snackbar('Error', e.toString());
       error = true;
@@ -46,3 +72,34 @@ class GroupsListController extends GetxController {
     super.onInit();
   }
 }
+// try {
+//   QuerySnapshot categories =
+//       await FirebaseFirestore.instance.collection('groups').get();
+//   groupList.clear();
+//   for (var category in categories.docs) {
+//     List<Studen> students = [];
+//     List<Map<String, dynamic>> studentsData = List<Map<String, dynamic>>.from(category['students'] ?? []);
+//     for (var studentData in studentsData) {
+//       Studen student = Studen(
+//         name: studentData['name'],
+//         id: studentData['id'],
+//         absence: studentData['absence'],
+//       );
+//       students.add(student);
+//     }
+//     Group group = Group(
+//       name: category['name'],
+//       id: category.id,
+//       price: category['price'],
+//       sessions: category['sessions'],
+//       students: students,
+//     );
+//     groupList.add(group);
+//   }
+// } catch (e) {
+//   Get.snackbar('Error', e.toString());
+//   error = true;
+// } finally {
+//   isLoading = false;
+//   update();
+// }
