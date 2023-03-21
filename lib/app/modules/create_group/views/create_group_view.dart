@@ -12,7 +12,7 @@ class CreateGroupView extends GetView<CreateGroupController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('إنشاء المجموعه'),
+        title: const Text('إنشاء المجموعة'),
         centerTitle: true,
         automaticallyImplyLeading: false,
       ),
@@ -27,9 +27,9 @@ class CreateGroupView extends GetView<CreateGroupController> {
                 ),
                 MyTextFeild(
                   width: context.width * 0.8,
-                  controller: _.groubNameController,
-                  hintText: 'أدخل إسم المجموعه',
-                  labelText: "إسم المجموعه",
+                  controller: _.groupNameController,
+                  hintText: 'أدخل إسم المجموعة',
+                  labelText: "إسم المجموعة",
                 ),
                 SizedBox(
                   height: context.height * 0.01,
@@ -39,15 +39,15 @@ class CreateGroupView extends GetView<CreateGroupController> {
                   children: [
                     MyTextFeild(
                       width: context.width * 0.45,
-                      controller: _.groubPriceController,
+                      controller: _.groupPriceController,
                       hintText: 'أدخل سعر الشهر ',
                       labelText: 'سعر الشهر ',
                     ),
                     MyTextFeild(
                       width: context.width * 0.45,
-                      controller: _.groubSemenarsController,
+                      controller: _.groupSeminarsController,
                       hintText: 'أدخل عدد الحصص',
-                      labelText: ' عدد الحصص',
+                      labelText: 'عدد الحصص',
                     ),
                   ],
                 ),
@@ -72,20 +72,33 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     thickness: 1,
                   ),
                 ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _.students.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text(_.students[index]),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete),
+                          onPressed: () => _.removeStudent(index),
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 MyTextFeild(
                   width: context.width * 0.8,
-                  controller: _.groubNameController,
+                  controller: _.studentNameController,
                   hintText: 'أدخل إسم الطالب',
                   labelText: "إسم الطالب",
+                  onFieldSubmitted: (_) {
+                    controller.addStudent();
+                    false;
+                  },
                 ),
               ],
             );
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }
