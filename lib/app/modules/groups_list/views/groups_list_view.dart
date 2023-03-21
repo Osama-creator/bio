@@ -26,16 +26,21 @@ class GroupsListView extends GetView<GroupsListController> {
                 : ListView.builder(
                     itemCount: controller.groupList.length,
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(6.0),
-                        child: Card(
-                          elevation: 10,
-                          color: AppColors.grey,
-                          child: Column(
-                            children: [
-                              Text(controller.groupList[index].name),
-                              const Text("15 طالب")
-                            ],
+                      return InkWell(
+                        onTap: () {
+                          controller.navigate(index);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Card(
+                            elevation: 10,
+                            color: AppColors.grey,
+                            child: Column(
+                              children: [
+                                Text(controller.groupList[index].name),
+                                const Text("15 طالب")
+                              ],
+                            ),
                           ),
                         ),
                       );

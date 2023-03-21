@@ -2,6 +2,8 @@ import 'package:bio/app/data/models/group_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class GroupsListController extends GetxController {
   bool isLoading = false;
   var groupList = <Group>[];
@@ -28,12 +30,12 @@ class GroupsListController extends GetxController {
     }
   }
 
-  // void navigate(int index) {
-  //   Get.toNamed(
-  //     Routes.SUBJECTS_PAGE,
-  //     arguments: categoriesList[index],
-  //   );
-  // }
+  void navigate(int index) {
+    Get.toNamed(
+      Routes.SHOW_GRUOP_DETAILS,
+      arguments: groupList[index],
+    );
+  }
 
   @override
   void onInit() {
