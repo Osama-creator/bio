@@ -13,4 +13,12 @@ class Group {
       this.price,
       this.sessions,
       this.students});
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'price': price,
+      'sessions': sessions,
+      'students': students!.map((student) => student.toJson()).toList(),
+    };
+  }
 }
