@@ -1,23 +1,43 @@
+import 'package:bio/app/data/models/group_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class GroupsListController extends GetxController {
-  //TODO: Implement GroupsListController
+  bool isLoading = false;
+  var groupList = <Group>[];
+  bool error = false;
 
-  final count = 0.obs;
+  Future<void> getData() async {
+    isLoading = true;
+    try {
+      QuerySnapshot categories =
+          await FirebaseFirestore.instance.collection('groups').get();
+      groupList.clear();
+      for (var category in categories.docs) {
+        groupList.add(Group(
+          name: category['name'],
+          id: category.id,
+        ));
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      error = true;
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  // void navigate(int index) {
+  //   Get.toNamed(
+  //     Routes.SUBJECTS_PAGE,
+  //     arguments: categoriesList[index],
+  //   );
+  // }
+
   @override
   void onInit() {
+    getData();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

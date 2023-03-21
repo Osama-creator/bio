@@ -54,9 +54,7 @@ class CreateGroupView extends GetView<CreateGroupController> {
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: context.width * 0.1),
-                  child: const Divider(
-                    thickness: 1,
-                  ),
+                  child: const Divider(),
                 ),
                 Center(
                   child: Text(

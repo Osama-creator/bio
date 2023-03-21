@@ -10,36 +10,45 @@ class GroupsListView extends GetView<GroupsListController> {
   const GroupsListView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'المجموعات',
-          style: context.textTheme.headline6,
-        ),
-        centerTitle: true,
-      ),
-      body: ListView.builder(
-        itemCount: 2,
-        itemBuilder: (context, index) {
-          return SizedBox(
-            height: context.height * 0.1,
-            width: context.width * 0.8,
-            child: Card(
-              color: AppColors.grey,
-              child: Column(
-                children: const [Text("تالته ثانوي المنيا"), Text("15 طالب")],
+    return GetBuilder<GroupsListController>(
+        init: controller,
+        builder: (controller) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'المجموعات',
+                style: context.textTheme.headline6,
               ),
+              centerTitle: true,
+            ),
+            body: controller.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: controller.groupList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Card(
+                          elevation: 10,
+                          color: AppColors.grey,
+                          child: Column(
+                            children: [
+                              Text(controller.groupList[index].name),
+                              const Text("15 طالب")
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Get.toNamed(Routes.CREATE_GROUP);
+              },
+              backgroundColor: AppColors.primary,
+              child: const Icon(Icons.add),
             ),
           );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.toNamed(Routes.CREATE_GROUP);
-        },
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add),
-      ),
-    );
+        });
   }
 }
