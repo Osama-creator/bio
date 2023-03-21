@@ -41,6 +41,8 @@ class GroupsListView extends GetView<GroupsListController> {
                       );
                     },
                   ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 Get.toNamed(Routes.CREATE_GROUP);
