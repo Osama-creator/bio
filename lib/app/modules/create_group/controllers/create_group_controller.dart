@@ -32,7 +32,7 @@ class CreateGroupController extends GetxController {
     // Get the entered data
     String groupName = groupNameController.text.trim();
     int? groupPrice = int.tryParse(groupPriceController.text.trim());
-    String? groupSeminars = groupSeminarsController.text.trim();
+    String? groupSessionsNumber = groupSeminarsController.text.trim();
     List<Studen>? groupStudents = students.isNotEmpty
         ? students
             .toList()
@@ -45,7 +45,7 @@ class CreateGroupController extends GetxController {
       name: groupName,
       id: UniqueKey().toString(),
       price: groupPrice,
-      sessions: groupSeminars,
+      sessions: groupSessionsNumber,
       students: groupStudents,
     );
 
