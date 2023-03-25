@@ -58,6 +58,24 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                     },
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        controller.navigate();
+                      },
+                      child: Text(
+                        'إبدأ حصه',
+                        style: context.textTheme.headline6!.copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           );

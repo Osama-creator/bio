@@ -48,13 +48,6 @@ class CreateSessionView extends GetView<CreateSessionController> {
                               .copyWith(color: AppColors.black),
                         ),
                       );
-                      // return ListTile(
-                      //     title: Text(
-                      //       student.name,
-                      //       style: context.textTheme.bodyText1!
-                      //           .copyWith(color: AppColors.black),
-                      //     ),
-                      //     trailing: Che);
                     },
                   ),
                 ),
