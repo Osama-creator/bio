@@ -60,6 +60,6 @@ class CreateGroupController extends GetxController {
     groupSeminarsController.clear();
     students.clear();
     update();
-    Get.toNamed(Routes.GROUPS_LIST);
+    Get.offAndToNamed(Routes.GROUPS_LIST);
   }
 }

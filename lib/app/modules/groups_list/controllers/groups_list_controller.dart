@@ -68,6 +68,21 @@ class GroupsListController extends GetxController {
     }
   }
 
+  Future<void> deleteGroup(String groupId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('groups')
+          .doc(groupId)
+          .delete();
+      groupList.removeWhere((group) => group.id == groupId);
+      update();
+      Get.snackbar('Success', 'Group deleted successfully');
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    }
+  }
+
   void navigate(int index) {
     Get.toNamed(
       Routes.SHOW_GRUOP_DETAILS,

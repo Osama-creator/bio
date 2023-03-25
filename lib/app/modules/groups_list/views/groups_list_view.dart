@@ -30,6 +30,8 @@ class GroupsListView extends GetView<GroupsListController> {
                         onTap: () {
                           controller.navigate(index);
                         },
+                        onLongPress: () => controller
+                            .deleteGroup(controller.groupList[index].id),
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: Card(
@@ -50,7 +52,7 @@ class GroupsListView extends GetView<GroupsListController> {
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Get.toNamed(Routes.CREATE_GROUP);
+                Get.offAndToNamed(Routes.CREATE_GROUP);
               },
               backgroundColor: AppColors.primary,
               child: const Icon(Icons.add),
