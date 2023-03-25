@@ -18,12 +18,17 @@ class CreateSessionView extends GetView<CreateSessionController> {
             appBar: AppBar(
               title: Text(controller.currentDate),
               centerTitle: true,
+              leading: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(Icons.save)),
             ),
             body: Column(
               children: [
                 MyListTile(
-                  title: "الحصه 2",
-                  subTile: controller.args.sessions.toString(),
+                  title: "الحصه ",
+                  subTile: controller.group.sessions.toString(),
                 ),
                 const MyDivider(),
                 Text(
@@ -35,9 +40,9 @@ class CreateSessionView extends GetView<CreateSessionController> {
                 const MyDivider(),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: controller.args.students?.length ?? 0,
+                    itemCount: controller.group.students?.length ?? 0,
                     itemBuilder: (context, index) {
-                      final student = controller.args.students![index];
+                      final student = controller.group.students![index];
                       return CheckboxListTile(
                         value: controller.isChecked(student),
                         onChanged: (value) =>
