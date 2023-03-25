@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/group_model.dart';
+import '../../../data/models/student_model.dart';
 
 class CreateGroupController extends GetxController {
   TextEditingController groupNameController = TextEditingController();
@@ -26,45 +27,38 @@ class CreateGroupController extends GetxController {
     update();
   }
 
-  Future<void> addGroup() async {
-    String groupName = groupNameController.text;
-    int groupPrice = int.tryParse(groupPriceController.text) ?? 0;
-    int groupSeminars = int.tryParse(groupSeminarsController.text) ?? 0;
+  Future<void> createGroup() async {
+    // Get the entered data
+    String groupName = groupNameController.text.trim();
+    int? groupPrice = int.tryParse(groupPriceController.text.trim());
+    String? groupSeminars = groupSeminarsController.text.trim();
+    List<Studen>? groupStudents = students.isNotEmpty
+        ? students
+            .toList()
+            .map((e) => Studen(name: e, id: UniqueKey().toString(), absence: 0))
+            .toList()
+        : null;
 
-    if (groupName.isEmpty || groupPrice == 0 || groupSeminars == 0) {
-      Get.snackbar('Error', 'Please fill all fields');
-      return;
-    }
-
-    List<Map<String, dynamic>> studentsData = [];
-
-    // for (var student in students) {
-    //   studentsData.add({
-    //     'name': student.name,
-    //     'id': student.id,
-    //     'absence': student.absence,
-    //   });
-    // }
-
-    Group group = Group(
-      id: UniqueKey().toString(),
+    // Create a new Group object
+    Group newGroup = Group(
       name: groupName,
+      id: UniqueKey().toString(),
       price: groupPrice,
-      sessions: groupSeminars.toString(),
-      // students: studentsData,
+      sessions: groupSeminars,
+      students: groupStudents,
     );
 
-    try {
-      await FirebaseFirestore.instance.collection('groups').add({
-        'name': group.name,
-        'price': group.price,
-        'sessions': group.sessions,
-        'students': studentsData,
-      });
-      Get.back();
-      Get.snackbar('Success', 'Group created successfully');
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-    }
+    // Add the new Group object to the "group" collection in Firestore
+    CollectionReference groupCollection =
+        FirebaseFirestore.instance.collection('groups');
+    await groupCollection.add(newGroup.toJson());
+
+    // Clear the text fields and update the UI
+    groupNameController.clear();
+    groupPriceController.clear();
+    groupSeminarsController.clear();
+    students.clear();
+    update();
+    Get.back();
   }
 }

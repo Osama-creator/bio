@@ -17,6 +17,7 @@ class Group {
     return {
       'name': name,
       'price': price,
+      'id': id,
       'sessions': sessions,
       'students': students!.map((student) => student.toJson()).toList(),
     };

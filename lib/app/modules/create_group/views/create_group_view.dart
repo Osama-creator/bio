@@ -96,6 +96,10 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     false;
                   },
                 ),
+                ElevatedButton(
+                  onPressed: _.createGroup,
+                  child: const Text('إنشاء المجموعة'),
+                ),
               ],
             );
           }),

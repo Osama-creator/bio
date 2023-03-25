@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bio/app/data/models/group_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ class GroupsListController extends GetxController {
       for (var groupI in groups.docs) {
         List<Studen> students = [];
         List<Map<String, dynamic>> studentsData =
-            List<Map<String, dynamic>>.from(groupI['studenst'] ?? []);
+            List<Map<String, dynamic>>.from(groupI['students'] ?? []);
         for (var studentData in studentsData) {
           Studen student = Studen(
             name: studentData['name'],
@@ -38,20 +40,27 @@ class GroupsListController extends GetxController {
         groupList.add(group);
       }
 
-      // QuerySnapshot categories =
-      //     await FirebaseFirestore.instance.collection('groups').get();
-      // groupList.clear();
-      // for (var category in categories.docs) {
-      //   groupList.add(Group(
-      //     name: category['name'],
-      //     id: category.id,
-      //     price: category['price'],
-      //     sessions: category['sessions'],
-      //     // students: category['studenst'],
-      //   ));
-      // }
+      QuerySnapshot categories =
+          await FirebaseFirestore.instance.collection('groups').get();
+      groupList.clear();
+      for (var category in categories.docs) {
+        groupList.add(Group(
+          name: category['name'],
+          id: category.id,
+          price: category['price'],
+          sessions: category['sessions'],
+          students: (category['students'] as List<dynamic>)
+              .map((studentData) => Studen(
+                    name: studentData['name'],
+                    id: studentData['id'],
+                    absence: studentData['absence'],
+                  ))
+              .toList(),
+        ));
+      }
     } catch (e) {
       Get.snackbar('Error', e.toString());
+      log(e.toString());
       error = true;
     } finally {
       isLoading = false;
