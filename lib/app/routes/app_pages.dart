@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 
 import '../modules/create_group/bindings/create_group_binding.dart';
 import '../modules/create_group/views/create_group_view.dart';
+import '../modules/create_session/bindings/create_session_binding.dart';
+import '../modules/create_session/views/create_session_view.dart';
 import '../modules/groups_list/bindings/groups_list_binding.dart';
 import '../modules/groups_list/views/groups_list_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.SHOW_GRUOP_DETAILS,
       page: () => const ShowGruopDetailsView(),
       binding: ShowGruopDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_SESSION,
+      page: () => const CreateSessionView(),
+      binding: CreateSessionBinding(),
     ),
   ];
 }

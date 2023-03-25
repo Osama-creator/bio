@@ -7,6 +7,7 @@ abstract class Routes {
   static const GROUPS_LIST = _Paths.GROUPS_LIST;
   static const CREATE_GROUP = _Paths.CREATE_GROUP;
   static const SHOW_GRUOP_DETAILS = _Paths.SHOW_GRUOP_DETAILS;
+  static const CREATE_SESSION = _Paths.CREATE_SESSION;
 }
 
 abstract class _Paths {
@@ -15,4 +16,5 @@ abstract class _Paths {
   static const GROUPS_LIST = '/groups-list';
   static const CREATE_GROUP = '/create-group';
   static const SHOW_GRUOP_DETAILS = '/show-gruop-details';
+  static const CREATE_SESSION = '/create-session';
 }
