@@ -7,7 +7,7 @@ class ShowGruopDetailsController extends GetxController {
   final args = Get.arguments as Group;
   void navigate() {
     Get.toNamed(
-      Routes.SHOW_GRUOP_DETAILS,
+      Routes.CREATE_SESSION,
       arguments: args,
     );
   }

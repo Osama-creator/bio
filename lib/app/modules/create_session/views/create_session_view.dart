@@ -38,15 +38,16 @@ class CreateSessionView extends GetView<CreateSessionController> {
                     itemCount: controller.args.students?.length ?? 0,
                     itemBuilder: (context, index) {
                       final student = controller.args.students![index];
-                      bool checked = false;
                       return CheckboxListTile(
-                        value: checked,
-                        onChanged: (value) {},
+                        value: controller.isChecked(student),
+                        onChanged: (value) =>
+                            controller.setChecked(student, value ?? false),
                         title: Text(
                           student.name,
                           style: context.textTheme.bodyText1!
                               .copyWith(color: AppColors.black),
                         ),
+                        activeColor: AppColors.black,
                       );
                     },
                   ),
