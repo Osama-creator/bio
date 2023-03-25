@@ -40,7 +40,7 @@ class GroupsListView extends GetView<GroupsListController> {
                             child: Column(
                               children: [
                                 Text(controller.groupList[index].name),
-                                const Text("15 طالب")
+                                const Text("10 طالب")
                               ],
                             ),
                           ),
