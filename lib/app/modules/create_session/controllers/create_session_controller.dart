@@ -1,23 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../../data/models/group_model.dart';
+import 'package:intl/intl.dart';
+
 class CreateSessionController extends GetxController {
-  //TODO: Implement CreateSessionController
+  final args = Get.arguments as Group;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  String currentDate = DateFormat('yyyy-MM-dd').format(DateTime.now());
 }
