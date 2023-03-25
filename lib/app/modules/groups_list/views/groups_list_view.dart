@@ -51,12 +51,16 @@ class GroupsListView extends GetView<GroupsListController> {
                   ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
-            floatingActionButton: FloatingActionButton(
+            floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
                 Get.offAndToNamed(Routes.CREATE_GROUP);
               },
               backgroundColor: AppColors.primary,
-              child: const Icon(Icons.add),
+              label: Text(
+                "إضافة مجموعه",
+                style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+              ),
+              icon: const Icon(Icons.add),
             ),
           );
         });
