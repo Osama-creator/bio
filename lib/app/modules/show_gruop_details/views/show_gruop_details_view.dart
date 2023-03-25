@@ -43,12 +43,17 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                     itemCount: controller.args.students?.length ?? 0,
                     itemBuilder: (context, index) {
                       final student = controller.args.students![index];
-                      return MyListTile(
-                        title: student.name,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        fontColor: AppColors.grey,
-                        subTile: "غياب: ${student.absence.toString()}",
+                      return ListTile(
+                        title: Text(
+                          student.name,
+                          style: context.textTheme.bodyText1!
+                              .copyWith(color: AppColors.black),
+                        ),
+                        trailing: Text(
+                          "غياب: ${student.absence.toString()}",
+                          style: context.textTheme.bodyText2!
+                              .copyWith(color: AppColors.grey),
+                        ),
                       );
                     },
                   ),
