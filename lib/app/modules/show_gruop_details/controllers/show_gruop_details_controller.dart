@@ -11,4 +11,11 @@ class ShowGruopDetailsController extends GetxController {
       arguments: args,
     );
   }
+
+  int totalAfterdiscount(int index) {
+    return (args.price! /
+            int.parse(args.sessions!) *
+            args.students![index].absence)
+        .toInt();
+  }
 }
