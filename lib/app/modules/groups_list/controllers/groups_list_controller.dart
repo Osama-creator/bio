@@ -26,10 +26,10 @@ class GroupsListController extends GetxController {
           sessions: category['sessions'],
           students: (category['students'] as List<dynamic>)
               .map((studentData) => Studen(
-                    name: studentData['name'],
-                    id: studentData['id'],
-                    absence: studentData['absence'],
-                  ))
+                  name: studentData['name'],
+                  id: studentData['id'],
+                  absence: studentData['absence'],
+                  price: studentData['price']))
               .toList(),
         ));
       }
