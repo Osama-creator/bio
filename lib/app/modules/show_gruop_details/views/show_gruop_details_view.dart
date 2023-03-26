@@ -65,13 +65,50 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: [
-                                      Text(
-                                        "غياب: ${student.absence.toString()}",
-                                        style: context.textTheme.bodyText2,
+                                      ListTile(
+                                        title: Text(
+                                          "غياب",
+                                          style: context.textTheme.bodyText1,
+                                        ),
+                                        trailing: Text(
+                                          student.absence.toString(),
+                                          style: context.textTheme.bodyText2,
+                                        ),
                                       ),
-                                      Text(
-                                        "سعر الشهر: ${student.price}",
-                                        style: context.textTheme.bodyText2,
+                                      ListTile(
+                                        title: Text(
+                                          "سعر الشهر",
+                                          style: context.textTheme.bodyText1,
+                                        ),
+                                        trailing: Text(
+                                          controller.args.price.toString(),
+                                          style: context.textTheme.bodyText2,
+                                        ),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                          " خصم",
+                                          style: context.textTheme.bodyText1,
+                                        ),
+                                        trailing: Text(
+                                          controller
+                                              .totalAfterdiscount(index)
+                                              .toString(),
+                                          style: context.textTheme.bodyText2,
+                                        ),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                          "سعر الشهر بعد الخصم",
+                                          style: context.textTheme.bodyText2,
+                                        ),
+                                        trailing: Text(
+                                          (controller.args.price! -
+                                                  controller.totalAfterdiscount(
+                                                      index))
+                                              .toString(),
+                                          style: context.textTheme.bodyText2,
+                                        ),
                                       ),
                                     ],
                                   ),
