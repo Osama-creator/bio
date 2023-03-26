@@ -6,12 +6,14 @@ class Group {
   final int? price;
   final String? sessions;
   final List<Studen>? students;
+  int? currentSession;
 
   Group(
       {required this.name,
       required this.id,
       this.price,
       this.sessions,
+      this.currentSession,
       this.students});
   Map<String, dynamic> toJson() {
     return {
@@ -19,6 +21,7 @@ class Group {
       'price': price,
       'id': id,
       'sessions': sessions,
+      'current_session': currentSession,
       'students': students!.map((student) => student.toJson()).toList(),
     };
   }

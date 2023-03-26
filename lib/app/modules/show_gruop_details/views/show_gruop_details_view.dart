@@ -28,7 +28,8 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                 const MyDivider(),
                 MyListTile(
                   title: "عدد الحصص",
-                  subTile: controller.args.sessions.toString(),
+                  subTile:
+                      "${controller.args.sessions.toString()} / ${controller.args.currentSession.toString()}",
                 ),
                 const MyDivider(),
                 Text(

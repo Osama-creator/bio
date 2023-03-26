@@ -20,6 +20,7 @@ class CreateSessionView extends GetView<CreateSessionController> {
               centerTitle: true,
               leading: IconButton(
                   onPressed: () {
+                    controller.group.currentSession! + 1;
                     Get.back();
                   },
                   icon: const Icon(Icons.save)),

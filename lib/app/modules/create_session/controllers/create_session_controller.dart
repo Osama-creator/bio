@@ -32,8 +32,10 @@ class CreateSessionController extends GetxController {
     final index = group.students!.indexOf(student);
     if (index != -1) {
       group.students![index] = student;
-      FirebaseFirestore.instance.collection('groups').doc(group.id).update(
-          {'students': group.students!.map((s) => s.toJson()).toList()});
+      FirebaseFirestore.instance.collection('groups').doc(group.id).update({
+        'students': group.students!.map((s) => s.toJson()).toList(),
+        'current_session': group.currentSession! + 1,
+      });
     }
   }
 }

@@ -24,6 +24,7 @@ class GroupsListController extends GetxController {
           id: category.id,
           price: category['price'],
           sessions: category['sessions'],
+          currentSession: category['current_session'],
           students: (category['students'] as List<dynamic>)
               .map((studentData) => Studen(
                   name: studentData['name'],

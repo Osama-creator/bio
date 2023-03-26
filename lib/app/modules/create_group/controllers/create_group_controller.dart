@@ -54,12 +54,12 @@ class CreateGroupController extends GetxController {
 
     // Create a new Group object
     Group newGroup = Group(
-      name: groupName,
-      id: UniqueKey().toString(),
-      price: groupPrice,
-      sessions: groupSessionsNumber,
-      students: groupStudents,
-    );
+        name: groupName,
+        id: UniqueKey().toString(),
+        price: groupPrice,
+        sessions: groupSessionsNumber,
+        students: groupStudents,
+        currentSession: 0);
 
     // Add the new Group object to the "group" collection in Firestore
     CollectionReference groupCollection =
