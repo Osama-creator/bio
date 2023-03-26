@@ -13,7 +13,7 @@ class ShowGruopDetailsController extends GetxController {
   }
 
   int totalAfterdiscount(int index) {
-    return (args.price! /
+    return (args.students![index].price! /
             int.parse(args.sessions!) *
             args.students![index].absence)
         .toInt();

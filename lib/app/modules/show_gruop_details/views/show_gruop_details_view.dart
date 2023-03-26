@@ -68,60 +68,64 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                                       ListTile(
                                         title: Text(
                                           "غياب",
-                                          style: context.textTheme.bodyText1,
+                                          style: context.textTheme.headline1,
                                         ),
                                         trailing: Text(
                                           student.absence.toString(),
-                                          style: context.textTheme.bodyText2,
+                                          style: context.textTheme.headline1,
                                         ),
                                       ),
                                       ListTile(
                                         title: Text(
                                           "سعر الشهر",
-                                          style: context.textTheme.bodyText1,
+                                          style: context.textTheme.headline1,
                                         ),
                                         trailing: Text(
                                           controller.args.price.toString(),
-                                          style: context.textTheme.bodyText2,
+                                          style: context.textTheme.headline1,
                                         ),
                                       ),
                                       ListTile(
                                         title: Text(
                                           " خصم",
-                                          style: context.textTheme.bodyText1,
+                                          style: context.textTheme.headline1,
                                         ),
                                         trailing: Text(
                                           controller
                                               .totalAfterdiscount(index)
                                               .toString(),
-                                          style: context.textTheme.bodyText2,
+                                          style: context.textTheme.headline1,
                                         ),
                                       ),
                                       ListTile(
                                         title: Text(
                                           "سعر الشهر بعد الخصم",
-                                          style: context.textTheme.bodyText2,
+                                          style: context.textTheme.headline1,
                                         ),
                                         trailing: Text(
-                                          (controller.args.price! -
+                                          (controller.args.students![index]
+                                                      .price! -
                                                   controller.totalAfterdiscount(
                                                       index))
                                               .toString(),
-                                          style: context.textTheme.bodyText2,
+                                          style: context.textTheme.headline1,
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text('No'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: const Text('Yes'),
+                                actionsAlignment: MainAxisAlignment.start,
+                                actions: [
+                                  ElevatedButton(
+                                    style: const ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                AppColors.white)),
+                                    child: Text("إشطة",
+                                        style: context.textTheme.headline1!
+                                            .copyWith(
+                                          color: AppColors.primary,
+                                        )),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },

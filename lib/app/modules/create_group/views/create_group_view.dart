@@ -11,6 +11,7 @@ class CreateGroupView extends GetView<CreateGroupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('إنشاء المجموعة'),
         centerTitle: true,
@@ -77,7 +78,7 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     itemCount: _.students.length,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                        title: Text(_.students[index]),
+                        title: Text(_.students[index].name),
                         trailing: IconButton(
                           icon: const Icon(Icons.delete),
                           onPressed: () => _.removeStudent(index),
@@ -86,15 +87,38 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     },
                   ),
                 ),
-                MyTextFeild(
-                  width: context.width * 0.8,
-                  controller: _.studentNameController,
-                  hintText: 'أدخل إسم الطالب',
-                  labelText: "إسم الطالب",
-                  onFieldSubmitted: (_) {
-                    controller.addStudent();
-                    false;
-                  },
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.primary)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MyTextFeild(
+                          width: context.width * 0.8,
+                          controller: _.studentNameController,
+                          hintText: 'أدخل إسم الطالب',
+                          labelText: "إسم الطالب",
+                          onFieldSubmitted: (_) {
+                            false;
+                          },
+                        ),
+                        MyTextFeild(
+                          width: context.width * 0.8,
+                          controller: _.studentPriceController,
+                          hintText: 'أدخل سعر الطالب (اختياري)',
+                          labelText: 'سعر الطالب',
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              controller.addStudent();
+                            },
+                            child: const Text("إضافه"))
+                      ],
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

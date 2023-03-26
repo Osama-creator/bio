@@ -11,14 +11,33 @@ class CreateGroupController extends GetxController {
   TextEditingController studentNameController = TextEditingController();
   TextEditingController groupPriceController = TextEditingController();
   TextEditingController groupSeminarsController = TextEditingController();
+  TextEditingController studentPriceController = TextEditingController();
+  RxList<Studen> students = RxList<Studen>([]);
 
-  RxList<String> students = RxList<String>([]);
-
+  // void addStudent() {
+  //   String studentName = studentNameController.text.trim();
+  //   if (studentName.isNotEmpty) {
+  //     students.add(studentName);
+  //     studentNameController.clear();
+  //   }
+  //   update();
+  // }
   void addStudent() {
     String studentName = studentNameController.text.trim();
     if (studentName.isNotEmpty) {
-      students.add(studentName);
+      int? studentPrice = int.tryParse(studentPriceController.text.trim());
+      int? groupPrice = int.tryParse(groupPriceController.text.trim());
+      students.add(
+        Studen(
+          name: studentName,
+          id: UniqueKey().toString(),
+          absence: 0,
+          price: studentPrice ??
+              groupPrice!, // set the student's price to either the entered price or the group price
+        ),
+      );
       studentNameController.clear();
+      studentPriceController.clear();
     }
     update();
   }
@@ -37,10 +56,7 @@ class CreateGroupController extends GetxController {
         ? students
             .toList()
             .map((e) => Studen(
-                name: e,
-                id: UniqueKey().toString(),
-                absence: 0,
-                price: groupPrice))
+                name: e.name, id: e.id, absence: e.absence, price: e.price))
             .toList()
         : null;
 
