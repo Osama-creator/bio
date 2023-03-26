@@ -57,8 +57,40 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                         onTap: () {
                           showDialog(
                             context: context,
-                            builder: (context) {
-                              return Text(student.name);
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                backgroundColor: AppColors.primary,
+                                // <-- SEE HERE
+                                title: Text(student.name),
+                                content: SingleChildScrollView(
+                                  child: ListBody(
+                                    children: [
+                                      Text(
+                                        "غياب: ${student.absence.toString()}",
+                                        style: context.textTheme.bodyText2,
+                                      ),
+                                      Text(
+                                        "سعر الشهر: ${student.price}",
+                                        style: context.textTheme.bodyText2,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: const Text('No'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: const Text('Yes'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                  ),
+                                ],
+                              );
                             },
                           );
                         },

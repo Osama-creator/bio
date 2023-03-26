@@ -36,7 +36,11 @@ class CreateGroupController extends GetxController {
     List<Studen>? groupStudents = students.isNotEmpty
         ? students
             .toList()
-            .map((e) => Studen(name: e, id: UniqueKey().toString(), absence: 0))
+            .map((e) => Studen(
+                name: e,
+                id: UniqueKey().toString(),
+                absence: 0,
+                price: groupPrice))
             .toList()
         : null;
 
