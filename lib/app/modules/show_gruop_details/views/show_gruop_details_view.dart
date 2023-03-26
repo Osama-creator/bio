@@ -82,7 +82,9 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                                           style: context.textTheme.headline1,
                                         ),
                                         trailing: Text(
-                                          controller.args.price.toString(),
+                                          controller
+                                              .args.students![index].price!
+                                              .toString(),
                                           style: context.textTheme.headline1,
                                         ),
                                       ),
