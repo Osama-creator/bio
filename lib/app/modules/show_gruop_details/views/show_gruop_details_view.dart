@@ -57,6 +57,7 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                         onTap: () {
                           showDialog(
                             context: context,
+                            barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor: AppColors.primary,

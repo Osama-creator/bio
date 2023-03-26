@@ -14,19 +14,11 @@ class CreateGroupController extends GetxController {
   TextEditingController studentPriceController = TextEditingController();
   RxList<Studen> students = RxList<Studen>([]);
 
-  // void addStudent() {
-  //   String studentName = studentNameController.text.trim();
-  //   if (studentName.isNotEmpty) {
-  //     students.add(studentName);
-  //     studentNameController.clear();
-  //   }
-  //   update();
-  // }
   void addStudent() {
     String studentName = studentNameController.text.trim();
+    int? studentPrice = int.tryParse(studentPriceController.text.trim());
+    int? groupPrice = int.tryParse(groupPriceController.text.trim());
     if (studentName.isNotEmpty) {
-      int? studentPrice = int.tryParse(studentPriceController.text.trim());
-      int? groupPrice = int.tryParse(groupPriceController.text.trim());
       students.add(
         Studen(
           name: studentName,
