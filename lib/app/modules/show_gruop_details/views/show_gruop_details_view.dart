@@ -54,6 +54,14 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                           style: context.textTheme.bodyText2!
                               .copyWith(color: AppColors.grey),
                         ),
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Text(student.name);
+                            },
+                          );
+                        },
                       );
                     },
                   ),
