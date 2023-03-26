@@ -93,9 +93,52 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     height: context.height * 0.07,
                     width: context.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: _.createGroup,
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              content: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    MyTextFeild(
+                                      width: context.width * 0.8,
+                                      controller: _.studentNameController,
+                                      hintText: 'أدخل إسم الطالب',
+                                      labelText: "إسم الطالب",
+                                      onFieldSubmitted: (_) {
+                                        false;
+                                      },
+                                    ),
+                                    MyTextFeild(
+                                      width: context.width * 0.8,
+                                      controller: _.studentPriceController,
+                                      hintText: 'أدخل سعر الطالب (اختياري)',
+                                      labelText: 'سعر الطالب (اختياري)',
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              actionsAlignment: MainAxisAlignment.start,
+                              actions: [
+                                ElevatedButton(
+                                  child: Text("إضافه",
+                                      style: context.textTheme.headline1),
+                                  onPressed: () {
+                                    controller.addStudent();
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
                       child: Text(
-                        'إنشاء المجموعة',
+                        'إضافه طالب',
                         style: context.textTheme.headline6!.copyWith(
                           fontSize: 18,
                         ),
@@ -109,64 +152,9 @@ class CreateGroupView extends GetView<CreateGroupController> {
                     height: context.height * 0.07,
                     width: context.width * 0.8,
                     child: ElevatedButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              content: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      border:
-                                          Border.all(color: AppColors.primary)),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      MyTextFeild(
-                                        width: context.width * 0.8,
-                                        controller: _.studentNameController,
-                                        hintText: 'أدخل إسم الطالب',
-                                        labelText: "إسم الطالب",
-                                        onFieldSubmitted: (_) {
-                                          false;
-                                        },
-                                      ),
-                                      MyTextFeild(
-                                        width: context.width * 0.8,
-                                        controller: _.studentPriceController,
-                                        hintText: 'أدخل سعر الطالب (اختياري)',
-                                        labelText: 'سعر الطالب (اختياري)',
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              actionsAlignment: MainAxisAlignment.start,
-                              actions: [
-                                ElevatedButton(
-                                  style: const ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll(
-                                          AppColors.white)),
-                                  child: Text("إضافه",
-                                      style:
-                                          context.textTheme.headline1!.copyWith(
-                                        color: AppColors.primary,
-                                      )),
-                                  onPressed: () {
-                                    controller.addStudent();
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                      onPressed: _.createGroup,
                       child: Text(
-                        'إضافه طالب',
+                        'إنشاء المجموعة',
                         style: context.textTheme.headline6!.copyWith(
                           fontSize: 18,
                         ),
