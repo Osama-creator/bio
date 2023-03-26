@@ -29,7 +29,7 @@ class CreateSessionView extends GetView<CreateSessionController> {
               children: [
                 MyListTile(
                   title: "الحصه ",
-                  subTile: controller.group.sessions.toString(),
+                  subTile: controller.group.currentSession.toString(),
                 ),
                 const MyDivider(),
                 Text(

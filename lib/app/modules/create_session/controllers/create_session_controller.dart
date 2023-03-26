@@ -9,6 +9,19 @@ import '../../../data/models/student_model.dart';
 class CreateSessionController extends GetxController {
   final group = Get.arguments as Group;
   bool checked = false;
+  @override
+  void onInit() {
+    icCurrentSessions();
+    super.onInit();
+  }
+
+  void icCurrentSessions() {
+    group.currentSession = group.currentSession! + 1;
+    FirebaseFirestore.instance.collection('groups').doc(group.id).update({
+      'current_session': group.currentSession,
+    });
+    update();
+  }
 
   String currentDate = DateFormat('yyyy / MM / dd').format(DateTime.now());
   var checkedStudents = <Studen, bool>{};
@@ -34,7 +47,6 @@ class CreateSessionController extends GetxController {
       group.students![index] = student;
       FirebaseFirestore.instance.collection('groups').doc(group.id).update({
         'students': group.students!.map((s) => s.toJson()).toList(),
-        'current_session': group.currentSession! + 1,
       });
     }
   }
