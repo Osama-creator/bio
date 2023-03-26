@@ -51,7 +51,7 @@ class GroupsListController extends GetxController {
           .delete();
       groupList.removeWhere((group) => group.id == groupId);
       update();
-      Get.snackbar('Success', 'Group deleted successfully');
+      Get.snackbar('Success', 'تم حذف المجموعه بنجاح');
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
