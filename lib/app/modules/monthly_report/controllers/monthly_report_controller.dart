@@ -20,4 +20,11 @@ class MonthlyReportController extends GetxController {
     }
     return price;
   }
+
+  int totalAfterdiscount(int index) {
+    return (args.students![index].price! /
+            int.parse(args.sessions!) *
+            args.students![index].absence)
+        .toInt();
+  }
 }
