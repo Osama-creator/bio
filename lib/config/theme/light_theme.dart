@@ -26,10 +26,8 @@ ThemeData getThemDataLight() => ThemeData(
       cardTheme: const CardTheme(color: AppColors.black),
       dividerColor: AppColors.primary,
       textTheme: TextTheme(
-          headline2: GoogleFonts.cairo(
-              fontSize: 56.0,
-              fontWeight: FontWeight.bold,
-              color: AppColors.white),
+          headline2:
+              GoogleFonts.cairo(fontSize: 15.0, color: AppColors.primary),
           headline3: GoogleFonts.cairo(
               fontSize: 48.0,
               fontWeight: FontWeight.bold,

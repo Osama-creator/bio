@@ -1,3 +1,4 @@
+import 'package:bio/app/routes/app_pages.dart';
 import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -18,6 +19,12 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
             appBar: AppBar(
               title: Text(controller.args.name),
               centerTitle: true,
+              leading: IconButton(
+                  onPressed: () {
+                    Get.toNamed(Routes.MONTHLY_REPORT,
+                        arguments: controller.args);
+                  },
+                  icon: const Icon(Icons.edit_note_outlined)),
             ),
             body: Column(
               children: [
