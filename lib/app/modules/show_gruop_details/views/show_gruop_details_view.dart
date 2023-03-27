@@ -24,7 +24,7 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                     Get.toNamed(Routes.MONTHLY_REPORT,
                         arguments: controller.args);
                   },
-                  icon: const Icon(Icons.edit_note_outlined)),
+                  icon: const Icon(Icons.report_sharp)),
             ),
             body: Column(
               children: [

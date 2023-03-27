@@ -26,7 +26,7 @@ class MonthlyReportView extends GetView<MonthlyReportController> {
                   style: context.textTheme.headline2,
                 ),
                 trailing: Text(
-                  controller.getStudentPrice().toString(),
+                  controller.getStudentPrice().toInt().toString(),
                   style: context.textTheme.headline2,
                 ),
               ),
@@ -37,7 +37,7 @@ class MonthlyReportView extends GetView<MonthlyReportController> {
                   style: context.textTheme.headline2,
                 ),
                 trailing: Text(
-                  controller.getStudentDis().toString(),
+                  controller.getStudentDis().toInt().toString(),
                   style: context.textTheme.headline2,
                 ),
               ),
@@ -49,6 +49,7 @@ class MonthlyReportView extends GetView<MonthlyReportController> {
                 ),
                 trailing: Text(
                   (controller.getStudentPrice() - controller.getStudentDis())
+                      .toInt()
                       .toString(),
                   style: context.textTheme.headline2,
                 ),
@@ -67,7 +68,7 @@ class MonthlyReportView extends GetView<MonthlyReportController> {
                             .copyWith(color: AppColors.black, fontSize: 18),
                       ),
                       trailing: Text(
-                        "صافي : ${(student.price! / int.tryParse(controller.args.sessions!)! * (controller.args.currentSession! - student.absence)).toString()}    | غياب ${student.absence}  | خصم ${controller.totalAfterdiscount(index)}",
+                        "صافي : ${(student.price! / int.tryParse(controller.args.sessions!)! * (controller.args.currentSession! - student.absence)).toInt().toString()}    | غياب ${student.absence}  | خصم ${controller.totalAfterdiscount(index)}",
                         style: context.textTheme.bodyText2!
                             .copyWith(color: AppColors.primary, fontSize: 14),
                       ),
