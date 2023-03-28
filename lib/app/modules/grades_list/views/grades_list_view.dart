@@ -13,7 +13,7 @@ class GradesListView extends GetView<GradesListController> {
         title: const Text('GradesListView'),
         centerTitle: true,
       ),
-      body: Center(
+      body: const Center(
         child: Text(
           'GradesListView is working',
           style: TextStyle(fontSize: 20),
