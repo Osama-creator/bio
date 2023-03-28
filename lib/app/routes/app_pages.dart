@@ -4,6 +4,8 @@ import '../modules/create_group/bindings/create_group_binding.dart';
 import '../modules/create_group/views/create_group_view.dart';
 import '../modules/create_session/bindings/create_session_binding.dart';
 import '../modules/create_session/views/create_session_view.dart';
+import '../modules/grades_list/bindings/grades_list_binding.dart';
+import '../modules/grades_list/views/grades_list_view.dart';
 import '../modules/groups_list/bindings/groups_list_binding.dart';
 import '../modules/groups_list/views/groups_list_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -50,6 +52,11 @@ class AppPages {
       name: _Paths.MONTHLY_REPORT,
       page: () => const MonthlyReportView(),
       binding: MonthlyReportBinding(),
+    ),
+    GetPage(
+      name: _Paths.GRADES_LIST,
+      page: () => const GradesListView(),
+      binding: GradesListBinding(),
     ),
   ];
 }

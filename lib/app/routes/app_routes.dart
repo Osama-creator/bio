@@ -9,6 +9,7 @@ abstract class Routes {
   static const SHOW_GRUOP_DETAILS = _Paths.SHOW_GRUOP_DETAILS;
   static const CREATE_SESSION = _Paths.CREATE_SESSION;
   static const MONTHLY_REPORT = _Paths.MONTHLY_REPORT;
+  static const GRADES_LIST = _Paths.GRADES_LIST;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const SHOW_GRUOP_DETAILS = '/show-gruop-details';
   static const CREATE_SESSION = '/create-session';
   static const MONTHLY_REPORT = '/monthly-report';
+  static const GRADES_LIST = '/grades-list';
 }
