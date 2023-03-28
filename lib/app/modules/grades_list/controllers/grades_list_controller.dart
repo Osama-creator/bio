@@ -30,7 +30,7 @@ class GradesListController extends GetxController {
     isLoading = true;
     try {
       QuerySnapshot grades =
-          await FirebaseFirestore.instance.collection('groups').get();
+          await FirebaseFirestore.instance.collection('grades').get();
       gradeList.clear();
       for (var category in grades.docs) {
         gradeList.add(GradeItem(

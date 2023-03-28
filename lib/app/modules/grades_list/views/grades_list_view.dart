@@ -30,10 +30,9 @@ class GradesListView extends GetView<GradesListController> {
                           child: Card(
                             elevation: 10,
                             color: AppColors.grey,
-                            child: Column(
-                              children: [
-                                Text(controller.gradeList[index].name),
-                              ],
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Text(controller.gradeList[index].name),
                             ),
                           ),
                         ),
