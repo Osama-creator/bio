@@ -18,12 +18,28 @@ class GradesListView extends GetView<GradesListController> {
               title: const Text('الصفوف'),
               centerTitle: true,
             ),
-            body: const Center(
-              child: Text(
-                'GradesListView is working',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            body: controller.isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : ListView.builder(
+                    itemCount: controller.gradeList.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: Card(
+                            elevation: 10,
+                            color: AppColors.grey,
+                            child: Column(
+                              children: [
+                                Text(controller.gradeList[index].name),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton.extended(
