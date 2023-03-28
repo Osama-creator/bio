@@ -1,15 +1,15 @@
-import 'package:bio/app/data/models/question_model.dart';
+import 'package:bio/app/data/models/exam_model.dart';
 
 class Grade {
   final String name;
   final String id;
-  final List<Question>? students;
-  Grade({required this.name, required this.id, this.students});
+  final List<Exam>? exams;
+  Grade({required this.name, required this.id, this.exams});
   Map<String, dynamic> toJson() {
     return {
       'name': name,
       'id': id,
-      'students': students!.map((student) => student.toJson()).toList(),
+      'exmas': exams!.map((student) => student.toJson()).toList(),
     };
   }
 }
