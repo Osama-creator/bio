@@ -20,11 +20,14 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
               title: Text(controller.args.name),
               centerTitle: true,
               leading: IconButton(
-                  onPressed: () {
-                    Get.toNamed(Routes.MONTHLY_REPORT,
-                        arguments: controller.args);
-                  },
-                  icon: const Icon(Icons.report_sharp)),
+                onPressed: () {
+                  Get.toNamed(Routes.MONTHLY_REPORT,
+                      arguments: controller.args);
+                },
+                icon: const Icon(
+                  Icons.report_sharp,
+                ),
+              ),
             ),
             body: Column(
               children: [

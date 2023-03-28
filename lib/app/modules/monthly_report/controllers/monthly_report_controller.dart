@@ -9,7 +9,8 @@ class MonthlyReportController extends GetxController {
     for (var student in args.students!) {
       price += student.price!;
     }
-    return price;
+
+    return (price / int.tryParse(args.sessions!)!) * args.currentSession!;
   }
 
   double getStudentDis() {
