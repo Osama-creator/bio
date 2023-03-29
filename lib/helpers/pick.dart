@@ -1,10 +1,11 @@
 // import 'dart:io';
 // import 'package:core/ui/views/image_picked_dialog.dart';
 // import 'package:flutter/cupertino.dart';
+
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-import 'package:location/location.dart';
+// import 'package:location/location.dart';
 
 //
 // import 'package:google_map_location_picker/google_map_location_picker.dart';
@@ -101,27 +102,27 @@ abstract class Pick {
 //   }
   /// return user location
   /// ask for the permission
-  Future<LocationData> getLocation() async {
-    final location = Location();
-    bool serviceEnabled = false;
-    PermissionStatus permissionGranted;
+  // Future<LocationData> getLocation() async {
+  //   final location = Location();
+  //   bool serviceEnabled = false;
+  //   PermissionStatus permissionGranted;
 
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        throw 'enable location service';
-      }
-    }
+  //   serviceEnabled = await location.serviceEnabled();
+  //   if (!serviceEnabled) {
+  //     serviceEnabled = await location.requestService();
+  //     if (!serviceEnabled) {
+  //       throw 'enable location service';
+  //     }
+  //   }
 
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        throw 'missing permission';
-      }
-    }
+  //   permissionGranted = await location.hasPermission();
+  //   if (permissionGranted == PermissionStatus.denied) {
+  //     permissionGranted = await location.requestPermission();
+  //     if (permissionGranted != PermissionStatus.granted) {
+  //       throw 'missing permission';
+  //     }
+  //   }
 
-    return location.getLocation();
-  }
+  //   return location.getLocation();
+  // }
 }

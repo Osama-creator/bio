@@ -2,29 +2,30 @@ name: bio
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
+environment:
   sdk: '>=2.18.6 <3.0.0'
 
-dependencies: 
-  cupertino_icons: ^1.0.2
-  cloud_firestore: ^4.3.2
+dependencies:
   cached_network_image: ^3.2.3
-  internet_connection_checker: ^1.0.0+1
+  cloud_firestore: ^4.3.2
+  cupertino_icons: ^1.0.2
   firebase_core: ^2.5.0
   firebase_storage: ^11.0.11
-  google_fonts: ^3.0.1
-  intl: ^0.18.0
-  get: 4.6.5
-  lottie: ^2.2.0
-  flutter: 
+  file_picker: ^5.2.5
+  flutter:
     sdk: flutter
+  get: 4.6.5
+  google_fonts: ^3.0.1
+  image_picker: ^0.8.6+1
+  internet_connection_checker: ^1.0.0+1
+  intl: ^0.18.0
+  lottie: ^2.2.0
   shared_preferences: ^2.0.18
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^2.0.0
-  flutter_test: 
+  flutter_test:
     sdk: flutter
 
-flutter: 
+flutter:
   uses-material-design: true
-
