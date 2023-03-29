@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/create_exam/bindings/create_exam_binding.dart';
+import '../modules/create_exam/views/create_exam_view.dart';
 import '../modules/create_group/bindings/create_group_binding.dart';
 import '../modules/create_group/views/create_group_view.dart';
 import '../modules/create_session/bindings/create_session_binding.dart';
@@ -57,6 +59,11 @@ class AppPages {
       name: _Paths.GRADES_LIST,
       page: () => GradesListView(),
       binding: GradesListBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_EXAM,
+      page: () => const CreateExamView(),
+      binding: CreateExamBinding(),
     ),
   ];
 }
