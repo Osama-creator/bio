@@ -6,6 +6,8 @@ import '../modules/create_group/bindings/create_group_binding.dart';
 import '../modules/create_group/views/create_group_view.dart';
 import '../modules/create_session/bindings/create_session_binding.dart';
 import '../modules/create_session/views/create_session_view.dart';
+import '../modules/exams_page/bindings/exams_page_binding.dart';
+import '../modules/exams_page/views/exams_page_view.dart';
 import '../modules/grades_list/bindings/grades_list_binding.dart';
 import '../modules/grades_list/views/grades_list_view.dart';
 import '../modules/groups_list/bindings/groups_list_binding.dart';
@@ -64,6 +66,11 @@ class AppPages {
       name: _Paths.CREATE_EXAM,
       page: () => const CreateExamView(),
       binding: CreateExamBinding(),
+    ),
+    GetPage(
+      name: _Paths.EXAMS_PAGE,
+      page: () => const ExamsPageView(),
+      binding: ExamsPageBinding(),
     ),
   ];
 }

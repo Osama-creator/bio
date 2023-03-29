@@ -5,6 +5,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../routes/app_pages.dart';
+
 class GradesListController extends GetxController {
   bool isLoading = false;
   TextEditingController gradeNameCont = TextEditingController();
@@ -45,6 +47,13 @@ class GradesListController extends GetxController {
       isLoading = false;
       update();
     }
+  }
+
+  void navigate(int index) {
+    Get.toNamed(
+      Routes.EXAMS_PAGE,
+      arguments: gradeList[index],
+    );
   }
 
   @override

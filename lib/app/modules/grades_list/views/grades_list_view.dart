@@ -24,7 +24,9 @@ class GradesListView extends GetView<GradesListController> {
                     itemCount: controller.gradeList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          controller.navigate(index);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: Card(

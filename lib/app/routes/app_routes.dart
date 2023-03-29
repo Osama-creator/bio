@@ -11,6 +11,7 @@ abstract class Routes {
   static const MONTHLY_REPORT = _Paths.MONTHLY_REPORT;
   static const GRADES_LIST = _Paths.GRADES_LIST;
   static const CREATE_EXAM = _Paths.CREATE_EXAM;
+  static const EXAMS_PAGE = _Paths.EXAMS_PAGE;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const MONTHLY_REPORT = '/monthly-report';
   static const GRADES_LIST = '/grades-list';
   static const CREATE_EXAM = '/create-exam';
+  static const EXAMS_PAGE = '/exams-page';
 }
