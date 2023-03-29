@@ -71,10 +71,38 @@ class CreateExamView extends GetView<CreateExamController> {
                               hintText: "السؤال",
                               labelText: "السؤال",
                             ),
-                            MyTextFeild(
-                              controller: controller.questions[index].questionC,
-                              hintText: "الصوره",
-                              labelText: "الصوره",
+                            Stack(
+                              children: [
+                                Container(
+                                  color: const Color(0x1AD1EC43),
+                                  width: context.width,
+                                  height: context.height * 0.15,
+                                  child: InkWell(
+                                    onTap: controller.questions[index].pickFile,
+                                    child: controller.questions[index].image ==
+                                            null
+                                        ? const Icon(
+                                            Icons.add,
+                                          )
+                                        : Image.file(
+                                            controller.questions[index].image!,
+                                          ),
+                                  ),
+                                ),
+                                if (controller.questions[index].image != null)
+                                  Positioned(
+                                    left: 0,
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.delete_forever,
+                                      ),
+                                      onPressed: () {
+                                        controller.questions[index].image =
+                                            null;
+                                      },
+                                    ),
+                                  ),
+                              ],
                             ),
                             MyTextFeild(
                               controller:

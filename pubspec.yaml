@@ -17,9 +17,12 @@ dependencies:
   get: 4.6.5
   google_fonts: ^3.0.1
   image_picker: ^0.8.6+1
+  intl: ^0.17.0
+  laravel_exception: ^0.0.4
+  location: ^4.4.0
   internet_connection_checker: ^1.0.0+1
-  intl: ^0.18.0
   lottie: ^2.2.0
+  uuid: ^3.0.7
   shared_preferences: ^2.0.18
 
 dev_dependencies:

@@ -1,11 +1,10 @@
 // import 'dart:io';
 // import 'package:core/ui/views/image_picked_dialog.dart';
 // import 'package:flutter/cupertino.dart';
-
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
-// import 'package:location/location.dart';
+import 'package:location/location.dart';
 
 //
 // import 'package:google_map_location_picker/google_map_location_picker.dart';

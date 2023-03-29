@@ -1,5 +1,12 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
+
+import '../../../../helpers/pick.dart';
 
 class CreateExamController extends GetxController {
   TextEditingController examNameController = TextEditingController();
@@ -18,7 +25,9 @@ class QuestionC {
   TextEditingController wrongAnswer1C = TextEditingController();
   TextEditingController wrongAnswer3C = TextEditingController();
   TextEditingController wrongAnswer2C = TextEditingController();
-  Image? image;
+  late String imageString;
+  late bool imageUploaded;
+  File? image;
   Future<void> pickFile() async {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
@@ -33,7 +42,6 @@ class QuestionC {
           log(imageUploaded.toString());
         },
       );
-      update();
     }
   }
 }
