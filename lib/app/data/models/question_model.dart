@@ -4,7 +4,7 @@ class Question {
   String? userChoice;
   final String? question;
   final List<String>? wrongAnswers;
-  final String image;
+  final String? image;
 
   Question({
     required this.id,

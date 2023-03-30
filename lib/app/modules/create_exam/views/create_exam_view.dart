@@ -14,6 +14,14 @@ class CreateExamView extends GetView<CreateExamController> {
       appBar: AppBar(
         title: const Text('إنشاء إمتحان جديد'),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            controller.createExam();
+          },
+          icon: const Icon(
+            Icons.add_box_rounded,
+          ),
+        ),
       ),
       body: GetBuilder<CreateExamController>(
           init: CreateExamController(),
@@ -150,22 +158,6 @@ class CreateExamView extends GetView<CreateExamController> {
                     ),
                   ),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: SizedBox(
-                //     height: context.height * 0.07,
-                //     width: context.width * 0.8,
-                //     child: ElevatedButton(
-                //       onPressed: _.createExam,
-                //       child: Text(
-                //         'إنشاء المجموعة',
-                //         style: context.textTheme.headline6!.copyWith(
-                //           fontSize: 18,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
               ],
             );
           }),

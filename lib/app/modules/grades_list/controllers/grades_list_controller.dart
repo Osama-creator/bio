@@ -4,6 +4,7 @@ import 'package:bio/app/data/models/grade_item_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -15,7 +16,7 @@ class GradesListController extends GetxController {
     String gradeName = gradeNameCont.text.trim();
     GradeItem newGroup = GradeItem(
       name: gradeName,
-      id: UniqueKey().toString().trim(),
+      id: const Uuid().v1(),
     );
     try {
       CollectionReference groupCollection =
@@ -37,7 +38,7 @@ class GradesListController extends GetxController {
       for (var category in grades.docs) {
         gradeList.add(GradeItem(
           name: category['name'],
-          id: category['id'],
+          id: category.id,
         ));
       }
     } catch (e) {

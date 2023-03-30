@@ -1,4 +1,3 @@
-import 'package:bio/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -25,7 +24,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          controller.navigate(index);
+                          // controller.navigate(index);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -45,7 +44,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
-                Get.toNamed(Routes.CREATE_EXAM);
+                controller.navigate();
               },
               backgroundColor: AppColors.primary,
               label: Text(
