@@ -16,15 +16,41 @@ class CreateExamController extends GetxController {
   final args = Get.arguments as GradeItem;
   TextEditingController examNameController = TextEditingController();
   final List<QuestionC> questions = [];
+  bool isLoading = false;
+
   void addQuestion() {
     questions.add(QuestionC());
     update();
   }
 
   Future<void> createExam() async {
+    isLoading = true;
     String examName = examNameController.text.trim();
-    List<Question> examQuestions = questions.map((questionC) {
-      return Question(
+    List<Question> examQuestions = [];
+    List<Future> uploadTasks = []; // keep track of all the upload tasks
+
+    for (var questionC in questions) {
+      // pick the image file and start uploading it
+      if (questionC.image != null) {
+        Reference reference =
+            FirebaseStorage.instance.ref().child(const Uuid().v1());
+        final UploadTask uploadTask = reference.putFile(questionC.image!);
+        uploadTasks.add(uploadTask.whenComplete(() async {
+          questionC.imageString = await reference.getDownloadURL();
+          questionC.imageUploaded = true;
+          log(questionC.imageString);
+        }));
+      } else {
+        questionC.imageUploaded = false;
+      }
+    }
+
+    // wait for all the upload tasks to complete
+    await Future.wait(uploadTasks);
+
+    // create the Question objects with the imageString property
+    for (var questionC in questions) {
+      examQuestions.add(Question(
         question: questionC.questionC.text.trim(),
         rightAnswer: questionC.rightAnswerC.text.trim(),
         wrongAnswers: [
@@ -32,10 +58,10 @@ class CreateExamController extends GetxController {
           questionC.wrongAnswer2C.text.trim(),
           questionC.wrongAnswer3C.text.trim(),
         ],
-        image: questionC.imageString,
+        image: questionC.imageString, // set the imageString property here
         id: const Uuid().v1(),
-      );
-    }).toList();
+      ));
+    }
 
     Exam newExam = Exam(
       name: examName,
@@ -48,7 +74,10 @@ class CreateExamController extends GetxController {
           .collection('grades')
           .doc(args.id)
           .collection('exams');
+
       await examCollection.add(newExam.toJson());
+      isLoading = false;
+      update();
       Get.back();
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -63,23 +92,14 @@ class QuestionC {
   TextEditingController wrongAnswer1C = TextEditingController();
   TextEditingController wrongAnswer3C = TextEditingController();
   TextEditingController wrongAnswer2C = TextEditingController();
-  String imageString = '';
+  String imageString = "";
   late bool imageUploaded;
   File? image;
+
   Future<void> pickFile() async {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
-      Reference reference =
-          FirebaseStorage.instance.ref().child(const Uuid().v1());
-      final UploadTask uploadTask = reference.putFile(image!);
-      uploadTask.whenComplete(
-        () async {
-          imageString = await uploadTask.snapshot.ref.getDownloadURL();
-          imageUploaded = true;
-          log(imageUploaded.toString());
-        },
-      );
     }
   }
 }
