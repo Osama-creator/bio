@@ -20,11 +20,11 @@ class ExamsPageView extends GetView<ExamsPageController> {
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
-                    itemCount: controller.groupList.length,
+                    itemCount: controller.examList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
                         onTap: () {
-                          // controller.navigate(index);
+                          controller.navigateExamPage(index);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
@@ -33,7 +33,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
                             color: AppColors.grey,
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text(controller.groupList[index].name),
+                              child: Text(controller.examList[index].name),
                             ),
                           ),
                         ),
@@ -44,7 +44,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
-                controller.navigate();
+                controller.navigateToCreateExam();
               },
               backgroundColor: AppColors.primary,
               label: Text(
