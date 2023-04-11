@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:bio/app/data/models/exam_model.dart';
 import 'package:bio/app/data/models/grade_item_model.dart';
 import 'package:bio/app/data/models/question_model.dart';
+import 'package:bio/config/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -50,6 +51,24 @@ class ExamsPageController extends GetxController {
     } finally {
       isLoading = false;
       update();
+    }
+  }
+
+  Future<void> deleteGroup(String examId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('grades')
+          .doc(args.id)
+          .collection('exams')
+          .doc(examId)
+          .delete();
+      examList.removeWhere((exam) => exam.id == examId);
+      update();
+      Get.snackbar('تم بنجاح', 'تم حذف الإمتحان بنجاح',
+          backgroundColor: AppColors.grey);
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
     }
   }
 

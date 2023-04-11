@@ -23,6 +23,8 @@ class ExamsPageView extends GetView<ExamsPageController> {
                     itemCount: controller.examList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
+                        onLongPress: () => controller
+                            .deleteGroup(controller.examList[index].id),
                         onTap: () {
                           controller.navigateExamPage(index);
                         },
