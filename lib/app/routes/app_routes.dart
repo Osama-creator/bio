@@ -13,6 +13,11 @@ abstract class Routes {
   static const CREATE_EXAM = _Paths.CREATE_EXAM;
   static const EXAMS_PAGE = _Paths.EXAMS_PAGE;
   static const EXAM_DETAILS = _Paths.EXAM_DETAILS;
+  static const SIGN_UP = _Paths.SIGN_UP;
+  static const SIGN_IN = _Paths.SIGN_IN;
+  static const STUDENT_EXAMS_LIST = _Paths.STUDENT_EXAMS_LIST;
+  static const STUDENT_EXAM = _Paths.STUDENT_EXAM;
+  static const STUDENT_EXAM_PREVIEW = _Paths.STUDENT_EXAM_PREVIEW;
 }
 
 abstract class _Paths {
@@ -27,4 +32,9 @@ abstract class _Paths {
   static const CREATE_EXAM = '/create-exam';
   static const EXAMS_PAGE = '/exams-page';
   static const EXAM_DETAILS = '/exam-details';
+  static const SIGN_UP = '/sign-up';
+  static const SIGN_IN = '/sign-in';
+  static const STUDENT_EXAMS_LIST = '/student-exams-list';
+  static const STUDENT_EXAM = '/student-exam';
+  static const STUDENT_EXAM_PREVIEW = '/student-exam-preview';
 }

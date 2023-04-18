@@ -7,6 +7,8 @@ class MyTextFeild extends StatelessWidget {
   final String hintText;
   final String labelText;
   final double width;
+  final TextInputType? keyboardType;
+  final bool? obscureText;
   final Function(String)? onFieldSubmitted;
   const MyTextFeild(
       {Key? key,
@@ -14,6 +16,8 @@ class MyTextFeild extends StatelessWidget {
       required this.hintText,
       required this.labelText,
       this.onFieldSubmitted,
+      this.keyboardType,
+      this.obscureText,
       this.width = double.infinity})
       : super(key: key);
 
@@ -25,6 +29,8 @@ class MyTextFeild extends StatelessWidget {
         height: context.height * 0.1,
         width: width,
         child: TextFormField(
+          keyboardType: keyboardType ?? TextInputType.text,
+          obscureText: obscureText ?? false,
           controller: controller,
           onFieldSubmitted: onFieldSubmitted ?? (_) => false,
           cursorColor: AppColors.orange,

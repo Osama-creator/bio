@@ -20,13 +20,23 @@ import '../modules/monthly_report/bindings/monthly_report_binding.dart';
 import '../modules/monthly_report/views/monthly_report_view.dart';
 import '../modules/show_gruop_details/bindings/show_gruop_details_binding.dart';
 import '../modules/show_gruop_details/views/show_gruop_details_view.dart';
+import '../modules/sign_in/bindings/sign_in_binding.dart';
+import '../modules/sign_in/views/sign_in_view.dart';
+import '../modules/sign_up/bindings/sign_up_binding.dart';
+import '../modules/sign_up/views/sign_up_view.dart';
+import '../modules/student_exam/bindings/student_exam_binding.dart';
+import '../modules/student_exam/views/student_exam_view.dart';
+import '../modules/student_exam_preview/bindings/student_exam_preview_binding.dart';
+import '../modules/student_exam_preview/views/student_exam_preview_view.dart';
+import '../modules/student_exams_list/bindings/student_exams_list_binding.dart';
+import '../modules/student_exams_list/views/student_exams_list_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.GRADES_LIST;
+  static const INITIAL = Routes.SIGN_UP;
 
   static final routes = [
     GetPage(
@@ -61,7 +71,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.GRADES_LIST,
-      page: () => GradesListView(),
+      page: () => const GradesListView(),
       binding: GradesListBinding(),
     ),
     GetPage(
@@ -78,6 +88,31 @@ class AppPages {
       name: _Paths.EXAM_DETAILS,
       page: () => const ExamDetailsView(),
       binding: ExamDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGN_UP,
+      page: () => const SignUpView(),
+      binding: SignUpBinding(),
+    ),
+    GetPage(
+      name: _Paths.SIGN_IN,
+      page: () => const SignInView(),
+      binding: SignInBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_EXAMS_LIST,
+      page: () => const StudentExamsListView(),
+      binding: StudentExamsListBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_EXAM,
+      page: () => const StudentExamView(),
+      binding: StudentExamBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_EXAM_PREVIEW,
+      page: () => const StudentExamPreviewView(),
+      binding: StudentExamPreviewBinding(),
     ),
   ];
 }
