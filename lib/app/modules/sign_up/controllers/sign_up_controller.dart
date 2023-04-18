@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bio/app/routes/app_pages.dart';
@@ -5,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/models/grade_item_model.dart';
 
@@ -14,6 +16,7 @@ class SignUpController extends GetxController {
   TextEditingController passwordC = TextEditingController();
   var gradeList = <GradeItem>[];
   var selectedGrade = Rx<GradeItem?>(null);
+
   @override
   void onInit() {
     super.onInit();
@@ -74,6 +77,18 @@ class SignUpController extends GetxController {
     );
   }
 
+  Future<void> checkUserSignIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userToken = prefs.getString('userToken');
+    if (userToken != null) {
+      final userData = prefs.getString('userData');
+      if (userData != null) {
+        final data = jsonDecode(userData);
+        Get.offAllNamed(Routes.HOME, arguments: data);
+      }
+    }
+  }
+
   Future<void> signUp() async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -89,6 +104,18 @@ class SignUpController extends GetxController {
         'grade': selectedGrade.value!
             .name, // assuming gradeList is not empty and selectedGrade has been set
       });
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+        'userToken',
+        userCredential.user!.uid,
+      );
+      await prefs.setString(
+          'userData',
+          jsonEncode({
+            'name': nameC.text.trim(),
+            'email': emailC.text.trim(),
+            'grade': selectedGrade.value?.id,
+          }));
 
       Get.offAndToNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
