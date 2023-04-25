@@ -46,8 +46,12 @@ class HomeController extends GetxController {
               id: questionData['id'],
               rightAnswer: questionData['right_answer'],
               image: questionData['image'],
-              wrongAnswers: [wrongAnswers[0], wrongAnswers[1], wrongAnswers[2]]
-                ..shuffle()));
+              wrongAnswers: [
+                wrongAnswers[0],
+                wrongAnswers[1],
+                wrongAnswers[2],
+                questionData['right_answer'],
+              ]..shuffle()));
         }
 
         examList.add(Exam(
@@ -67,8 +71,8 @@ class HomeController extends GetxController {
 
   void navigateExamPage(int index) {
     Get.toNamed(
-      Routes.EXAM_DETAILS,
-      arguments: examList[index],
+      Routes.STUDENT_EXAM,
+      arguments: examList[index].questions,
     );
   }
 
