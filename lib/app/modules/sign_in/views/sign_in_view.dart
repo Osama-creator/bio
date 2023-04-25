@@ -1,4 +1,6 @@
+import 'package:bio/app/routes/app_pages.dart';
 import 'package:bio/app/views/text_field.dart';
+import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -76,11 +78,24 @@ class SignInView extends GetView<SignInController> {
                 child: ElevatedButton(
                   onPressed: () => controller..login(),
                   child: Text(
-                    'إنشاء حساب',
+                    'تسجيل الدخول',
                     style: context.textTheme.headline6!.copyWith(
                       fontSize: 18,
                     ),
                   ),
+                ),
+              ),
+            ),
+            InkWell(
+              onTap: () => Get.offAndToNamed(Routes.SIGN_UP),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: context.width * 0.1,
+                ),
+                child: Text(
+                  "إنشاء حساب جديد",
+                  style: context.textTheme.headline6!
+                      .copyWith(fontSize: 18, color: AppColors.primary),
                 ),
               ),
             ),
