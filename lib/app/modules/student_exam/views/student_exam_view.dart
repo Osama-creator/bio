@@ -19,7 +19,7 @@ class StudentExamView extends GetView<StudentExamController> {
             child: Scaffold(
               appBar: AppBar(
                 title: Text(
-                    "السؤال ${controller.qNumber} من ${controller.quistionList.length}",
+                    "السؤال ${controller.qNumber} من ${controller.quistionList().length}",
                     style: Theme.of(context).textTheme.bodyText1),
                 centerTitle: true,
                 elevation: 10,
@@ -34,15 +34,16 @@ class StudentExamView extends GetView<StudentExamController> {
                       child: PageView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           controller: controller.pageController,
-                          itemCount: controller.quistionList.length,
+                          itemCount: controller.quistionList().length,
                           itemBuilder: (context, index) {
                             return QuestionBody(
                               index: index,
                               quistion:
-                                  controller.quistionList[index].question!,
-                              image: controller.quistionList[index].image!,
-                              list:
-                                  controller.quistionList[index].wrongAnswers!,
+                                  controller.quistionList()[index].question!,
+                              image: controller.quistionList()[index].image!,
+                              list: controller
+                                  .quistionList()[index]
+                                  .wrongAnswers!,
                             );
                           }),
                     ),
@@ -70,7 +71,7 @@ class StudentExamView extends GetView<StudentExamController> {
                                 controller.goToNextPage(index);
                               },
                               child: Text(controller.qNumber ==
-                                      controller.quistionList.length
+                                      controller.quistionList().length
                                   ? "إنهاء"
                                   : "التالي")),
                         ),

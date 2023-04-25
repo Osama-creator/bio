@@ -72,7 +72,7 @@ class HomeController extends GetxController {
   void navigateExamPage(int index) {
     Get.toNamed(
       Routes.STUDENT_EXAM,
-      arguments: examList[index].questions,
+      arguments: examList[index],
     );
   }
 

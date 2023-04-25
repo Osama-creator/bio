@@ -1,23 +1,15 @@
 import 'package:get/get.dart';
 
-class StudentExamPreviewController extends GetxController {
-  //TODO: Implement StudentExamPreviewController
+import '../../../data/models/question_model.dart';
 
-  final count = 0.obs;
+class StudentExamPreviewController extends GetxController {
+  final args = Get.arguments as List;
+  late List<Question> questions;
+  late int result;
   @override
   void onInit() {
+    questions = args[0];
+    result = args[1];
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
 }

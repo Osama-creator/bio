@@ -74,7 +74,7 @@ class QuestionBody extends StatelessWidget {
                               child: RadioListTile(
                                 value: option,
                                 groupValue:
-                                    controller.quistionList[index].userChoice,
+                                    controller.quistionList()[index].userChoice,
                                 activeColor: AppColors.primary,
                                 dense: false,
                                 onChanged: (value) {
