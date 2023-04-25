@@ -102,7 +102,7 @@ class SignUpController extends GetxController {
         'name': nameC.text,
         'email': emailC.text,
         'grade': selectedGrade.value!
-            .name, // assuming gradeList is not empty and selectedGrade has been set
+            .id, // assuming gradeList is not empty and selectedGrade has been set
       });
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
