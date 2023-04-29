@@ -52,6 +52,7 @@ class SignInController extends GetxController {
                 'name': data['name'],
                 'email': data['email'],
                 'grade': data['grade'],
+                'grade_id': data['grade_id'],
               }));
           Get.offAllNamed(Routes.HOME, arguments: data);
         }
