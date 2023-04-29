@@ -31,7 +31,7 @@ class HomeController extends GetxController {
     try {
       QuerySnapshot exams = await FirebaseFirestore.instance
           .collection('grades')
-          .doc(data['grade'])
+          .doc(data['grade_id'])
           .collection('exams')
           .get();
       examList.clear();

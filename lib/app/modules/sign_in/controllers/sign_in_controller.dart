@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,15 +38,24 @@ class SignInController extends GetxController {
               email: emailC.text, password: passwordC.text);
 
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-        'userToken',
-        userCredential.user!.uid,
-      );
-      await prefs.setString(
-          'userData',
-          jsonEncode({
-            'email': emailC.text.trim(),
-          }));
+      final userToken = prefs.getString('userToken');
+      if (userToken != null) {
+        final userData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userToken)
+            .get();
+        if (userData.exists) {
+          final data = userData.data()!;
+          await prefs.setString(
+              'userData',
+              jsonEncode({
+                'name': data['name'],
+                'email': data['email'],
+                'grade': data['grade'],
+              }));
+          Get.offAllNamed(Routes.HOME, arguments: data);
+        }
+      }
 
       if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
         Get.toNamed(Routes.GRADES_LIST);

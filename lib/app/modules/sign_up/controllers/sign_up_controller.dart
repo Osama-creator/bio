@@ -101,8 +101,9 @@ class SignUpController extends GetxController {
           .set({
         'name': nameC.text,
         'email': emailC.text,
+        'grade_id': selectedGrade.value!.id,
         'grade': selectedGrade.value!
-            .id, // assuming gradeList is not empty and selectedGrade has been set
+            .name, // assuming gradeList is not empty and selectedGrade has been set
       });
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
@@ -114,7 +115,8 @@ class SignUpController extends GetxController {
           jsonEncode({
             'name': nameC.text.trim(),
             'email': emailC.text.trim(),
-            'grade': selectedGrade.value?.id,
+            'grade_id': selectedGrade.value!.id,
+            'grade': selectedGrade.value!.name,
           }));
 
       Get.offAndToNamed(Routes.HOME);

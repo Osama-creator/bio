@@ -19,7 +19,7 @@ class StudentMarkesController extends GetxController {
 
       QuerySnapshot marks = await FirebaseFirestore.instance
           .collection('grades')
-          .doc()
+          .doc(data['grade'])
           .collection('exams')
           .doc(exam.id)
           .collection('markes')
@@ -32,7 +32,7 @@ class StudentMarkesController extends GetxController {
             id: exam.id,
             grade: mark['grade'],
             studentMark: mark['student_mark'],
-            examMark: mark['exam_mark']));
+            examMark: mark['student_mark']));
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());

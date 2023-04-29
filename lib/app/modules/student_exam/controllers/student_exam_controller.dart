@@ -45,21 +45,21 @@ class StudentExamController extends GetxController {
   }
 
   Future<void> uploadMark() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userData = prefs.getString('userData');
+    final data = jsonDecode(userData!);
     Mark studentmark = Mark(
         examName: exam.name,
-        grade: "الثالث الثانوي",
+        grade: data['grade'],
         id: const Uuid().v1(),
         studentMark: finalMark(),
-        studentName: "اسامه",
+        studentName: data['name'],
         examMark: quistionList().length);
 
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final userData = prefs.getString('userData');
-      final data = jsonDecode(userData!);
       CollectionReference markesCollection = FirebaseFirestore.instance
           .collection('grades')
-          .doc(data['grade'])
+          .doc(data['grade_id'])
           .collection('exams')
           .doc(exam.id)
           .collection('markes');
@@ -85,10 +85,10 @@ class StudentExamController extends GetxController {
       if (hasNoAnswer()) {
         Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
       } else {
+        await uploadMark();
         Get.offAndToNamed(Routes.STUDENT_EXAM_PREVIEW,
             arguments: [quistionList(), finalMark(), exam]);
         prefs.setString('exam_${exam.id}', "exam had been entered");
-        await uploadMark();
       }
     }
     update();
