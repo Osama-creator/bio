@@ -4,13 +4,13 @@ import '../../grades_list/views/grades_list_view.dart';
 import '../../groups_list/views/groups_list_view.dart';
 
 class TeacherHomeView extends StatefulWidget {
+  const TeacherHomeView({super.key});
+
   @override
   _TeacherHomeViewState createState() => _TeacherHomeViewState();
 }
 
 class _TeacherHomeViewState extends State<TeacherHomeView> {
-  final int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
