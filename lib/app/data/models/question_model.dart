@@ -1,5 +1,5 @@
 class Question {
-  final String id;
+  final String? id;
   final String rightAnswer;
   String? userChoice;
   final String? question;
@@ -7,7 +7,7 @@ class Question {
   final String? image;
 
   Question({
-    required this.id,
+    this.id,
     required this.rightAnswer,
     this.question,
     this.userChoice,

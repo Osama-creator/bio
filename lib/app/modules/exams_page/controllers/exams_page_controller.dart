@@ -82,7 +82,7 @@ class ExamsPageController extends GetxController {
   void navigateExamPage(int index) {
     Get.toNamed(
       Routes.EXAM_DETAILS,
-      arguments: examList[index],
+      arguments: [args.id, examList[index]],
     );
   }
 

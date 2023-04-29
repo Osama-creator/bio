@@ -16,28 +16,33 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
       body: ListView.builder(
         itemCount: controller.exam.questions.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Card(
-              elevation: 10,
-              color: const Color.fromARGB(255, 156, 169, 187),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: [
-                    Text(controller.exam.questions[index].question!),
-                    SizedBox(
-                        height: context.height * 0.2,
-                        width: context.width * 0.8,
-                        child: Image.network(
-                          controller.exam.questions[index].image!,
-                          fit: BoxFit.contain,
-                        )),
-                    Text(controller.exam.questions[index].rightAnswer),
-                    Text(controller.exam.questions[index].wrongAnswers![0]),
-                    Text(controller.exam.questions[index].wrongAnswers![1]),
-                    Text(controller.exam.questions[index].wrongAnswers![2]),
-                  ],
+          return InkWell(
+            onTap: () {
+              controller.showEditQuestionSheet(index);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(6.0),
+              child: Card(
+                elevation: 10,
+                color: const Color.fromARGB(255, 156, 169, 187),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Text(controller.exam.questions[index].question!),
+                      SizedBox(
+                          height: context.height * 0.2,
+                          width: context.width * 0.8,
+                          child: Image.network(
+                            controller.args[1].questions[index].image!,
+                            fit: BoxFit.contain,
+                          )),
+                      Text(controller.exam.questions[index].rightAnswer),
+                      Text(controller.exam.questions[index].wrongAnswers![0]),
+                      Text(controller.exam.questions[index].wrongAnswers![1]),
+                      Text(controller.exam.questions[index].wrongAnswers![2]),
+                    ],
+                  ),
                 ),
               ),
             ),
