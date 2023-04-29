@@ -1,27 +1,21 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bio/app/data/models/mark.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class StudentMarkesController extends GetxController {
-  final exam = Get.arguments;
+class StudentMarkesForTeacherController extends GetxController {
+  final args = Get.arguments as List;
   bool isLoading = false;
   var marksList = <Mark>[];
   Future<void> getData() async {
     isLoading = true;
     try {
-      final prefs = await SharedPreferences.getInstance();
-      final userData = prefs.getString('userData');
-      final data = jsonDecode(userData!);
-
       QuerySnapshot marks = await FirebaseFirestore.instance
           .collection('grades')
-          .doc()
+          .doc(args[1].id)
           .collection('exams')
-          .doc(exam.id)
+          .doc(args[0].id)
           .collection('markes')
           .get();
       marksList.clear();
@@ -29,7 +23,7 @@ class StudentMarkesController extends GetxController {
         marksList.add(Mark(
             examName: mark['exam_name'],
             studentName: mark['student_name'],
-            id: exam.id,
+            id: args[0].id,
             grade: mark['grade'],
             studentMark: mark['student_mark'],
             examMark: mark['exam_mark']));

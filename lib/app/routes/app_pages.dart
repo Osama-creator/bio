@@ -32,6 +32,8 @@ import '../modules/student_exams_list/bindings/student_exams_list_binding.dart';
 import '../modules/student_exams_list/views/student_exams_list_view.dart';
 import '../modules/student_markes/bindings/student_markes_binding.dart';
 import '../modules/student_markes/views/student_markes_view.dart';
+import '../modules/student_markes_for_teacher/bindings/student_markes_for_teacher_binding.dart';
+import '../modules/student_markes_for_teacher/views/student_markes_for_teacher_view.dart';
 
 part 'app_routes.dart';
 
@@ -120,6 +122,11 @@ class AppPages {
       name: _Paths.STUDENT_MARKES,
       page: () => const StudentMarkesView(),
       binding: StudentMarkesBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_MARKES_FOR_TEACHER,
+      page: () => const StudentMarkesForTeacherView(),
+      binding: StudentMarkesForTeacherBinding(),
     ),
   ];
 }

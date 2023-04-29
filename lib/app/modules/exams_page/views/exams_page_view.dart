@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../config/utils/colors.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/exams_page_controller.dart';
 
 class ExamsPageView extends GetView<ExamsPageController> {
@@ -23,6 +24,12 @@ class ExamsPageView extends GetView<ExamsPageController> {
                     itemCount: controller.examList.length,
                     itemBuilder: (context, index) {
                       return InkWell(
+                        onDoubleTap: () {
+                          Get.offAndToNamed(Routes.STUDENT_MARKES, arguments: [
+                            controller.examList[index],
+                            controller.args
+                          ]);
+                        },
                         onLongPress: () => controller
                             .deleteGroup(controller.examList[index].id),
                         onTap: () {
