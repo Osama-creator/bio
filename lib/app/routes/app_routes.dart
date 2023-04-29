@@ -18,6 +18,7 @@ abstract class Routes {
   static const STUDENT_EXAMS_LIST = _Paths.STUDENT_EXAMS_LIST;
   static const STUDENT_EXAM = _Paths.STUDENT_EXAM;
   static const STUDENT_EXAM_PREVIEW = _Paths.STUDENT_EXAM_PREVIEW;
+  static const STUDENT_MARKES = _Paths.STUDENT_MARKES;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const STUDENT_EXAMS_LIST = '/student-exams-list';
   static const STUDENT_EXAM = '/student-exam';
   static const STUDENT_EXAM_PREVIEW = '/student-exam-preview';
+  static const STUDENT_MARKES = '/student-markes';
 }

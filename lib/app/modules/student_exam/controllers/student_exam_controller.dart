@@ -46,12 +46,12 @@ class StudentExamController extends GetxController {
 
   Future<void> uploadMark() async {
     Mark studentmark = Mark(
-      examName: exam.name,
-      grade: "الثالث الثانوي",
-      id: const Uuid().v1(),
-      studentMark: finalMark(),
-      studentName: "اسامه",
-    );
+        examName: exam.name,
+        grade: "الثالث الثانوي",
+        id: const Uuid().v1(),
+        studentMark: finalMark(),
+        studentName: "اسامه",
+        examMark: quistionList().length);
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -61,7 +61,7 @@ class StudentExamController extends GetxController {
           .collection('grades')
           .doc(data['grade'])
           .collection('exams')
-          .doc('GFE3Z1J8bRLyG056cgpb')
+          .doc(exam.id)
           .collection('markes');
       markesCollection.add(studentmark.toJson());
       update();
@@ -84,12 +84,11 @@ class StudentExamController extends GetxController {
       if (hasNoAnswer()) {
         Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
       } else {
-        uploadMark();
         Get.offAndToNamed(Routes.STUDENT_EXAM_PREVIEW,
-            arguments: [quistionList(), finalMark()]);
+            arguments: [quistionList(), finalMark(), exam]);
+        // uploadMark();
       }
     }
-
     update();
   }
 

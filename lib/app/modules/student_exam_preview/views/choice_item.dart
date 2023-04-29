@@ -24,17 +24,20 @@ class ChoiceItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
           ),
           child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  title,
-                ),
-                Icon(
-                  icon,
-                  color: AppColors.white,
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    title,
+                  ),
+                  Icon(
+                    icon,
+                    color: AppColors.white,
+                  )
+                ],
+              ),
             ),
           ),
         ));

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../config/utils/colors.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/student_exam_preview_controller.dart';
 
 class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
@@ -18,6 +19,7 @@ class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.max,
           children: [
             const Text(
               'الدرجه',
@@ -61,7 +63,7 @@ class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
                         children: [
                           ChoiceItem(
                             icon: Icons.check_circle_outline_outlined,
-                            color: AppColors.primary,
+                            color: Colors.green[900]!,
                             title: e.rightAnswer,
                           ),
                           const SizedBox(
@@ -78,8 +80,20 @@ class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
                       )
                     ]),
                   ),
-                ))
+                )),
           ],
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: context.width * 0.12,
+          child: ElevatedButton(
+              onPressed: () {
+                Get.offAndToNamed(Routes.STUDENT_MARKES,
+                    arguments: controller.exam);
+              },
+              child: const Text("أعلى الدرجات")),
         ),
       ),
     );

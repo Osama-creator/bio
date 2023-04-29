@@ -30,6 +30,8 @@ import '../modules/student_exam_preview/bindings/student_exam_preview_binding.da
 import '../modules/student_exam_preview/views/student_exam_preview_view.dart';
 import '../modules/student_exams_list/bindings/student_exams_list_binding.dart';
 import '../modules/student_exams_list/views/student_exams_list_view.dart';
+import '../modules/student_markes/bindings/student_markes_binding.dart';
+import '../modules/student_markes/views/student_markes_view.dart';
 
 part 'app_routes.dart';
 
@@ -113,6 +115,11 @@ class AppPages {
       name: _Paths.STUDENT_EXAM_PREVIEW,
       page: () => const StudentExamPreviewView(),
       binding: StudentExamPreviewBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENT_MARKES,
+      page: () => const StudentMarkesView(),
+      binding: StudentMarkesBinding(),
     ),
   ];
 }
