@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 class StudentMarkesForTeacherController extends GetxController {
-  final args = Get.arguments as List;
+  final args = Get.arguments as List<dynamic>;
   bool isLoading = false;
   var marksList = <Mark>[];
   Future<void> getData() async {
@@ -13,9 +13,9 @@ class StudentMarkesForTeacherController extends GetxController {
     try {
       QuerySnapshot marks = await FirebaseFirestore.instance
           .collection('grades')
-          .doc(args[1].id)
+          .doc(args[1]!.id)
           .collection('exams')
-          .doc(args[0].id)
+          .doc(args[0]!.id)
           .collection('markes')
           .get();
       marksList.clear();
@@ -23,7 +23,6 @@ class StudentMarkesForTeacherController extends GetxController {
         marksList.add(Mark(
             examName: mark['exam_name'],
             studentName: mark['student_name'],
-            id: args[0].id,
             grade: mark['grade'],
             studentMark: mark['student_mark'],
             examMark: mark['exam_mark']));

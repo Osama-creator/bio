@@ -51,8 +51,8 @@ class SignInController extends GetxController {
               jsonEncode({
                 'name': data['name'],
                 'email': data['email'],
-                'grade': data['grade'],
                 'grade_id': data['grade_id'],
+                'grade': data['grade'],
               }));
           Get.offAllNamed(Routes.HOME, arguments: data);
         }

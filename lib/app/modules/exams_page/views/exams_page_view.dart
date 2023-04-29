@@ -25,10 +25,11 @@ class ExamsPageView extends GetView<ExamsPageController> {
                     itemBuilder: (context, index) {
                       return InkWell(
                         onDoubleTap: () {
-                          Get.offAndToNamed(Routes.STUDENT_MARKES, arguments: [
-                            controller.examList[index],
-                            controller.args
-                          ]);
+                          Get.toNamed(Routes.STUDENT_MARKES_FOR_TEACHER,
+                              arguments: [
+                                controller.examList[index],
+                                controller.args
+                              ]);
                         },
                         onLongPress: () => controller
                             .deleteGroup(controller.examList[index].id),

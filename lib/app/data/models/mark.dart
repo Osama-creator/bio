@@ -1,5 +1,5 @@
 class Mark {
-  final String id;
+  final String? id;
   final String examName;
   final String grade;
   final String studentName;
@@ -9,7 +9,7 @@ class Mark {
   Mark(
       {required this.examName,
       required this.studentMark,
-      required this.id,
+      this.id,
       required this.grade,
       required this.examMark,
       required this.studentName});
