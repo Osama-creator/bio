@@ -72,7 +72,7 @@ class StudentExamController extends GetxController {
     }
   }
 
-  void goToNextPage(int index) {
+  void goToNextPage(int index) async {
     if (qNumber < quistionList().length) {
       pageController.nextPage(
         duration: const Duration(milliseconds: 500),
@@ -81,12 +81,14 @@ class StudentExamController extends GetxController {
       qNumber++;
       update();
     } else {
+      final prefs = await SharedPreferences.getInstance();
       if (hasNoAnswer()) {
         Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
       } else {
         Get.offAndToNamed(Routes.STUDENT_EXAM_PREVIEW,
             arguments: [quistionList(), finalMark(), exam]);
-        // uploadMark();
+        prefs.setString('exam_${exam.id}', "exam had been entered");
+        await uploadMark();
       }
     }
     update();
@@ -113,8 +115,13 @@ class StudentExamController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     pageController = PageController();
+    final prefs = await SharedPreferences.getInstance();
+    final examInfo = prefs.getString('exam_${exam.id}');
+    if (examInfo != null) {
+      Get.offAndToNamed(Routes.STUDENT_MARKES, arguments: exam);
+    }
 
     super.onInit();
   }
