@@ -59,7 +59,7 @@ class SignInController extends GetxController {
       }
 
       if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
-        Get.toNamed(Routes.GRADES_LIST);
+        Get.toNamed(Routes.TEACHER_HOME);
       } else {
         Get.toNamed(Routes.HOME);
       }

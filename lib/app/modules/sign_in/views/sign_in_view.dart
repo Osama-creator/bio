@@ -87,7 +87,7 @@ class SignInView extends GetView<SignInController> {
               ),
             ),
             InkWell(
-              onTap: () => Get.offAndToNamed(Routes.SIGN_UP),
+              onTap: () => Get.toNamed(Routes.SIGN_UP),
               child: Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: context.width * 0.1,

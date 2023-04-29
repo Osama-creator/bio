@@ -34,13 +34,15 @@ import '../modules/student_markes/bindings/student_markes_binding.dart';
 import '../modules/student_markes/views/student_markes_view.dart';
 import '../modules/student_markes_for_teacher/bindings/student_markes_for_teacher_binding.dart';
 import '../modules/student_markes_for_teacher/views/student_markes_for_teacher_view.dart';
+import '../modules/teacher_home/bindings/teacher_home_binding.dart';
+import '../modules/teacher_home/views/teacher_home_view.dart';
 
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.GRADES_LIST;
+  static const INITIAL = Routes.TEACHER_HOME;
 
   static final routes = [
     GetPage(
@@ -127,6 +129,11 @@ class AppPages {
       name: _Paths.STUDENT_MARKES_FOR_TEACHER,
       page: () => const StudentMarkesForTeacherView(),
       binding: StudentMarkesForTeacherBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEACHER_HOME,
+      page: () => TeacherHomeView(),
+      binding: TeacherHomeBinding(),
     ),
   ];
 }

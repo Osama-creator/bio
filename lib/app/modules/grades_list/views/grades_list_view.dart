@@ -14,10 +14,10 @@ class GradesListView extends GetView<GradesListController> {
         init: controller,
         builder: (controller) {
           return Scaffold(
-            appBar: AppBar(
-              title: const Text('الصفوف'),
-              centerTitle: true,
-            ),
+            // appBar: AppBar(
+            //   title: const Text('الصفوف'),
+            //   centerTitle: true,
+            // ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(

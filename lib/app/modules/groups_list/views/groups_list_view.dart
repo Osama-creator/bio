@@ -14,13 +14,13 @@ class GroupsListView extends GetView<GroupsListController> {
         init: controller,
         builder: (controller) {
           return Scaffold(
-            appBar: AppBar(
-              title: Text(
-                'المجموعات',
-                style: context.textTheme.headline6,
-              ),
-              centerTitle: true,
-            ),
+            // appBar: AppBar(
+            //   title: Text(
+            //     'المجموعات',
+            //     style: context.textTheme.headline6,
+            //   ),
+            //   centerTitle: true,
+            // ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : ListView.builder(
