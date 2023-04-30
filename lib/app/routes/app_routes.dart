@@ -21,6 +21,7 @@ abstract class Routes {
   static const STUDENT_MARKES = _Paths.STUDENT_MARKES;
   static const STUDENT_MARKES_FOR_TEACHER = _Paths.STUDENT_MARKES_FOR_TEACHER;
   static const TEACHER_HOME = _Paths.TEACHER_HOME;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -43,4 +44,5 @@ abstract class _Paths {
   static const STUDENT_MARKES = '/student-markes';
   static const STUDENT_MARKES_FOR_TEACHER = '/student-markes-for-teacher';
   static const TEACHER_HOME = '/teacher-home';
+  static const SPLASH = '/splash';
 }

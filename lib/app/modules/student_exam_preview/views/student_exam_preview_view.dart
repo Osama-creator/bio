@@ -90,8 +90,7 @@ class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
           height: context.width * 0.12,
           child: ElevatedButton(
               onPressed: () {
-                Get.offAndToNamed(Routes.STUDENT_MARKES,
-                    arguments: controller.exam);
+                Get.toNamed(Routes.STUDENT_MARKES, arguments: controller.exam);
               },
               child: const Text("أعلى الدرجات")),
         ),

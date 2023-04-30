@@ -39,7 +39,7 @@ class SignInController extends GetxController {
 
       final prefs = await SharedPreferences.getInstance();
       final userToken = prefs.getString('userToken');
-      if (userToken != null) {
+      if (userToken != null && isTeacher == false) {
         final userData = await FirebaseFirestore.instance
             .collection('users')
             .doc(userToken)
@@ -56,12 +56,8 @@ class SignInController extends GetxController {
               }));
           Get.offAllNamed(Routes.HOME, arguments: data);
         }
-      }
-
-      if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
-        Get.toNamed(Routes.TEACHER_HOME);
-      } else {
-        Get.toNamed(Routes.HOME);
+      } else if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
+        Get.offAllNamed(Routes.TEACHER_HOME);
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

@@ -18,6 +18,11 @@ class SignUpView extends GetView<SignUpController> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
+            Text(
+              "إنشاء حساب جديد",
+              style: context.textTheme.headline5!
+                  .copyWith(color: AppColors.primary),
+            ),
             SizedBox(
               height: context.height * 0.1,
             ),

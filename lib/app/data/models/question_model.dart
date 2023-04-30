@@ -1,10 +1,10 @@
 class Question {
   final String? id;
-  final String rightAnswer;
+  late final String rightAnswer;
   String? userChoice;
-  final String? question;
-  final List<String>? wrongAnswers;
-  final String? image;
+  late final String? question;
+  late final List<String>? wrongAnswers;
+  late final String? image;
 
   Question({
     this.id,

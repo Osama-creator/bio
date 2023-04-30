@@ -16,6 +16,14 @@ class HomeView extends GetView<HomeController> {
             appBar: AppBar(
               title: const Text('الإمتحانات'),
               centerTitle: true,
+              automaticallyImplyLeading: false,
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      controller.signOut();
+                    },
+                    icon: const Icon(Icons.logout)),
+              ],
             ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())

@@ -16,6 +16,7 @@ class SignUpController extends GetxController {
   TextEditingController passwordC = TextEditingController();
   var gradeList = <GradeItem>[];
   var selectedGrade = Rx<GradeItem?>(null);
+  Rx<bool> isTeacher = false.obs;
 
   @override
   void onInit() {
