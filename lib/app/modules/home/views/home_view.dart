@@ -15,7 +15,6 @@ class HomeView extends GetView<HomeController> {
           return Scaffold(
             appBar: AppBar(
               title: const Text('الإمتحانات'),
-              centerTitle: true,
               automaticallyImplyLeading: false,
               actions: [
                 IconButton(

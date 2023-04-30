@@ -59,7 +59,7 @@ class SignInView extends GetView<SignInController> {
                         style: context.textTheme.bodyText2!.copyWith(
                             color: controller.isTeacher.value
                                 ? AppColors.primary
-                                : AppColors.grey)),
+                                : Colors.grey)),
                   ),
                 ],
               ),

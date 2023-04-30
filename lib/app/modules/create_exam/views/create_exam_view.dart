@@ -63,6 +63,7 @@ class CreateExamView extends GetView<CreateExamController> {
                         ),
                         Expanded(
                           child: ListView.builder(
+                            shrinkWrap: true,
                             itemCount: controller.questions.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Card(
@@ -151,7 +152,7 @@ class CreateExamView extends GetView<CreateExamController> {
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: context.width * 0.1),
+                              horizontal: context.width * 0.1, vertical: 10),
                           child: SizedBox(
                             height: context.height * 0.06,
                             child: ElevatedButton(
