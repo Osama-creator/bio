@@ -6,6 +6,8 @@ import '../modules/create_group/bindings/create_group_binding.dart';
 import '../modules/create_group/views/create_group_view.dart';
 import '../modules/create_session/bindings/create_session_binding.dart';
 import '../modules/create_session/views/create_session_view.dart';
+import '../modules/edit_group/bindings/edit_group_binding.dart';
+import '../modules/edit_group/views/edit_group_view.dart';
 import '../modules/exam_details/bindings/exam_details_binding.dart';
 import '../modules/exam_details/views/exam_details_view.dart';
 import '../modules/exams_page/bindings/exams_page_binding.dart';
@@ -54,7 +56,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.GROUPS_LIST,
-      page: () => const GroupsListView(),
+      page: () => GroupsListView(),
       binding: GroupsListBinding(),
     ),
     GetPage(
@@ -141,6 +143,11 @@ class AppPages {
       name: _Paths.SPLASH,
       page: () => const SplashView(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_GROUP,
+      page: () => const EditGroupView(),
+      binding: EditGroupBinding(),
     ),
   ];
 }

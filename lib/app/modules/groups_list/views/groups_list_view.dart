@@ -11,7 +11,7 @@ class GroupsListView extends GetView<GroupsListController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<GroupsListController>(
-        init: controller,
+        init: GroupsListController(),
         builder: (controller) {
           return Scaffold(
             // appBar: AppBar(
@@ -51,16 +51,33 @@ class GroupsListView extends GetView<GroupsListController> {
                   ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
-            floatingActionButton: FloatingActionButton.extended(
-              onPressed: () {
-                Get.offAndToNamed(Routes.CREATE_GROUP);
-              },
-              backgroundColor: AppColors.primary,
-              label: Text(
-                "إضافة مجموعه",
-                style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
-              ),
-              icon: const Icon(Icons.add),
+            floatingActionButton: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FloatingActionButton.extended(
+                  heroTag: "create group",
+                  onPressed: () {
+                    Get.offAndToNamed(Routes.CREATE_GROUP);
+                  },
+                  backgroundColor: AppColors.primary,
+                  label: Text(
+                    "إضافة مجموعه",
+                    style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+                  ),
+                  icon: const Icon(Icons.add),
+                ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                //   child: FloatingActionButton(
+                //     heroTag: "refresh",
+                //     onPressed: () {
+                //       controller.getData();
+                //     },
+                //     backgroundColor: AppColors.primary,
+                //     child: const Icon(Icons.refresh),
+                //   ),
+                // ),
+              ],
             ),
           );
         });

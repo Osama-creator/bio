@@ -13,12 +13,23 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<ShowGruopDetailsController>(
-        init: controller,
-        builder: (controller) {
+        init: ShowGruopDetailsController(),
+        builder: (_) {
           return Scaffold(
             appBar: AppBar(
               title: Text(controller.args.name),
               centerTitle: true,
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Get.offAndToNamed(Routes.EDIT_GROUP,
+                        arguments: controller.args);
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                  ),
+                ),
+              ],
               leading: IconButton(
                 onPressed: () {
                   Get.toNamed(Routes.MONTHLY_REPORT,

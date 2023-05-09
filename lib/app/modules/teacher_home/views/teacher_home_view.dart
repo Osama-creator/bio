@@ -47,9 +47,9 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            GradesListView(),
+            const GradesListView(),
             GroupsListView(),
           ],
         ),
