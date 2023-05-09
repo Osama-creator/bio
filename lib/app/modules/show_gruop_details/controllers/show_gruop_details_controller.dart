@@ -12,6 +12,13 @@ class ShowGruopDetailsController extends GetxController {
     );
   }
 
+  void navigateToPrevMonths() {
+    Get.offAndToNamed(
+      Routes.PREVIOUS_MONTHS,
+      arguments: args,
+    );
+  }
+
   int totalAfterdiscount(int index) {
     return (args.students![index].price! /
             int.parse(args.sessions!) *

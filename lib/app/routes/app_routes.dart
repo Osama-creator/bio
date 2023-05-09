@@ -23,6 +23,8 @@ abstract class Routes {
   static const TEACHER_HOME = _Paths.TEACHER_HOME;
   static const SPLASH = _Paths.SPLASH;
   static const EDIT_GROUP = _Paths.EDIT_GROUP;
+  static const PREVIOUS_MONTHS = _Paths.PREVIOUS_MONTHS;
+  static const PREVIOUS_MONTHS_DETAILS = _Paths.PREVIOUS_MONTHS_DETAILS;
 }
 
 abstract class _Paths {
@@ -47,4 +49,6 @@ abstract class _Paths {
   static const TEACHER_HOME = '/teacher-home';
   static const SPLASH = '/splash';
   static const EDIT_GROUP = '/edit-group';
+  static const PREVIOUS_MONTHS = '/previous-months';
+  static const PREVIOUS_MONTHS_DETAILS = '/previous-months-details';
 }

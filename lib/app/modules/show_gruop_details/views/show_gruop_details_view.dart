@@ -171,6 +171,24 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                     width: context.width * 0.8,
                     child: ElevatedButton(
                       onPressed: () {
+                        controller.navigateToPrevMonths();
+                      },
+                      child: Text(
+                        'الشهور الماضيه',
+                        style: context.textTheme.headline6!.copyWith(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    height: context.height * 0.07,
+                    width: context.width * 0.8,
+                    child: ElevatedButton(
+                      onPressed: () {
                         controller.navigate();
                       },
                       child: Text(

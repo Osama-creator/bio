@@ -20,6 +20,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/monthly_report/bindings/monthly_report_binding.dart';
 import '../modules/monthly_report/views/monthly_report_view.dart';
+import '../modules/previous_months/bindings/previous_months_binding.dart';
+import '../modules/previous_months/views/previous_months_view.dart';
+import '../modules/previous_months_details/bindings/previous_months_details_binding.dart';
+import '../modules/previous_months_details/views/previous_months_details_view.dart';
 import '../modules/show_gruop_details/bindings/show_gruop_details_binding.dart';
 import '../modules/show_gruop_details/views/show_gruop_details_view.dart';
 import '../modules/sign_in/bindings/sign_in_binding.dart';
@@ -148,6 +152,16 @@ class AppPages {
       name: _Paths.EDIT_GROUP,
       page: () => const EditGroupView(),
       binding: EditGroupBinding(),
+    ),
+    GetPage(
+      name: _Paths.PREVIOUS_MONTHS,
+      page: () => const PreviousMonthsView(),
+      binding: PreviousMonthsBinding(),
+    ),
+    GetPage(
+      name: _Paths.PREVIOUS_MONTHS_DETAILS,
+      page: () => const PreviousMonthsDetailsView(),
+      binding: PreviousMonthsDetailsBinding(),
     ),
   ];
 }
