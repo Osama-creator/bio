@@ -66,17 +66,6 @@ class GroupsListView extends GetView<GroupsListController> {
                   ),
                   icon: const Icon(Icons.add),
                 ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child: FloatingActionButton(
-                //     heroTag: "refresh",
-                //     onPressed: () {
-                //       controller.getData();
-                //     },
-                //     backgroundColor: AppColors.primary,
-                //     child: const Icon(Icons.refresh),
-                //   ),
-                // ),
               ],
             ),
           );

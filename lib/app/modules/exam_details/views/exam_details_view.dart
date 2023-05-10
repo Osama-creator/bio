@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../../../config/utils/colors.dart';
 import '../controllers/exam_details_controller.dart';
 
 class ExamDetailsView extends GetView<ExamDetailsController> {
@@ -18,7 +19,7 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              controller.showEditQuestionSheet(index);
+              controller.showEditQuestionSheet(index: index);
             },
             child: Padding(
               padding: const EdgeInsets.all(6.0),
@@ -30,13 +31,16 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
                   child: Column(
                     children: [
                       Text(controller.exam.questions[index].question!),
-                      SizedBox(
-                          height: context.height * 0.2,
-                          width: context.width * 0.8,
-                          child: Image.network(
-                            controller.args[1].questions[index].image!,
-                            fit: BoxFit.contain,
-                          )),
+                      if (controller
+                          .exam.questions[index].image!.isNotEmpty) ...[
+                        SizedBox(
+                            height: context.height * 0.2,
+                            width: context.width * 0.8,
+                            child: Image.network(
+                              controller.args[1].questions[index].image!,
+                              fit: BoxFit.contain,
+                            )),
+                      ],
                       Text(controller.exam.questions[index].rightAnswer),
                       Text(controller.exam.questions[index].wrongAnswers![0]),
                       Text(controller.exam.questions[index].wrongAnswers![1]),
@@ -48,6 +52,24 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
             ),
           );
         },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          FloatingActionButton.extended(
+            heroTag: "create qustion",
+            onPressed: () {
+              controller.showEditQuestionSheet(index: 1, isNew: true);
+            },
+            backgroundColor: AppColors.primary,
+            label: Text(
+              "إضافة سؤال",
+              style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+            ),
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
     );
   }

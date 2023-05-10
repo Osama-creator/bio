@@ -13,23 +13,6 @@ class SignInController extends GetxController {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
   Rx<bool> isTeacher = false.obs;
-  @override
-  void onInit() {
-    super.onInit();
-    checkUserSignIn();
-  }
-
-  Future<void> checkUserSignIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userToken = prefs.getString('userToken');
-    if (userToken != null) {
-      final userData = prefs.getString('userData');
-      if (userData != null) {
-        final data = jsonDecode(userData);
-        Get.offAllNamed(Routes.HOME, arguments: data);
-      }
-    }
-  }
 
   Future<void> login() async {
     try {
@@ -38,8 +21,11 @@ class SignInController extends GetxController {
               email: emailC.text, password: passwordC.text);
 
       final prefs = await SharedPreferences.getInstance();
-      final userToken =
-          userCredential.user!.uid; // get user uid from UserCredential
+      final userToken = userCredential.user!.uid;
+      await prefs.setString(
+        'userToken',
+        userToken,
+      );
       final userData = await FirebaseFirestore.instance
           .collection('users')
           .doc(userToken)
