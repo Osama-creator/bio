@@ -19,7 +19,10 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () {
-              controller.showEditQuestionSheet(index: index);
+              controller.showEditQuestionSheet(
+                  index: index,
+                  isNew: false,
+                  initialQuestion: controller.exam.questions[index]);
             },
             child: Padding(
               padding: const EdgeInsets.all(6.0),

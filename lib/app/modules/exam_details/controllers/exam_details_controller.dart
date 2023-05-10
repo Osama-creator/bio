@@ -113,6 +113,9 @@ class ExamDetailsController extends GetxController {
   void showEditQuestionSheet(
       {Question? initialQuestion, bool? isNew, int? index}) async {
     Question question = exam.questions[index!];
+    // if (question != null) {
+    //   initialQuestion = question;
+    // }
     // Set up controllers with initial values if provided
     TextEditingController questionController =
         TextEditingController(text: initialQuestion?.question ?? '');
