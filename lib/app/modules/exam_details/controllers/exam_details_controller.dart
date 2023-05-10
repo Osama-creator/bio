@@ -1,11 +1,9 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:bio/app/data/models/exam_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../data/models/question_model.dart';
@@ -50,15 +48,15 @@ class ExamDetailsController extends GetxController {
     update();
   }
 
-  Future<File?> pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return File(pickedFile.path);
-    } else {
-      return null;
-    }
-  }
+  // Future<File?> pickImage() async {
+  //   final picker = ImagePicker();
+  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {
+  //     return File(pickedFile.path);
+  //   } else {
+  //     return null;
+  //   }
+  // }
 
   void removeQuestion(int index) async {
     try {
@@ -113,9 +111,7 @@ class ExamDetailsController extends GetxController {
   void showEditQuestionSheet(
       {Question? initialQuestion, bool? isNew, int? index}) async {
     Question question = exam.questions[index!];
-    // if (question != null) {
-    //   initialQuestion = question;
-    // }
+
     // Set up controllers with initial values if provided
     TextEditingController questionController =
         TextEditingController(text: initialQuestion?.question ?? '');
@@ -224,106 +220,4 @@ class ExamDetailsController extends GetxController {
       update();
     }
   }
-
-  // void showEditQuestionSheet(int index) async {
-  //   // Get the current question data
-  //   Question question = exam.questions[index];
-
-  //   // Show a dialog with text fields for editing the question data
-  //   TextEditingController questionController =
-  //       TextEditingController(text: question.question);
-  //   TextEditingController rightAnswerController =
-  //       TextEditingController(text: question.rightAnswer);
-  //   TextEditingController wrongAnswer1Controller =
-  //       TextEditingController(text: question.wrongAnswers![0]);
-  //   TextEditingController wrongAnswer2Controller =
-  //       TextEditingController(text: question.wrongAnswers![1]);
-  //   TextEditingController wrongAnswer3Controller =
-  //       TextEditingController(text: question.wrongAnswers![2]);
-
-  //   bool? result = await showDialog(
-  //     context: Get.context!,
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Edit Question'),
-  //         content: SingleChildScrollView(
-  //           child: Column(
-  //             mainAxisSize: MainAxisSize.min,
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             children: [
-  //               TextField(
-  //                 controller: questionController,
-  //                 decoration: const InputDecoration(
-  //                   labelText: 'Question',
-  //                 ),
-  //               ),
-  //               TextField(
-  //                 controller: rightAnswerController,
-  //                 decoration: const InputDecoration(
-  //                   labelText: 'Right Answer',
-  //                 ),
-  //               ),
-  //               TextField(
-  //                 controller: wrongAnswer1Controller,
-  //                 decoration: const InputDecoration(
-  //                   labelText: 'Wrong Answer 1',
-  //                 ),
-  //               ),
-  //               TextField(
-  //                 controller: wrongAnswer2Controller,
-  //                 decoration: const InputDecoration(
-  //                   labelText: 'Wrong Answer 2',
-  //                 ),
-  //               ),
-  //               TextField(
-  //                 controller: wrongAnswer3Controller,
-  //                 decoration: const InputDecoration(
-  //                   labelText: 'Wrong Answer 3',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             onPressed: () {
-  //               Navigator.pop(context, false);
-  //             },
-  //             child: const Text('Cancel'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               // Create a new Question object with the updated data
-  //               Question newQuestion = Question(
-  //                 id: question.id,
-  //                 image: question.image,
-  //                 question: questionController.text,
-  //                 rightAnswer: rightAnswerController.text,
-  //                 wrongAnswers: [
-  //                   wrongAnswer1Controller.text,
-  //                   wrongAnswer2Controller.text,
-  //                   wrongAnswer3Controller.text,
-  //                 ],
-  //               );
-
-  //               // Update the question in Firebase
-  //               updateQuestionInFirebase(index, newQuestion);
-
-  //               Navigator.pop(context, true);
-  //             },
-  //             child: const Text('Save'),
-  //           ),
-  //           TextButton(
-  //             onPressed: () {
-  //               removeQuestion(index);
-  //               update();
-  //               Navigator.pop(context, true);
-  //             },
-  //             child: const Text('delete'),
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 }
