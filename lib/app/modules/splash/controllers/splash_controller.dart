@@ -18,16 +18,16 @@ class SplashController extends GetxController {
     Future.delayed(const Duration(seconds: 2), () {
       if (userToken != null) {
         if (userData != null) {
-          Get.toNamed(
+          Get.offAndToNamed(
             Routes.HOME,
           );
         } else {
-          Get.toNamed(
+          Get.offAndToNamed(
             Routes.TEACHER_HOME,
           );
         }
       } else {
-        Get.toNamed(
+        Get.offAndToNamed(
           Routes.SIGN_IN,
         );
       }
