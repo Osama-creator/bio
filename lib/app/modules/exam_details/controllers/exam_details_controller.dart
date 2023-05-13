@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bio/app/data/models/exam_model.dart';
+import 'package:bio/app/views/text_field.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -116,47 +117,45 @@ class ExamDetailsController extends GetxController {
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextField(
-                  controller: questionController,
-                  decoration: const InputDecoration(
-                    labelText: 'Question',
+                SizedBox(
+                  width: context.width * 0.8,
+                  child: MyTextFeild(
+                    controller: questionController,
+                    hintText: "السؤال",
+                    labelText: "السؤال",
                   ),
                 ),
-                TextField(
+                MyTextFeild(
+                  labelText: "الإجابه الصحيحه",
                   controller: rightAnswerController,
-                  decoration: const InputDecoration(
-                    labelText: 'Right Answer',
-                  ),
+                  hintText: "الإجابه الصحيحه",
                 ),
-                TextField(
+                MyTextFeild(
                   controller: wrongAnswer1Controller,
-                  decoration: const InputDecoration(
-                    labelText: 'Wrong Answer 1',
-                  ),
+                  labelText: "الإجابه الخاطئه 1",
+                  hintText: "الإجابه الخاطئه 1",
                 ),
-                TextField(
+                MyTextFeild(
                   controller: wrongAnswer2Controller,
-                  decoration: const InputDecoration(
-                    labelText: 'Wrong Answer 2',
-                  ),
+                  labelText: "الإجابه الخاطئه 2",
+                  hintText: "الإجابه الخاطئه 2",
                 ),
-                TextField(
+                MyTextFeild(
                   controller: wrongAnswer3Controller,
-                  decoration: const InputDecoration(
-                    labelText: 'Wrong Answer 3',
-                  ),
+                  labelText: "الإجابه الخاطئه 3",
+                  hintText: "الإجابه الخاطئه 3",
                 ),
               ],
             ),
           ),
-          actions: <Widget>[
+          actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(context, false);
               },
-              child: const Text('Cancel'),
+              child: const Text('الغاء'),
             ),
             TextButton(
               onPressed: () {
@@ -180,7 +179,7 @@ class ExamDetailsController extends GetxController {
                 update();
                 Navigator.pop(context, true);
               },
-              child: const Text('Save'),
+              child: const Text('حفظ'),
             ),
           ],
         );

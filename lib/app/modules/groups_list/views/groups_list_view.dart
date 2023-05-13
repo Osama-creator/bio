@@ -34,18 +34,33 @@ class GroupsListView extends GetView<GroupsListController> {
                       onTap: () {
                         controller.navigate(index);
                       },
-                      onLongPress: () => controller
-                          .deleteGroup(controller.groupList[index].id),
                       child: Padding(
                         padding: const EdgeInsets.all(6.0),
                         child: Card(
                           elevation: 10,
                           color: AppColors.grey,
-                          child: Column(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(controller.groupList[index].name),
-                              Text(
-                                  "${controller.groupList[index].students!.length} طالب")
+                              const Spacer(),
+                              Column(
+                                children: [
+                                  Text(controller.groupList[index].name),
+                                  Text(
+                                      "${controller.groupList[index].students!.length} طالب")
+                                ],
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  controller.deleteGroup(
+                                      controller.groupList[index].id);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: AppColors.white,
+                                ),
+                              ),
                             ],
                           ),
                         ),

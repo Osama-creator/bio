@@ -33,13 +33,6 @@ class ExamsPageView extends GetView<ExamsPageController> {
                           itemCount: controller.examList.length,
                           itemBuilder: (context, index) {
                             return InkWell(
-                              onDoubleTap: () {
-                                Get.toNamed(Routes.STUDENT_MARKES_FOR_TEACHER,
-                                    arguments: [
-                                      controller.examList[index],
-                                      controller.args
-                                    ]);
-                              },
                               onTap: () {
                                 controller.navigateExamPage(index);
                               },
@@ -66,8 +59,13 @@ class ExamsPageView extends GetView<ExamsPageController> {
                                         ),
                                         IconButton(
                                             onPressed: () {
-                                              controller
-                                                  .navigateExamPage(index);
+                                              Get.toNamed(
+                                                  Routes
+                                                      .STUDENT_MARKES_FOR_TEACHER,
+                                                  arguments: [
+                                                    controller.examList[index],
+                                                    controller.args
+                                                  ]);
                                             },
                                             icon: const Icon(
                                               Icons.group,
