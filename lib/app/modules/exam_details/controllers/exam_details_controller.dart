@@ -10,30 +10,28 @@ import '../../../data/models/question_model.dart';
 
 class ExamDetailsController extends GetxController {
   final args = Get.arguments as List;
+  RxList<Question> questions = RxList<Question>([]);
   late Exam exam;
   @override
   void onInit() {
     exam = args[1];
+    questions.addAll(args[1].questions!);
     super.onInit();
   }
 
   void updateQuestionInFirebase(int index, Question newQuestion) async {
     try {
-      // Get the reference to the exam document in Firebase
       var examRef = FirebaseFirestore.instance
           .collection('grades')
           .doc(args[0])
           .collection('exams')
           .doc(args[1].id);
 
-      // Get the question data from the exam document
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
 
-      // Update the question data with the new question
       questionDataList[index] = newQuestion.toJson();
 
-      // Update the exam document in Firebase with the updated question data
       await examRef.update({'questions': questionDataList});
       Get.snackbar('تم', "تم التعديل بنجاح");
     } catch (e) {
@@ -45,36 +43,25 @@ class ExamDetailsController extends GetxController {
   void editQuestion(int index, Question newQuestion) {
     args[1].questions[index] = newQuestion;
     updateQuestionInFirebase(index, newQuestion);
-    update();
+    questions[index] = newQuestion; // update the question in the RxList
+    update(); // rebuild the widget with the updated question
   }
-
-  // Future<File?> pickImage() async {
-  //   final picker = ImagePicker();
-  //   final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     return File(pickedFile.path);
-  //   } else {
-  //     return null;
-  //   }
-  // }
 
   void removeQuestion(int index) async {
     try {
-      // Get the reference to the exam document in Firebase
       var examRef = FirebaseFirestore.instance
           .collection('grades')
           .doc(args[0])
           .collection('exams')
           .doc(args[1].id);
 
-      // Get the question data from the exam document
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
 
-      // Remove the question data from the question list
+      questions.remove(questions[index]);
+      update();
       questionDataList.removeAt(index);
 
-      // Update the exam document in Firebase with the updated question data
       await examRef.update({'questions': questionDataList});
       Get.snackbar('تم', "تم الحذف بنجاح");
     } catch (e) {
@@ -85,21 +72,19 @@ class ExamDetailsController extends GetxController {
 
   void addQuestion(Question newQuestion) async {
     try {
-      // Get the reference to the exam document in Firebase
       var examRef = FirebaseFirestore.instance
           .collection('grades')
           .doc(args[0])
           .collection('exams')
           .doc(args[1].id);
 
-      // Get the question data from the exam document
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
 
-      // Add the new question data to the question list
+      questions.add(newQuestion);
+      update();
       questionDataList.add(newQuestion.toJson());
 
-      // Update the exam document in Firebase with the updated question data
       await examRef.update({'questions': questionDataList});
       Get.snackbar('تم', "تمت الإضافة بنجاح");
     } catch (e) {
@@ -112,7 +97,6 @@ class ExamDetailsController extends GetxController {
       {Question? initialQuestion, bool? isNew, int? index}) async {
     Question question = exam.questions[index!];
 
-    // Set up controllers with initial values if provided
     TextEditingController questionController =
         TextEditingController(text: initialQuestion?.question ?? '');
     TextEditingController rightAnswerController =
@@ -176,7 +160,6 @@ class ExamDetailsController extends GetxController {
             ),
             TextButton(
               onPressed: () {
-                // Create a new Question object with the entered data
                 Question newQuestion = Question(
                   id: question.id ?? const Uuid().v1(),
                   image: question.image ?? "",
@@ -189,13 +172,12 @@ class ExamDetailsController extends GetxController {
                   ],
                 );
 
-                // Call the appropriate function based on whether we're editing an existing question or adding a new one
                 if (initialQuestion == null) {
                   addQuestion(newQuestion);
                 } else {
                   editQuestion(index, newQuestion);
                 }
-
+                update();
                 Navigator.pop(context, true);
               },
               child: const Text('Save'),
@@ -215,7 +197,6 @@ class ExamDetailsController extends GetxController {
       },
     );
 
-    // If the dialog was closed by pressing the "Save" button, update the state
     if (result == true) {
       update();
     }

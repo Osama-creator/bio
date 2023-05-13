@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 
 import '../../../data/models/group_model.dart';
 import '../../../data/models/student_model.dart';
-import '../../groups_list/controllers/groups_list_controller.dart';
 
 class EditGroupController extends GetxController {
   final args = Get.arguments as Group;
@@ -16,7 +15,7 @@ class EditGroupController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    GroupsListController().getData();
+
     if (args.students != null) {
       students.addAll(args.students!);
     }
