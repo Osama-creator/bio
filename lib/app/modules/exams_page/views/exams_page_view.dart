@@ -20,36 +20,48 @@ class ExamsPageView extends GetView<ExamsPageController> {
             ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: controller.examList.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onDoubleTap: () {
-                          Get.toNamed(Routes.STUDENT_MARKES_FOR_TEACHER,
-                              arguments: [
-                                controller.examList[index],
-                                controller.args
-                              ]);
-                        },
-                        onLongPress: () => controller
-                            .deleteGroup(controller.examList[index].id),
-                        onTap: () {
-                          controller.navigateExamPage(index);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Card(
-                            elevation: 10,
-                            color: AppColors.grey,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Text(controller.examList[index].name),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                : FutureBuilder(
+                    future: controller.getData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Center(
+                          child: Text('Error: ${snapshot.error}'),
+                        );
+                      }
+                      {
+                        return ListView.builder(
+                          itemCount: controller.examList.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onDoubleTap: () {
+                                Get.toNamed(Routes.STUDENT_MARKES_FOR_TEACHER,
+                                    arguments: [
+                                      controller.examList[index],
+                                      controller.args
+                                    ]);
+                              },
+                              onLongPress: () => controller
+                                  .deleteGroup(controller.examList[index].id),
+                              onTap: () {
+                                controller.navigateExamPage(index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Card(
+                                  elevation: 10,
+                                  color: AppColors.grey,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child:
+                                        Text(controller.examList[index].name),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    }),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.startFloat,
             floatingActionButton: FloatingActionButton.extended(
