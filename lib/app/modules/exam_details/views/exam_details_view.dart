@@ -21,36 +21,61 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
               itemCount: controller.questions.length,
               itemBuilder: (context, index) {
                 final question = controller.questions[index];
-                return InkWell(
-                  onTap: () {
-                    controller.showEditQuestionSheet(
-                        index: index, isNew: false, initialQuestion: question);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Card(
-                      elevation: 10,
-                      color: const Color.fromARGB(255, 156, 169, 187),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Text(question.question!),
-                            if (question.image!.isNotEmpty) ...[
-                              SizedBox(
-                                  height: context.height * 0.2,
-                                  width: context.width * 0.8,
-                                  child: Image.network(
-                                    question.image!,
-                                    fit: BoxFit.contain,
-                                  )),
+                return Padding(
+                  padding: const EdgeInsets.all(6.0),
+                  child: Card(
+                    elevation: 10,
+                    color: const Color.fromARGB(255, 156, 169, 187),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  controller.removeQuestion(index);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: AppColors.white,
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    controller.showEditQuestionSheet(
+                                        index: index,
+                                        isNew: false,
+                                        initialQuestion: question);
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: AppColors.white,
+                                  ))
                             ],
-                            Text(question.rightAnswer),
-                            Text(question.wrongAnswers![0]),
-                            Text(question.wrongAnswers![1]),
-                            Text(question.wrongAnswers![2]),
+                          ),
+                          Text(question.question!,
+                              style: context.textTheme.headline6!.copyWith(
+                                  color: AppColors.primary,
+                                  fontWeight: FontWeight.bold)),
+                          if (question.image!.isNotEmpty) ...[
+                            SizedBox(
+                                height: context.height * 0.2,
+                                width: context.width * 0.8,
+                                child: Image.network(
+                                  question.image!,
+                                  fit: BoxFit.contain,
+                                )),
                           ],
-                        ),
+                          const Divider(),
+                          Text(question.rightAnswer),
+                          const Divider(),
+                          Text(question.wrongAnswers![0]),
+                          const Divider(),
+                          Text(question.wrongAnswers![1]),
+                          const Divider(),
+                          Text(question.wrongAnswers![2]),
+                        ],
                       ),
                     ),
                   ),

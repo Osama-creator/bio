@@ -40,8 +40,6 @@ class ExamsPageView extends GetView<ExamsPageController> {
                                       controller.args
                                     ]);
                               },
-                              onLongPress: () => controller
-                                  .deleteGroup(controller.examList[index].id),
                               onTap: () {
                                 controller.navigateExamPage(index);
                               },
@@ -52,8 +50,31 @@ class ExamsPageView extends GetView<ExamsPageController> {
                                   color: AppColors.grey,
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),
-                                    child:
+                                    child: Row(
+                                      children: [
                                         Text(controller.examList[index].name),
+                                        const Spacer(),
+                                        IconButton(
+                                          onPressed: () {
+                                            controller.deleteGroup(
+                                                controller.examList[index].id);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: AppColors.white,
+                                          ),
+                                        ),
+                                        IconButton(
+                                            onPressed: () {
+                                              controller
+                                                  .navigateExamPage(index);
+                                            },
+                                            icon: const Icon(
+                                              Icons.group,
+                                              color: AppColors.white,
+                                            ))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

@@ -182,16 +182,6 @@ class ExamDetailsController extends GetxController {
               },
               child: const Text('Save'),
             ),
-            if (!isNew!) ...[
-              TextButton(
-                onPressed: () {
-                  removeQuestion(index);
-                  update();
-                  Navigator.pop(context, true);
-                },
-                child: const Text('delete'),
-              ),
-            ]
           ],
         );
       },
