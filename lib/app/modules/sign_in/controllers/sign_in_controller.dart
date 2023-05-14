@@ -13,9 +13,12 @@ class SignInController extends GetxController {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
   Rx<bool> isTeacher = false.obs;
+  bool loading = false;
 
   Future<void> login() async {
     try {
+      loading = true;
+      update();
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(
               email: emailC.text, password: passwordC.text);
@@ -40,18 +43,26 @@ class SignInController extends GetxController {
               'grade_id': data['grade_id'],
               'grade': data['grade'],
             }));
+        loading = false;
+        update();
         Get.offAllNamed(Routes.HOME, arguments: data);
       }
       if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
+        loading = false;
+        update();
         Get.offAllNamed(Routes.TEACHER_HOME);
       }
     } on FirebaseAuthException catch (e) {
+      loading = false;
+      update();
       if (e.code == 'user-not-found') {
         Get.snackbar('Error', 'هذا الحساب غير موجود');
       } else if (e.code == 'wrong-password') {
         Get.snackbar('Error', 'كلمة السر غير صحيحة');
       }
     } catch (e) {
+      loading = false;
+      update();
       log(e.toString());
       Get.snackbar('Error', e.toString());
     }

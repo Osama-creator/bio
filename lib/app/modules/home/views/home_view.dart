@@ -17,12 +17,31 @@ class HomeView extends GetView<HomeController> {
               title: const Text('الإمتحانات'),
               automaticallyImplyLeading: false,
               actions: [
-                IconButton(
-                    onPressed: () {
-                      controller.signOut();
-                    },
-                    icon: const Icon(Icons.logout)),
+                PopupMenuButton<String>(
+                  onSelected: (value) async {
+                    switch (value) {
+                      case 'signOut':
+                        controller.signOut();
+                        break;
+                    }
+                  },
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      const PopupMenuItem<String>(
+                        value: 'signOut',
+                        child: Text('تسجيل الخروج'),
+                      ),
+                    ];
+                  },
+                ),
               ],
+              // actions: [
+              //   IconButton(
+              //       onPressed: () {
+              //         controller.signOut();
+              //       },
+              //       icon: const Icon(Icons.logout)),
+              // ],
             ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())

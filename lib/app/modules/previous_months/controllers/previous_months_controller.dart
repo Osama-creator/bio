@@ -44,6 +44,23 @@ class PreviousMonthsController extends GetxController {
     }
   }
 
+  Future<void> deleteGroupMonth(String monthId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('groups')
+          .doc(args.id)
+          .collection('group previous months')
+          .doc(monthId)
+          .delete();
+      groupList.removeWhere((month) => month.groupId == monthId);
+      update();
+      Get.snackbar('Success', 'تم حذف الشهر بنجاح');
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    }
+  }
+
   void navigate(int index) {
     Get.offAndToNamed(
       Routes.PREVIOUS_MONTHS_DETAILS,

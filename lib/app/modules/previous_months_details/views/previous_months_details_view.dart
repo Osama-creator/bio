@@ -14,7 +14,7 @@ class PreviousMonthsDetailsView
     return GetBuilder<PreviousMonthsDetailsController>(
         init: controller,
         builder: (controller) {
-          bool checked = false;
+          // bool checked = false;
           return Scaffold(
             appBar: AppBar(
               title: const Text("تقرير شهر"),
@@ -27,7 +27,7 @@ class PreviousMonthsDetailsView
                   style: context.textTheme.headline2,
                 ),
                 trailing: Text(
-                  controller.getStudentPrice().toInt().toString(),
+                  controller.getPriceBeforeDiscount().toInt().toString(),
                   style: context.textTheme.headline2,
                 ),
               ),
@@ -49,9 +49,7 @@ class PreviousMonthsDetailsView
                   style: context.textTheme.headline2,
                 ),
                 trailing: Text(
-                  (controller.getStudentPrice() - controller.getStudentDis())
-                      .toInt()
-                      .toString(),
+                  controller.getPriceAfterDiscount().toInt().toString(),
                   style: context.textTheme.headline2,
                 ),
               ),
@@ -69,7 +67,7 @@ class PreviousMonthsDetailsView
                             .copyWith(color: AppColors.black, fontSize: 18),
                       ),
                       trailing: Text(
-                        "صافي : ${(student.price!)}    | غياب ${student.absence}  | خصم ${controller.totalAfterdiscount(index)}",
+                        "صافي : ${(student.price! / controller.args.sessions! * (controller.args.sessions! - student.absence)).toInt().toString()}    | غياب ${student.absence}  | خصم ${controller.totalAfterdiscount(index)}",
                         style: context.textTheme.bodyText2!
                             .copyWith(color: AppColors.primary, fontSize: 14),
                       ),

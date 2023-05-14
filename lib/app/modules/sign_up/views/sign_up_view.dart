@@ -68,24 +68,32 @@ class SignUpView extends GetView<SignUpController> {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                  vertical: context.height * 0.05),
-              child: SizedBox(
-                height: context.height * 0.06,
-                width: context.width,
-                child: ElevatedButton(
-                  onPressed: () => controller.signUp(),
-                  child: Text(
-                    'إنشاء حساب',
-                    style: context.textTheme.headline6!.copyWith(
-                      fontSize: 18,
+            GetBuilder<SignUpController>(
+                init: controller,
+                builder: (_) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: context.width * 0.1,
+                        vertical: context.height * 0.05),
+                    child: SizedBox(
+                      height: context.height * 0.06,
+                      width: context.width,
+                      child: ElevatedButton(
+                        onPressed: () => controller.signUp(),
+                        child: controller.isLoading
+                            ? const CircularProgressIndicator(
+                                color: AppColors.white,
+                              )
+                            : Text(
+                                'إنشاء حساب',
+                                style: context.textTheme.headline6!.copyWith(
+                                  fontSize: 18,
+                                ),
+                              ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  );
+                }),
           ],
         ),
       ),

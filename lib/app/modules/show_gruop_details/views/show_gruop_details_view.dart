@@ -20,25 +20,60 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
               title: Text(controller.args.name),
               centerTitle: true,
               actions: [
-                IconButton(
-                  onPressed: () {
-                    Get.offAndToNamed(Routes.EDIT_GROUP,
-                        arguments: controller.args);
+                PopupMenuButton<String>(
+                  onSelected: (value) async {
+                    switch (value) {
+                      case 'details':
+                        Get.toNamed(Routes.MONTHLY_REPORT,
+                            arguments: controller.args);
+                        break;
+                      case 'edit':
+                        Get.offAndToNamed(Routes.EDIT_GROUP,
+                            arguments: controller.args);
+                        break;
+                      case 'pre_monthes':
+                        controller.navigateToPrevMonths();
+                        break;
+                    }
                   },
-                  icon: const Icon(
-                    Icons.edit,
-                  ),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      const PopupMenuItem<String>(
+                        value: 'details',
+                        child: Text('تقارير الشهر'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'edit',
+                        child: Text('تعديل'),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'pre_monthes',
+                        child: Text('الشهور الماضيه'),
+                      ),
+                    ];
+                  },
                 ),
               ],
-              leading: IconButton(
-                onPressed: () {
-                  Get.toNamed(Routes.MONTHLY_REPORT,
-                      arguments: controller.args);
-                },
-                icon: const Icon(
-                  Icons.report_sharp,
-                ),
-              ),
+              // actions: [
+              //   IconButton(
+              //     onPressed: () {
+              // Get.offAndToNamed(Routes.EDIT_GROUP,
+              //     arguments: controller.args);
+              //     },
+              //     icon: const Icon(
+              //       Icons.edit,
+              //     ),
+              //   ),
+              // ],
+              // leading: IconButton(
+              //   onPressed: () {
+              //     Get.toNamed(Routes.MONTHLY_REPORT,
+              //         arguments: controller.args);
+              //   },
+              //   icon: const Icon(
+              //     Icons.report_sharp,
+              //   ),
+              // ),
             ),
             body: Column(
               children: [
@@ -164,24 +199,24 @@ class ShowGruopDetailsView extends GetView<ShowGruopDetailsController> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: context.height * 0.07,
-                    width: context.width * 0.8,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        controller.navigateToPrevMonths();
-                      },
-                      child: Text(
-                        'الشهور الماضيه',
-                        style: context.textTheme.headline6!.copyWith(
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.all(8.0),
+                //   child: SizedBox(
+                //     height: context.height * 0.07,
+                //     width: context.width * 0.8,
+                //     child: ElevatedButton(
+                //       onPressed: () {
+                //         controller.navigateToPrevMonths();
+                //       },
+                //       child: Text(
+                //         'الشهور الماضيه',
+                //         style: context.textTheme.headline6!.copyWith(
+                //           fontSize: 18,
+                //         ),
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SizedBox(

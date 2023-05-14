@@ -10,7 +10,16 @@ class PreviousMonthsDetailsController extends GetxController {
       price += student.price!;
     }
 
-    return (price / args.sessions!);
+    return (price / args.sessions!) * args.sessions!;
+  }
+
+  double getPriceBeforeDiscount() {
+    double price = 0;
+    for (var student in args.students!) {
+      price += student.price!;
+    }
+
+    return price;
   }
 
   double getStudentDis() {
@@ -19,6 +28,15 @@ class PreviousMonthsDetailsController extends GetxController {
       price += (student.price! / args.sessions! * student.absence).toInt();
     }
     return price;
+  }
+
+  double getPriceAfterDiscount() {
+    double price = 0;
+    for (var student in args.students!) {
+      price += student.price!;
+    }
+
+    return price - getStudentDis();
   }
 
   int totalAfterdiscount(int index) {

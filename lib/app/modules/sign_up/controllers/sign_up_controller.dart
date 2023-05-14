@@ -17,6 +17,7 @@ class SignUpController extends GetxController {
   var gradeList = <GradeItem>[];
   var selectedGrade = Rx<GradeItem?>(null);
   Rx<bool> isTeacher = false.obs;
+  bool isLoading = false;
 
   @override
   void onInit() {
@@ -78,20 +79,10 @@ class SignUpController extends GetxController {
     );
   }
 
-  Future<void> checkUserSignIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userToken = prefs.getString('userToken');
-    if (userToken != null) {
-      final userData = prefs.getString('userData');
-      if (userData != null) {
-        final data = jsonDecode(userData);
-        Get.offAllNamed(Routes.HOME, arguments: data);
-      }
-    }
-  }
-
   Future<void> signUp() async {
     try {
+      isLoading = true;
+      update();
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailC.text, password: passwordC.text);
@@ -119,15 +110,20 @@ class SignUpController extends GetxController {
             'grade_id': selectedGrade.value!.id,
             'grade': selectedGrade.value!.name,
           }));
-
+      isLoading = false;
+      update();
       Get.offAndToNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
+      isLoading = false;
+      update();
       if (e.code == 'weak-password') {
         Get.snackbar('Error', 'كلمه السر ضعيفه');
       } else if (e.code == 'email-already-in-use') {
         Get.snackbar('Error', 'هذا الحساب موجود بالفعل');
       }
     } catch (e) {
+      isLoading = false;
+      update();
       log(e.toString());
       Get.snackbar('Error', e.toString());
     }

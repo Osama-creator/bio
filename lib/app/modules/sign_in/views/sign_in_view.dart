@@ -64,24 +64,32 @@ class SignInView extends GetView<SignInController> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: context.width * 0.1,
-                  vertical: context.height * 0.05),
-              child: SizedBox(
-                height: context.height * 0.06,
-                width: context.width,
-                child: ElevatedButton(
-                  onPressed: () => controller..login(),
-                  child: Text(
-                    'تسجيل الدخول',
-                    style: context.textTheme.headline6!.copyWith(
-                      fontSize: 18,
+            GetBuilder<SignInController>(
+                init: controller,
+                builder: (_) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: context.width * 0.1,
+                        vertical: context.height * 0.05),
+                    child: SizedBox(
+                      height: context.height * 0.06,
+                      width: context.width,
+                      child: ElevatedButton(
+                        onPressed: () => controller..login(),
+                        child: controller.loading
+                            ? const CircularProgressIndicator(
+                                color: AppColors.white,
+                              )
+                            : Text(
+                                'تسجيل الدخول',
+                                style: context.textTheme.headline6!.copyWith(
+                                  fontSize: 18,
+                                ),
+                              ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  );
+                }),
             InkWell(
               onTap: () => Get.toNamed(Routes.SIGN_UP),
               child: Padding(
@@ -94,7 +102,7 @@ class SignInView extends GetView<SignInController> {
                       .copyWith(fontSize: 18, color: AppColors.primary),
                 ),
               ),
-            ),
+            )
           ],
         ),
       ),

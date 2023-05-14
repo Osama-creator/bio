@@ -23,32 +23,58 @@ class PreviousMonthsView extends GetView<PreviousMonthsController> {
             ),
             body: controller.isLoading
                 ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    itemCount: controller.groupList.length,
-                    itemBuilder: (context, index) {
-                      String formattedDate = DateFormat('yyyy / MM')
-                          .format(controller.groupList[index].date.toDate());
-                      return InkWell(
-                        onTap: () {
-                          controller.navigate(index);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Card(
-                            elevation: 10,
-                            color: AppColors.grey,
-                            child: Column(
-                              children: [
-                                Text(formattedDate),
-                                Text(
-                                    "${controller.groupList[index].students!.length} طالب")
-                              ],
-                            ),
-                          ),
+                : controller.groupList.isEmpty
+                    ? Center(
+                        child: Text(
+                          " لا يوجد شهور ماضيه بعد ...",
+                          style: context.textTheme.headline6!
+                              .copyWith(color: AppColors.primary),
                         ),
-                      );
-                    },
-                  ),
+                      )
+                    : ListView.builder(
+                        itemCount: controller.groupList.length,
+                        itemBuilder: (context, index) {
+                          String formattedDate = DateFormat('yyyy / MM').format(
+                              controller.groupList[index].date.toDate());
+                          return InkWell(
+                            onTap: () {
+                              controller.navigate(index);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: Card(
+                                elevation: 10,
+                                color: AppColors.grey,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const Spacer(),
+                                    Column(
+                                      children: [
+                                        Text(formattedDate),
+                                        Text(
+                                            "${controller.groupList[index].students!.length} طالب")
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.deleteGroupMonth(controller
+                                            .groupList[index].groupId);
+                                      },
+                                      icon: const Icon(
+                                        Icons.delete,
+                                        color: AppColors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
           );
         });
   }

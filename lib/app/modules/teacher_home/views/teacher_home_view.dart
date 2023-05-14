@@ -1,6 +1,5 @@
 import 'package:bio/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -25,20 +24,26 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
           title: const Text('الصفحه الرئيسية'),
           automaticallyImplyLeading: false,
           actions: [
-            IconButton(
-                onPressed: () async {
-                  try {
+            PopupMenuButton<String>(
+              onSelected: (value) async {
+                switch (value) {
+                  case 'signOut':
                     await FirebaseAuth.instance.signOut();
                     final prefs = await SharedPreferences.getInstance();
                     await prefs.clear();
                     Get.offAllNamed(Routes.SIGN_IN);
-                  } catch (e) {
-                    if (kDebugMode) {
-                      print('Error while signing out: $e');
-                    }
-                  }
-                },
-                icon: const Icon(Icons.logout)),
+                    break;
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem<String>(
+                    value: 'signOut',
+                    child: Text('تسجيل الخروج'),
+                  ),
+                ];
+              },
+            ),
           ],
           bottom: const TabBar(
             tabs: [
@@ -47,9 +52,9 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const GradesListView(),
+            GradesListView(),
             GroupsListView(),
           ],
         ),
