@@ -16,6 +16,8 @@ class CreateExamController extends GetxController {
   final args = Get.arguments as GradeItem;
   TextEditingController examNameController = TextEditingController();
   final List<QuestionC> questions = [];
+  DateTime nowDate = DateTime.now();
+
   bool isLoading = false;
 
   void addQuestion() {
@@ -66,6 +68,7 @@ class CreateExamController extends GetxController {
     Exam newExam = Exam(
       name: examName,
       id: const Uuid().v1(),
+      date: nowDate,
       questions: examQuestions,
     );
 

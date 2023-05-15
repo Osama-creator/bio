@@ -35,6 +35,7 @@ class HomeController extends GetxController {
           .collection('exams')
           .get();
       examList.clear();
+
       for (var exam in exams.docs) {
         List<dynamic> questionDataList = exam['questions'];
         List<Question> questionList = [];
@@ -57,9 +58,11 @@ class HomeController extends GetxController {
         examList.add(Exam(
           name: exam['name'],
           id: exam.id,
+          date: (exam['date'] as Timestamp).toDate(),
           questions: questionList,
         ));
       }
+      examList.sort((a, b) => a.date.compareTo(b.date));
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -79,7 +82,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     getData();
-
     super.onInit();
   }
 }

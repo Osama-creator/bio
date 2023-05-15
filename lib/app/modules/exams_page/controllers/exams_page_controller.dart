@@ -41,10 +41,14 @@ class ExamsPageController extends GetxController {
 
         examList.add(Exam(
           name: exam['name'],
+          date: (exam['date'] as Timestamp)
+              .toDate(), // Convert Timestamp to DateTime
           id: exam.id,
           questions: questionList,
         ));
       }
+
+      examList.sort((a, b) => a.date.compareTo(b.date));
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());

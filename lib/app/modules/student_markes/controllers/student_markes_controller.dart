@@ -32,7 +32,7 @@ class StudentMarkesController extends GetxController {
             id: exam.id,
             grade: mark['grade'],
             studentMark: mark['student_mark'],
-            examMark: mark['student_mark']));
+            examMark: mark['exam_mark']));
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());

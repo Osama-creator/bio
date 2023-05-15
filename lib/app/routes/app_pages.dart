@@ -36,8 +36,7 @@ import '../modules/student_exam/bindings/student_exam_binding.dart';
 import '../modules/student_exam/views/student_exam_view.dart';
 import '../modules/student_exam_preview/bindings/student_exam_preview_binding.dart';
 import '../modules/student_exam_preview/views/student_exam_preview_view.dart';
-import '../modules/student_exams_list/bindings/student_exams_list_binding.dart';
-import '../modules/student_exams_list/views/student_exams_list_view.dart';
+
 import '../modules/student_markes/bindings/student_markes_binding.dart';
 import '../modules/student_markes/views/student_markes_view.dart';
 import '../modules/student_markes_for_teacher/bindings/student_markes_for_teacher_binding.dart';
@@ -60,7 +59,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.GROUPS_LIST,
-      page: () => GroupsListView(),
+      page: () => const GroupsListView(),
       binding: GroupsListBinding(),
     ),
     GetPage(
@@ -112,11 +111,6 @@ class AppPages {
       name: _Paths.SIGN_IN,
       page: () => const SignInView(),
       binding: SignInBinding(),
-    ),
-    GetPage(
-      name: _Paths.STUDENT_EXAMS_LIST,
-      page: () => const StudentExamsListView(),
-      binding: StudentExamsListBinding(),
     ),
     GetPage(
       name: _Paths.STUDENT_EXAM,

@@ -90,7 +90,7 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
                 FloatingActionButton.extended(
                   heroTag: "create qustion",
                   onPressed: () {
-                    controller.showEditQuestionSheet(index: 1, isNew: true);
+                    controller.showAddQuestionSheet(initialQuestion: null);
                   },
                   backgroundColor: AppColors.primary,
                   label: Text(
