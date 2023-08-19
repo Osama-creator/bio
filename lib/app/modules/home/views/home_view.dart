@@ -45,54 +45,65 @@ class HomeView extends GetView<HomeController> {
           ),
           body: controller.isLoading
               ? const Center(child: CircularProgressIndicator())
-              : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // Number of columns in the grid
-                  ),
-                  itemCount: controller.examList.length,
-                  itemBuilder: (context, index) {
-                    final exam = controller.examList[index];
+              : !controller.isConfirmed
+                  ? const Center(
+                      child: Text(
+                        "لم يتم تأكيد حسابك بعد",
+                        style: TextStyle(color: AppColors.black),
+                      ),
+                    )
+                  : GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Number of columns in the grid
+                      ),
+                      itemCount: controller.examList.length,
+                      itemBuilder: (context, index) {
+                        final exam = controller.examList[index];
 
-                    return FutureBuilder<bool>(
-                      future: isExamInfoAvailable(exam.id),
-                      builder: (context, snapshot) {
-                        final isExamInfoAvailable = snapshot.data ?? false;
+                        return FutureBuilder<bool>(
+                          future: isExamInfoAvailable(exam.id),
+                          builder: (context, snapshot) {
+                            final isExamInfoAvailable = snapshot.data ?? false;
 
-                        return InkWell(
-                          onTap: () {
-                            controller.navigateExamPage(index);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: Card(
-                              elevation: 10,
-                              color: isExamInfoAvailable
-                                  ? AppColors.primary
-                                  : const Color.fromARGB(255, 138, 157, 180),
+                            return InkWell(
+                              onTap: () {
+                                controller.navigateExamPage(index);
+                              },
                               child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        height: context.height * 0.1,
-                                        width: context.width * 0.3,
-                                        child: Image.asset(
-                                            'assets/images/exam.png'),
-                                      ),
+                                padding: const EdgeInsets.all(6.0),
+                                child: Card(
+                                  elevation: 10,
+                                  color: isExamInfoAvailable
+                                      ? AppColors.primary
+                                      : AppColors.grey,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox(
+                                            height: context.height * 0.1,
+                                            width: context.width * 0.3,
+                                            child: Image.asset(
+                                                'assets/images/exam.png'),
+                                          ),
+                                        ),
+                                        Text(
+                                          exam.name,
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                      ],
                                     ),
-                                    Text(exam.name),
-                                  ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
+                    ),
         );
       },
     );

@@ -27,6 +27,7 @@ class GradesListView extends GetView<GradesListController> {
                         onTap: () {
                           controller.navigate(index);
                         },
+                        onLongPress: () {},
                         child: Padding(
                           padding: const EdgeInsets.all(6.0),
                           child: Card(
@@ -34,7 +35,46 @@ class GradesListView extends GetView<GradesListController> {
                             color: AppColors.grey,
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
-                              child: Text(controller.gradeList[index].name),
+                              child: Row(
+                                children: [
+                                  Text(controller.gradeList[index].name),
+                                  const Spacer(),
+                                  IconButton(
+                                      onPressed: () =>
+                                          controller.editGrade(index),
+                                      icon: const Icon(Icons.edit)),
+                                  IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          barrierDismissible: false,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              content: const Text(
+                                                  "Do you want to delete this grade?"),
+                                              actions: [
+                                                ElevatedButton(
+                                                  child: const Text("Delete"),
+                                                  onPressed: () {
+                                                    controller
+                                                        .deleteGrade(index);
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                                ElevatedButton(
+                                                  child: const Text("Cancel"),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                      icon: const Icon(Icons.delete))
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -70,8 +110,8 @@ class GradesListView extends GetView<GradesListController> {
                       actionsAlignment: MainAxisAlignment.center,
                       actions: [
                         ElevatedButton(
-                          child:
-                              Text("إضافه", style: context.textTheme.headline1),
+                          child: Text("إضافه",
+                              style: context.textTheme.displayLarge),
                           onPressed: () {
                             controller.createGrade();
                             Navigator.of(context).pop();
@@ -85,7 +125,7 @@ class GradesListView extends GetView<GradesListController> {
               backgroundColor: AppColors.primary,
               label: Text(
                 "إضافة صف جديد",
-                style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+                style: context.textTheme.bodyLarge!.copyWith(fontSize: 16),
               ),
               icon: const Icon(Icons.add),
             ),

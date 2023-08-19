@@ -88,7 +88,7 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FloatingActionButton.extended(
-                  heroTag: "create qustion",
+                  heroTag: "create1 qustion",
                   onPressed: () {
                     controller.showAddQuestionSheet(initialQuestion: null);
                   },

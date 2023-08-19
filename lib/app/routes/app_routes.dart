@@ -25,6 +25,7 @@ abstract class Routes {
   static const EDIT_GROUP = _Paths.EDIT_GROUP;
   static const PREVIOUS_MONTHS = _Paths.PREVIOUS_MONTHS;
   static const PREVIOUS_MONTHS_DETAILS = _Paths.PREVIOUS_MONTHS_DETAILS;
+  static const STUDENTS_ACCOUNTS = _Paths.STUDENTS_ACCOUNTS;
 }
 
 abstract class _Paths {
@@ -51,4 +52,5 @@ abstract class _Paths {
   static const EDIT_GROUP = '/edit-group';
   static const PREVIOUS_MONTHS = '/previous-months';
   static const PREVIOUS_MONTHS_DETAILS = '/previous-months-details';
+  static const STUDENTS_ACCOUNTS = '/students-accounts';
 }

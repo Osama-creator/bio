@@ -41,17 +41,17 @@ class ExamsPageController extends GetxController {
 
         examList.add(Exam(
           name: exam['name'],
-          date: (exam['date'] as Timestamp)
-              .toDate(), // Convert Timestamp to DateTime
+          date: (exam['date'] as Timestamp).toDate(),
           id: exam.id,
           questions: questionList,
         ));
       }
 
       examList.sort((a, b) => a.date.compareTo(b.date));
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-      log(e.toString());
+    } catch (e, st) {
+      // Get.snackbar('Error', e.toString());
+      log("stack : $st");
+      log("stack : $e");
     } finally {
       isLoading = false;
       update();

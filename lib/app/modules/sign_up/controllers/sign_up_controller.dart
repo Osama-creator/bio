@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:bio/app/data/models/student_model.dart';
 import 'package:bio/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -86,30 +87,24 @@ class SignUpController extends GetxController {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
               email: emailC.text, password: passwordC.text);
-
+      Student student = Student(
+        name: nameC.text.trim(),
+        grade: selectedGrade.value!.name,
+        password: passwordC.text,
+        email: emailC.text,
+        isConfirmed: false,
+        gradeId: selectedGrade.value!.id,
+      );
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user!.uid)
-          .set({
-        'name': nameC.text,
-        'email': emailC.text,
-        'grade_id': selectedGrade.value!.id,
-        'grade': selectedGrade.value!
-            .name, // assuming gradeList is not empty and selectedGrade has been set
-      });
+          .set(student.toMap());
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
         'userToken',
         userCredential.user!.uid,
       );
-      await prefs.setString(
-          'userData',
-          jsonEncode({
-            'name': nameC.text.trim(),
-            'email': emailC.text.trim(),
-            'grade_id': selectedGrade.value!.id,
-            'grade': selectedGrade.value!.name,
-          }));
+      await prefs.setString('userData', jsonEncode(student.toMap()));
       isLoading = false;
       update();
       Get.offAndToNamed(Routes.HOME);

@@ -36,11 +36,12 @@ import '../modules/student_exam/bindings/student_exam_binding.dart';
 import '../modules/student_exam/views/student_exam_view.dart';
 import '../modules/student_exam_preview/bindings/student_exam_preview_binding.dart';
 import '../modules/student_exam_preview/views/student_exam_preview_view.dart';
-
 import '../modules/student_markes/bindings/student_markes_binding.dart';
 import '../modules/student_markes/views/student_markes_view.dart';
 import '../modules/student_markes_for_teacher/bindings/student_markes_for_teacher_binding.dart';
 import '../modules/student_markes_for_teacher/views/student_markes_for_teacher_view.dart';
+import '../modules/students_accounts/bindings/students_accounts_binding.dart';
+import '../modules/students_accounts/views/students_accounts_view.dart';
 import '../modules/teacher_home/bindings/teacher_home_binding.dart';
 import '../modules/teacher_home/views/teacher_home_view.dart';
 
@@ -156,6 +157,11 @@ class AppPages {
       name: _Paths.PREVIOUS_MONTHS_DETAILS,
       page: () => const PreviousMonthsDetailsView(),
       binding: PreviousMonthsDetailsBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENTS_ACCOUNTS,
+      page: () => const StudentsAccountsView(),
+      binding: StudentsAccountsBinding(),
     ),
   ];
 }

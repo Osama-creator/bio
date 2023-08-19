@@ -27,6 +27,7 @@ class CreateExamController extends GetxController {
 
   Future<void> createExam() async {
     isLoading = true;
+    update();
     String examName = examNameController.text.trim();
     List<Question> examQuestions = [];
     List<Future> uploadTasks = []; // keep track of all the upload tasks
@@ -60,7 +61,7 @@ class CreateExamController extends GetxController {
           questionC.wrongAnswer2C.text.trim(),
           questionC.wrongAnswer3C.text.trim(),
         ],
-        image: questionC.imageString, // set the imageString property here
+        image: questionC.imageString,
         id: const Uuid().v1(),
       ));
     }
@@ -85,6 +86,9 @@ class CreateExamController extends GetxController {
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
+    } finally {
+      isLoading = false;
+      update();
     }
   }
 }

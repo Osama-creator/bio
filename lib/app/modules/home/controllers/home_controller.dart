@@ -19,6 +19,7 @@ class HomeController extends GetxController {
     Get.offAllNamed(Routes.SIGN_IN);
   }
 
+  bool isConfirmed = false;
   bool isLoading = false;
   var examList = <Exam>[];
   bool error = false;
@@ -28,6 +29,8 @@ class HomeController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final userData = prefs.getString('userData');
     final data = jsonDecode(userData!);
+    isConfirmed = data['confirmed'];
+    log(isConfirmed.toString());
     try {
       QuerySnapshot exams = await FirebaseFirestore.instance
           .collection('grades')

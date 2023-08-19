@@ -1,5 +1,5 @@
 class GradeItem {
-  final String name;
+  String name;
   final String id;
 
   GradeItem({

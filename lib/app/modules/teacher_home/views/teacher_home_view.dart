@@ -1,3 +1,4 @@
+import 'package:bio/app/modules/students_accounts/views/students_accounts_view.dart';
 import 'package:bio/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('الصفحه الرئيسية'),
@@ -48,7 +49,8 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
           bottom: const TabBar(
             tabs: [
               Tab(text: 'الإمتحانات'),
-              Tab(text: 'الغياب'),
+              Tab(text: 'الحضور'),
+              Tab(text: 'الحسابات'),
             ],
           ),
         ),
@@ -56,6 +58,7 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
           children: [
             GradesListView(),
             GroupsListView(),
+            StudentsAccountsView(),
           ],
         ),
       ),
