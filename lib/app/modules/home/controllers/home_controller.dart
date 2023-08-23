@@ -13,8 +13,8 @@ import '../../../routes/app_pages.dart';
 class HomeController extends GetxController {
   Future<void> signOut() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('userToken');
     await prefs.remove('userData');
+    await prefs.remove('userToken');
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed(Routes.SIGN_IN);
   }
@@ -25,48 +25,72 @@ class HomeController extends GetxController {
   bool error = false;
 
   Future<void> getData() async {
-    isLoading = true;
-    final prefs = await SharedPreferences.getInstance();
-    final userData = prefs.getString('userData');
-    final data = jsonDecode(userData!);
-    isConfirmed = data['confirmed'];
-    log(isConfirmed.toString());
     try {
-      QuerySnapshot exams = await FirebaseFirestore.instance
+      isLoading = true;
+      update();
+
+      final prefs = await SharedPreferences.getInstance();
+      final userData = prefs.getString('userData');
+
+      if (userData == null) {
+        throw Exception("User data not found in SharedPreferences");
+      }
+
+      final userDataMap = jsonDecode(userData);
+      final userEmail = userDataMap['email'];
+
+      final userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: userEmail)
+          .get();
+
+      if (userSnapshot.size == 0) {
+        throw Exception("User data not found in Firestore");
+      }
+
+      final userDoc = userSnapshot.docs.first;
+      await prefs.setString('userData', jsonEncode(userDoc.data()));
+
+      isConfirmed = userDoc['confirmed'];
+      log(isConfirmed.toString());
+
+      final examsSnapshot = await FirebaseFirestore.instance
           .collection('grades')
-          .doc(data['grade_id'])
+          .doc(userDoc['grade_id'])
           .collection('exams')
           .get();
+
       examList.clear();
 
-      for (var exam in exams.docs) {
-        List<dynamic> questionDataList = exam['questions'];
-        List<Question> questionList = [];
-
-        for (var questionData in questionDataList) {
-          List<dynamic> wrongAnswers = questionData['wrong_answer'];
-          questionList.add(Question(
-              question: questionData['question'],
-              id: questionData['id'],
-              rightAnswer: questionData['right_answer'],
-              image: questionData['image'],
-              wrongAnswers: [
-                wrongAnswers[0],
-                wrongAnswers[1],
-                wrongAnswers[2],
-                questionData['right_answer'],
-              ]..shuffle()));
-        }
+      for (var examDoc in examsSnapshot.docs) {
+        final questionDataList = examDoc['questions'];
+        final questionList = questionDataList.map<Question>((questionData) {
+          final wrongAnswers = List<String>.from(questionData['wrong_answer']);
+          return Question(
+            question: questionData['question'],
+            id: questionData['id'],
+            rightAnswer: questionData['right_answer'],
+            image: questionData['image'],
+            wrongAnswers: [
+              ...wrongAnswers,
+              questionData['right_answer'],
+            ]..shuffle(),
+          );
+        }).toList();
 
         examList.add(Exam(
-          name: exam['name'],
-          id: exam.id,
-          date: (exam['date'] as Timestamp).toDate(),
+          name: examDoc['name'],
+          id: examDoc.id,
+          date: (examDoc['date'] as Timestamp).toDate(),
           questions: questionList,
         ));
       }
+
       examList.sort((a, b) => a.date.compareTo(b.date));
+
+      error = false;
     } catch (e) {
+      error = true;
       Get.snackbar('Error', e.toString());
       log(e.toString());
     } finally {

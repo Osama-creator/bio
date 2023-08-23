@@ -63,6 +63,24 @@ class StudentExamController extends GetxController {
           .collection('exams')
           .doc(exam.id)
           .collection('markes');
+      final prefs = await SharedPreferences.getInstance();
+      final userData = prefs.getString('userData');
+      if (userData == null) {
+        throw Exception("User data not found in SharedPreferences");
+      }
+      final userDataMap = jsonDecode(userData);
+      final userEmail = userDataMap['email'];
+      final userSnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: userEmail)
+          .get();
+      final userMarks = userSnapshot.docs[0]['marks'] + finalMark();
+      log(userMarks.toString());
+      String documentId = userSnapshot.docs[0].id;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(documentId)
+          .update({'marks': userMarks});
       markesCollection.add(studentmark.toJson());
       update();
       Get.back();

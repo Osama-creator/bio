@@ -93,6 +93,7 @@ class SignUpController extends GetxController {
         password: passwordC.text,
         email: emailC.text,
         isConfirmed: false,
+        marks: 0,
         gradeId: selectedGrade.value!.id,
       );
       await FirebaseFirestore.instance
@@ -102,7 +103,7 @@ class SignUpController extends GetxController {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(
         'userToken',
-        userCredential.user!.uid,
+        student.password,
       );
       await prefs.setString('userData', jsonEncode(student.toMap()));
       isLoading = false;

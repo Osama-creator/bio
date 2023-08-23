@@ -20,25 +20,21 @@ class QuestionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double h = MediaQuery.of(context).size.height;
-    double w = MediaQuery.of(context).size.width;
     return GetBuilder<StudentExamController>(
         init: StudentExamController(),
         builder: (controller) {
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  height: context.height * 0.4,
-                  width: context.width * 0.9,
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Center(
                     child: Column(
                       children: [
                         Text(
                           quistion,
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: AppColors.primary,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -46,55 +42,58 @@ class QuestionBody extends StatelessWidget {
                         if (image.isNotEmpty) ...[
                           SizedBox(
                               height: context.height * 0.3,
-                              width: context.width * 0.8,
+                              width: context.width * 0.9,
                               child: Image.network(
                                 image,
                                 fit: BoxFit.contain,
                               )),
+                        ] else ...[
+                          SizedBox(
+                            height: context.height * 0.2,
+                          )
                         ]
                       ],
                     ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Column(
-                  children: [
-                    ...list.map((option) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: h * 0.07,
-                            width: w * 0.8,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: AppColors.primary),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            child: Center(
-                              child: RadioListTile(
-                                value: option,
-                                groupValue:
-                                    controller.quistionList()[index].userChoice,
-                                activeColor: AppColors.primary,
-                                dense: false,
-                                onChanged: (value) {
-                                  controller.selectChoice(value!);
-                                },
-                                title: Text(
-                                  option,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(color: AppColors.primary),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Column(
+                    children: [
+                      ...list.map((option) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: AppColors.primary),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Center(
+                                child: RadioListTile(
+                                  value: option,
+                                  groupValue: controller
+                                      .quistionList()[index]
+                                      .userChoice,
+                                  activeColor: AppColors.primary,
+                                  dense: false,
+                                  onChanged: (value) {
+                                    controller.selectChoice(value!);
+                                  },
+                                  title: Text(
+                                    option,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyLarge!
+                                        .copyWith(color: AppColors.primary),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )),
-                  ],
+                          )),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         });
   }

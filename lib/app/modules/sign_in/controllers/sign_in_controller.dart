@@ -47,7 +47,7 @@ class SignInController extends GetxController {
         update();
         Get.offAllNamed(Routes.HOME, arguments: data);
       }
-      if (isTeacher.value && emailC.text == "mohammed@gmail.com") {
+      if (isTeacher.value && emailC.text == "admin.mo@gmail.com") {
         loading = false;
         update();
         Get.offAllNamed(Routes.TEACHER_HOME);

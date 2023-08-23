@@ -82,7 +82,7 @@ class GradesListView extends GetView<GradesListController> {
                     },
                   ),
             floatingActionButtonLocation:
-                FloatingActionButtonLocation.startFloat,
+                FloatingActionButtonLocation.miniEndFloat,
             floatingActionButton: FloatingActionButton.extended(
               onPressed: () {
                 showDialog(

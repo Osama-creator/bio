@@ -26,6 +26,7 @@ class Student extends Equatable {
   String gradeId;
   String email;
   String password;
+  int? marks;
   bool isConfirmed;
 
   Student({
@@ -34,6 +35,7 @@ class Student extends Equatable {
     required this.gradeId,
     required this.password,
     required this.email,
+    this.marks,
     this.isConfirmed = false,
   });
 
@@ -47,6 +49,7 @@ class Student extends Equatable {
       'password': password,
       'grade_id': gradeId,
       'email': email,
+      'marks': marks,
       'confirmed': isConfirmed,
     };
   }
@@ -58,6 +61,7 @@ class Student extends Equatable {
       password: json['password'],
       isConfirmed: json['confirmed'],
       email: json["email"],
+      marks: json["marks"],
       gradeId: json["grade_id"],
     );
   }

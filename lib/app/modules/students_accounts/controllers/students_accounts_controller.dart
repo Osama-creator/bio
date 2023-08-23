@@ -30,6 +30,21 @@ class StudentsAccountsController extends GetxController {
     }
   }
 
+  String searchQuery = '';
+
+  void setSearchQuery(String query) {
+    searchQuery = query;
+    update();
+  }
+
+  List<Student> get filteredStudents {
+    return studentList.where((student) {
+      final lowerQuery = searchQuery.toLowerCase();
+      final studentName = student.name.toLowerCase();
+      return studentName.contains(lowerQuery);
+    }).toList();
+  }
+
   Future<void> confirmUser(Student student) async {
     try {
       isLoading = true;
@@ -77,7 +92,7 @@ class StudentsAccountsController extends GetxController {
             .doc(documentId)
             .update({'confirmed': false});
 
-        student.isConfirmed = true;
+        student.isConfirmed = false;
         update();
       } else {
         Get.snackbar('Error', 'Student not found');

@@ -42,6 +42,8 @@ import '../modules/student_markes_for_teacher/bindings/student_markes_for_teache
 import '../modules/student_markes_for_teacher/views/student_markes_for_teacher_view.dart';
 import '../modules/students_accounts/bindings/students_accounts_binding.dart';
 import '../modules/students_accounts/views/students_accounts_view.dart';
+import '../modules/students_league/bindings/students_league_binding.dart';
+import '../modules/students_league/views/students_league_view.dart';
 import '../modules/teacher_home/bindings/teacher_home_binding.dart';
 import '../modules/teacher_home/views/teacher_home_view.dart';
 
@@ -160,8 +162,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.STUDENTS_ACCOUNTS,
-      page: () => const StudentsAccountsView(),
+      page: () => StudentsAccountsView(),
       binding: StudentsAccountsBinding(),
+    ),
+    GetPage(
+      name: _Paths.STUDENTS_LEAGUE,
+      page: () => const StudentsLeagueView(),
+      binding: StudentsLeagueBinding(),
     ),
   ];
 }
