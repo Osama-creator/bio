@@ -2,18 +2,11 @@ import 'package:bio/app/routes/app_pages.dart';
 import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-
-  Future<bool> isExamInfoAvailable(String examId) async {
-    final prefs = await SharedPreferences.getInstance();
-    final examInfo = prefs.getString('exam_$examId');
-    return examInfo != null;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +90,8 @@ class HomeView extends GetView<HomeController> {
                                 final exam = controller.examList[index];
 
                                 return FutureBuilder<bool>(
-                                  future: isExamInfoAvailable(exam.id),
+                                  future:
+                                      controller.isExamInfoAvailable(exam.id),
                                   builder: (context, snapshot) {
                                     final isExamInfoAvailable =
                                         snapshot.data ?? false;
@@ -107,14 +101,14 @@ class HomeView extends GetView<HomeController> {
                                         controller.navigateExamPage(index);
                                       },
                                       child: Padding(
-                                        padding: const EdgeInsets.all(6.0),
+                                        padding: const EdgeInsets.all(4.0),
                                         child: Card(
                                           elevation: 10,
                                           color: isExamInfoAvailable
                                               ? AppColors.primary
                                               : AppColors.grey,
                                           child: Padding(
-                                            padding: const EdgeInsets.all(16.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Column(
                                               children: [
                                                 Padding(

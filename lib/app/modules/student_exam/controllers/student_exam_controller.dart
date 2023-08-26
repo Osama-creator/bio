@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:bio/app/data/models/mark.dart';
+import 'package:bio/app/modules/home/controllers/home_controller.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -48,12 +49,29 @@ class StudentExamController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final userData = prefs.getString('userData');
     final data = jsonDecode(userData!);
+
+    // Check if the mark already exists
+    final existingMarkSnapshot = await FirebaseFirestore.instance
+        .collection('grades')
+        .doc(data['grade_id'])
+        .collection('exams')
+        .doc(exam.id)
+        .collection('markes')
+        .where('email', isEqualTo: data['email'])
+        .get();
+
+    if (existingMarkSnapshot.docs.isNotEmpty) {
+      Get.snackbar('Error', 'Mark already uploaded');
+      return;
+    }
+
     Mark studentmark = Mark(
         examName: exam.name,
         grade: data['grade'],
         id: const Uuid().v1(),
         studentMark: finalMark(),
         studentName: data['name'],
+        email: data['email'],
         examMark: quistionList().length);
 
     try {
@@ -82,6 +100,7 @@ class StudentExamController extends GetxController {
           .doc(documentId)
           .update({'marks': userMarks});
       markesCollection.add(studentmark.toJson());
+      Get.find<HomeController>().getData();
       update();
       Get.back();
     } catch (e) {
@@ -104,7 +123,7 @@ class StudentExamController extends GetxController {
         Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
       } else {
         await uploadMark();
-        Get.offAndToNamed(Routes.STUDENT_EXAM_PREVIEW,
+        Get.offAllNamed(Routes.STUDENT_EXAM_PREVIEW,
             arguments: [quistionList(), finalMark(), exam]);
         prefs.setString('exam_${exam.id}', "exam had been entered");
       }

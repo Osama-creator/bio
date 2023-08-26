@@ -43,6 +43,7 @@ class ExamsPageController extends GetxController {
           name: exam['name'],
           date: (exam['date'] as Timestamp).toDate(),
           id: exam.id,
+          isActive: exam['is_active'],
           questions: questionList,
         ));
       }
@@ -70,6 +71,25 @@ class ExamsPageController extends GetxController {
       update();
       Get.snackbar('تم بنجاح', 'تم حذف الإمتحان بنجاح',
           backgroundColor: AppColors.grey);
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    }
+  }
+
+  Future<void> updateExamActivation(String examId, bool isActive) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('grades')
+          .doc(args.id)
+          .collection('exams')
+          .doc(examId)
+          .update({'is_active': isActive});
+      final examIndex = examList.indexWhere((exam) => exam.id == examId);
+      if (examIndex != -1) {
+        examList[examIndex].isActive = isActive;
+        update();
+      }
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());

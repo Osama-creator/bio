@@ -16,6 +16,13 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
             appBar: AppBar(
               title: Text(controller.exam.name),
               centerTitle: true,
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      controller.editExamName();
+                    },
+                    icon: const Icon(Icons.edit))
+              ],
             ),
             body: ListView.builder(
               itemCount: controller.questions.length,
@@ -55,7 +62,7 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
                             ],
                           ),
                           Text(question.question!,
-                              style: context.textTheme.headline6!.copyWith(
+                              style: context.textTheme.titleLarge!.copyWith(
                                   color: AppColors.primary,
                                   fontWeight: FontWeight.bold)),
                           if (question.image!.isNotEmpty) ...[
@@ -95,7 +102,7 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
                   backgroundColor: AppColors.primary,
                   label: Text(
                     "إضافة سؤال",
-                    style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+                    style: context.textTheme.bodyLarge!.copyWith(fontSize: 16),
                   ),
                   icon: const Icon(Icons.add),
                 ),

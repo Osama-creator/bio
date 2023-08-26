@@ -57,7 +57,7 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                                         ElevatedButton(
                                             onPressed: () {
                                               controller.confirmUser(controller
-                                                  .studentList[index]);
+                                                  .filteredStudents[index]);
                                             },
                                             child: controller.isLoading
                                                 ? const CircularProgressIndicator()
@@ -68,7 +68,7 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                                             onPressed: () {
                                               controller.deconfirmUser(
                                                   controller
-                                                      .studentList[index]);
+                                                      .filteredStudents[index]);
                                             },
                                             child: controller.isLoading
                                                 ? const CircularProgressIndicator()

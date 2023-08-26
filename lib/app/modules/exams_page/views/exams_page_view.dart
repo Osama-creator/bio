@@ -47,6 +47,18 @@ class ExamsPageView extends GetView<ExamsPageController> {
                                       children: [
                                         Text(controller.examList[index].name),
                                         const Spacer(),
+                                        Switch(
+                                          value: controller
+                                              .examList[index].isActive,
+                                          activeColor: AppColors.primary,
+                                          inactiveThumbColor: AppColors.white,
+                                          inactiveTrackColor: Colors.white,
+                                          onChanged: (newValue) {
+                                            controller.updateExamActivation(
+                                                controller.examList[index].id,
+                                                newValue);
+                                          },
+                                        ),
                                         IconButton(
                                           onPressed: () {
                                             controller.deleteGroup(
@@ -90,7 +102,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
               backgroundColor: AppColors.primary,
               label: Text(
                 "إضافة إمتحان جديد",
-                style: context.textTheme.bodyText1!.copyWith(fontSize: 16),
+                style: context.textTheme.bodyLarge!.copyWith(fontSize: 16),
               ),
               icon: const Icon(Icons.add),
             ),

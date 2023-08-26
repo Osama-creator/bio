@@ -11,6 +11,7 @@ import '../../../data/models/question_model.dart';
 
 class ExamDetailsController extends GetxController {
   final args = Get.arguments as List;
+  TextEditingController examNameCont = TextEditingController();
   RxList<Question> questions = RxList<Question>([]);
   late Exam exam;
   @override
@@ -46,6 +47,62 @@ class ExamDetailsController extends GetxController {
     updateQuestionInFirebase(index, newQuestion);
     questions[index] = newQuestion; // update the question in the RxList
     update(); // rebuild the widget with the updated question
+  }
+
+  Future<void> updateName() async {
+    try {
+      var examRef = FirebaseFirestore.instance
+          .collection('grades')
+          .doc(args[0])
+          .collection('exams')
+          .doc(args[1].id);
+      await examRef.update(({'name': exam.name}));
+      update();
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    }
+  }
+
+  void editExamName() {
+    examNameCont.text = exam.name;
+    showDialog(
+      context: Get.context!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                MyTextFeild(
+                  width: context.width,
+                  controller: examNameCont,
+                  hintText: 'Edit exma name',
+                  labelText: "exma Name",
+                  onFieldSubmitted: (_) {
+                    false;
+                  },
+                ),
+              ],
+            ),
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: [
+            ElevatedButton(
+              child: Text("Update", style: context.textTheme.displayLarge),
+              onPressed: () {
+                exam.name = examNameCont.text.trim();
+                updateName();
+                examNameCont.clear();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void removeQuestion(int index) async {

@@ -1,3 +1,4 @@
+import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -25,7 +26,7 @@ class StudentMarkesView extends GetView<StudentMarkesController> {
                         padding: const EdgeInsets.all(6.0),
                         child: Card(
                           elevation: 10,
-                          color: const Color.fromARGB(255, 156, 169, 187),
+                          color: AppColors.grey,
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(

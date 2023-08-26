@@ -3,6 +3,7 @@ class Mark {
   final String examName;
   final String grade;
   final String studentName;
+  final String? email;
   final int studentMark;
   final int examMark;
 
@@ -11,6 +12,7 @@ class Mark {
       required this.studentMark,
       this.id,
       required this.grade,
+      this.email,
       required this.examMark,
       required this.studentName});
   Map<String, dynamic> toJson() {
@@ -20,6 +22,7 @@ class Mark {
       'grade': grade,
       'student_mark': studentMark,
       'exam_mark': examMark,
+      'email': email ?? "",
       'id': id,
     };
   }

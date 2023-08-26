@@ -58,6 +58,7 @@ class HomeController extends GetxController {
           .collection('grades')
           .doc(userDoc['grade_id'])
           .collection('exams')
+          .where('is_active', isEqualTo: true)
           .get();
 
       examList.clear();
@@ -85,9 +86,10 @@ class HomeController extends GetxController {
           questions: questionList,
         ));
       }
-
+      for (var element in examList) {
+        isExamInfoAvailable(element.id);
+      }
       examList.sort((a, b) => a.date.compareTo(b.date));
-
       error = false;
     } catch (e) {
       error = true;
@@ -97,6 +99,12 @@ class HomeController extends GetxController {
       isLoading = false;
       update();
     }
+  }
+
+  Future<bool> isExamInfoAvailable(String examId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final examInfo = prefs.getString('exam_$examId');
+    return examInfo != null;
   }
 
   void navigateExamPage(int index) {
