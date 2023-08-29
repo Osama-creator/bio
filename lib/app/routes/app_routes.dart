@@ -27,6 +27,8 @@ abstract class Routes {
   static const PREVIOUS_MONTHS_DETAILS = _Paths.PREVIOUS_MONTHS_DETAILS;
   static const STUDENTS_ACCOUNTS = _Paths.STUDENTS_ACCOUNTS;
   static const STUDENTS_LEAGUE = _Paths.STUDENTS_LEAGUE;
+  static const VIDEOS_PAGE = _Paths.VIDEOS_PAGE;
+  static const VIDEO_PAGE = _Paths.VIDEO_PAGE;
 }
 
 abstract class _Paths {
@@ -55,4 +57,6 @@ abstract class _Paths {
   static const PREVIOUS_MONTHS_DETAILS = '/previous-months-details';
   static const STUDENTS_ACCOUNTS = '/students-accounts';
   static const STUDENTS_LEAGUE = '/students-league';
+  static const VIDEOS_PAGE = '/videos-page';
+  static const VIDEO_PAGE = '/video-page';
 }

@@ -10,10 +10,6 @@ class StudentsLeagueView extends GetView<StudentsLeagueController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('دوري الابطال'),
-          centerTitle: true,
-        ),
         body: GetBuilder<StudentsLeagueController>(
             init: controller,
             builder: (_) {

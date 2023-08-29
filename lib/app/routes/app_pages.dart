@@ -46,6 +46,10 @@ import '../modules/students_league/bindings/students_league_binding.dart';
 import '../modules/students_league/views/students_league_view.dart';
 import '../modules/teacher_home/bindings/teacher_home_binding.dart';
 import '../modules/teacher_home/views/teacher_home_view.dart';
+import '../modules/video_page/bindings/video_page_binding.dart';
+import '../modules/video_page/views/video_page_view.dart';
+import '../modules/videos_page/bindings/videos_page_binding.dart';
+import '../modules/videos_page/views/videos_page_view.dart';
 
 part 'app_routes.dart';
 
@@ -169,6 +173,16 @@ class AppPages {
       name: _Paths.STUDENTS_LEAGUE,
       page: () => const StudentsLeagueView(),
       binding: StudentsLeagueBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEOS_PAGE,
+      page: () => const VideosPageView(),
+      binding: VideosPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIDEO_PAGE,
+      page: () => const VideoPageView(),
+      binding: VideoPageBinding(),
     ),
   ];
 }
