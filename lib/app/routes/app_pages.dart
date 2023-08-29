@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/admin_add_videos/bindings/admin_add_videos_binding.dart';
+import '../modules/admin_add_videos/views/admin_add_videos_view.dart';
 import '../modules/create_exam/bindings/create_exam_binding.dart';
 import '../modules/create_exam/views/create_exam_view.dart';
 import '../modules/create_group/bindings/create_group_binding.dart';
@@ -183,6 +185,11 @@ class AppPages {
       name: _Paths.VIDEO_PAGE,
       page: () => const VideoPageView(),
       binding: VideoPageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN_ADD_VIDEOS,
+      page: () => const AdminAddVideosView(),
+      binding: AdminAddVideosBinding(),
     ),
   ];
 }

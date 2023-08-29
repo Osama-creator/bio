@@ -29,6 +29,7 @@ abstract class Routes {
   static const STUDENTS_LEAGUE = _Paths.STUDENTS_LEAGUE;
   static const VIDEOS_PAGE = _Paths.VIDEOS_PAGE;
   static const VIDEO_PAGE = _Paths.VIDEO_PAGE;
+  static const ADMIN_ADD_VIDEOS = _Paths.ADMIN_ADD_VIDEOS;
 }
 
 abstract class _Paths {
@@ -59,4 +60,5 @@ abstract class _Paths {
   static const STUDENTS_LEAGUE = '/students-league';
   static const VIDEOS_PAGE = '/videos-page';
   static const VIDEO_PAGE = '/video-page';
+  static const ADMIN_ADD_VIDEOS = '/admin-add-videos';
 }
