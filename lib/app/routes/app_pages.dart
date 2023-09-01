@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/add_new_quistion/bindings/add_new_quistion_binding.dart';
+import '../modules/add_new_quistion/views/add_new_quistion_view.dart';
 import '../modules/admin_add_videos/bindings/admin_add_videos_binding.dart';
 import '../modules/admin_add_videos/views/admin_add_videos_view.dart';
 import '../modules/create_exam/bindings/create_exam_binding.dart';
@@ -10,6 +12,8 @@ import '../modules/create_session/bindings/create_session_binding.dart';
 import '../modules/create_session/views/create_session_view.dart';
 import '../modules/edit_group/bindings/edit_group_binding.dart';
 import '../modules/edit_group/views/edit_group_view.dart';
+import '../modules/edit_quistion/bindings/edit_quistion_binding.dart';
+import '../modules/edit_quistion/views/edit_quistion_view.dart';
 import '../modules/exam_details/bindings/exam_details_binding.dart';
 import '../modules/exam_details/views/exam_details_view.dart';
 import '../modules/exams_page/bindings/exams_page_binding.dart';
@@ -190,6 +194,16 @@ class AppPages {
       name: _Paths.ADMIN_ADD_VIDEOS,
       page: () => const AdminAddVideosView(),
       binding: AdminAddVideosBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_NEW_QUISTION,
+      page: () => const AddNewQuistionView(),
+      binding: AddNewQuistionBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_QUISTION,
+      page: () => const EditQuistionView(),
+      binding: EditQuistionBinding(),
     ),
   ];
 }

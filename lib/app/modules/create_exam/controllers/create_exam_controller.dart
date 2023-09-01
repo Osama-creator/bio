@@ -19,6 +19,7 @@ class CreateExamController extends GetxController {
   DateTime nowDate = DateTime.now();
 
   bool isLoading = false;
+  int uploadedQuestionCount = 0; // Track uploaded questions count
 
   void addQuestion() {
     questions.add(QuestionC());
@@ -41,16 +42,16 @@ class CreateExamController extends GetxController {
         uploadTasks.add(uploadTask.whenComplete(() async {
           questionC.imageString = await reference.getDownloadURL();
           questionC.imageUploaded = true;
+          uploadedQuestionCount++; // Increment uploaded question count
+          update(); // Update the UI to reflect the progress
           log(questionC.imageString);
         }));
       } else {
         questionC.imageUploaded = false;
       }
     }
-
     // wait for all the upload tasks to complete
     await Future.wait(uploadTasks);
-
     // create the Question objects with the imageString property
     for (var questionC in questions) {
       examQuestions.add(Question(
@@ -83,9 +84,8 @@ class CreateExamController extends GetxController {
       isLoading = false;
       update();
       Get.back();
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-      log(e.toString());
+    } catch (e, st) {
+      log(st.toString());
     } finally {
       isLoading = false;
       update();
@@ -107,6 +107,7 @@ class QuestionC {
     final tempImage = await Pick.imageFromGallery();
     if (tempImage != null) {
       image = tempImage;
+      Get.find<CreateExamController>().update();
     }
   }
 }

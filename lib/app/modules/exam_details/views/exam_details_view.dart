@@ -1,3 +1,4 @@
+import 'package:bio/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -95,9 +96,11 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FloatingActionButton.extended(
-                  heroTag: "create1 qustion",
+                  heroTag: "create11 qustion",
                   onPressed: () {
-                    controller.showAddQuestionSheet(initialQuestion: null);
+                    Get.offAndToNamed(Routes.ADD_NEW_QUISTION,
+                        arguments: controller.args);
+                    // controller.showAddQuestionSheet(initialQuestion: null);
                   },
                   backgroundColor: AppColors.primary,
                   label: Text(
