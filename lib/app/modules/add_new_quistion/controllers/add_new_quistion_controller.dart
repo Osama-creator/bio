@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bio/app/data/models/question_model.dart';
-import 'package:bio/app/modules/exam_details/controllers/exam_details_controller.dart';
 import 'package:bio/helpers/pick.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -71,7 +70,6 @@ class AddNewQuistionController extends GetxController {
       );
       questionDataList.add(newQuestion.toJson());
       await examRef.update({'questions': questionDataList});
-      Get.find<ExamDetailsController>().onInit();
       Get.back();
       Get.snackbar('تم', "تمت الإضافة بنجاح");
     } catch (e, st) {

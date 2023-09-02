@@ -118,10 +118,15 @@ class HomeView extends GetView<HomeController> {
                                                               'assets/images/exam.png'),
                                                         ),
                                                       ),
-                                                      Text(
-                                                        exam.name,
-                                                        style: const TextStyle(
-                                                            fontSize: 14),
+                                                      Flexible(
+                                                        child: Text(
+                                                          exam.name,
+                                                          overflow:
+                                                              TextOverflow.fade,
+                                                          style:
+                                                              const TextStyle(
+                                                                  fontSize: 14),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

@@ -51,10 +51,16 @@ class ExamDetailsView extends GetView<ExamDetailsController> {
                               ),
                               IconButton(
                                   onPressed: () {
-                                    controller.showEditQuestionSheet(
-                                        index: index,
-                                        isNew: false,
-                                        initialQuestion: question);
+                                    Get.offAndToNamed(Routes.EDIT_QUISTION,
+                                        arguments: [
+                                          ...controller.args,
+                                          question,
+                                          index
+                                        ]);
+                                    // controller.showEditQuestionSheet(
+                                    //     index: index,
+                                    //     isNew: false,
+                                    //     initialQuestion: question);
                                   },
                                   icon: const Icon(
                                     Icons.edit,

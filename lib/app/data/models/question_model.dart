@@ -1,6 +1,7 @@
 class Question {
   final String? id;
   late final String rightAnswer;
+  final String? pick;
   String? userChoice;
   late final String? question;
   late final List<String>? wrongAnswers;
@@ -12,6 +13,7 @@ class Question {
     this.question,
     this.userChoice,
     this.wrongAnswers,
+    this.pick = "",
     this.image = "",
   });
   Map<String, dynamic> toJson() {

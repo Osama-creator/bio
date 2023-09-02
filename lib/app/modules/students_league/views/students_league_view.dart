@@ -1,101 +1,82 @@
-import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import '../../../../config/utils/enums.dart';
 import '../controllers/students_league_controller.dart';
+import 'leagues.dart/bronze.dart';
 
-class StudentsLeagueView extends GetView<StudentsLeagueController> {
+class StudentsLeagueView extends StatelessWidget {
   const StudentsLeagueView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: GetBuilder<StudentsLeagueController>(
-            init: controller,
-            builder: (_) {
-              return controller.isLoading
-                  ? const Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  : controller.studentList.isEmpty
-                      ? const Center(
-                          child: Text("لا يوجد طلاب حتى الان"),
-                        )
-                      : ListView.builder(
-                          itemCount: controller.studentList.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              color: index == 0
-                                  ? Colors.amber[500]
-                                  : AppColors.grey,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "(${(index + 1).toString()})",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 25,
-                                              color: index == 0
-                                                  ? AppColors.black
-                                                  : AppColors.white),
-                                        ),
-                                        SizedBox(
-                                          width: context.width * 0.2,
-                                        ),
-                                        Text(
-                                          controller.studentList[index].name,
-                                          style: TextStyle(
-                                              color: index == 0
-                                                  ? AppColors.black
-                                                  : AppColors.white),
-                                        ),
-                                        const Spacer(),
-                                        if (index == 0) ...[
-                                          const Card(
-                                            child: Padding(
-                                              padding: EdgeInsets.all(4),
-                                              child: Text("💪💪💪"),
-                                            ),
-                                          ),
-                                          const Spacer()
-                                        ]
-                                      ],
-                                    ),
-                                    const Divider(),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "عدد النقاط",
-                                          style: TextStyle(
-                                              color: index == 0
-                                                  ? AppColors.black
-                                                  : AppColors.white),
-                                        ),
-                                        SizedBox(
-                                          width: context.width * 0.1,
-                                        ),
-                                        Text(
-                                          controller.studentList[index].marks!
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: index == 0
-                                                  ? AppColors.black
-                                                  : AppColors.white),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-            }));
+    return GetBuilder<StudentsLeagueController>(
+      init: StudentsLeagueController(),
+      builder: (controller) {
+        Widget leagueWidget;
+        switch (controller.userLeage) {
+          case League.BRONZE:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.brown[50]!,
+              imageNum: "1",
+              leagueFirstColor: Colors.brown,
+              leagueName: 'الدوري البرونزي',
+              level: "الأول",
+              students: controller.leagueStudents[League.BRONZE]!,
+            );
+            break;
+          case League.SILVER:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.grey[100]!,
+              imageNum: "2",
+              leagueFirstColor: Colors.black54,
+              leagueName: 'الدوري الفضي ',
+              level: "الثاني",
+              students: controller.leagueStudents[League.SILVER]!,
+            );
+            break;
+          case League.GOLD:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.white,
+              imageNum: "3",
+              leagueFirstColor: Colors.orange,
+              leagueName: 'الدوري الذهبي ',
+              level: "الثالث",
+              students: controller.leagueStudents[League.GOLD]!,
+            );
+            break;
+          case League.PLATINUM:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.blueGrey[50]!,
+              imageNum: "4",
+              leagueFirstColor: Colors.blueGrey,
+              leagueName: 'الدوري البلاتيني  ',
+              level: "الرابع",
+              students: controller.leagueStudents[League.PLATINUM]!,
+            );
+            break;
+          case League.DIAMOND:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.red[50]!,
+              imageNum: "5",
+              leagueFirstColor: Colors.red,
+              leagueName: 'التااج',
+              level: "الافضل",
+              students: controller.leagueStudents[League.DIAMOND]!,
+            );
+            break;
+        }
+
+        return Scaffold(
+          body: Center(
+            child: leagueWidget,
+          ),
+        );
+      },
+    );
   }
 }

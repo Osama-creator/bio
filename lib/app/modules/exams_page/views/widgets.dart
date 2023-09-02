@@ -41,12 +41,16 @@ class ExamsBody extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    controller.examList[index].name,
-                                    style: const TextStyle(fontSize: 14),
+                                  Flexible(
+                                    child: Text(
+                                      controller.examList[index].name,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(fontSize: 14),
+                                    ),
                                   ),
-                                  const Spacer(),
                                   Switch(
                                     value: controller.examList[index].isActive,
                                     activeColor: AppColors.primary,
