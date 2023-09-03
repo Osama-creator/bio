@@ -27,6 +27,7 @@ class Student extends Equatable {
   String email;
   String password;
   int? marks;
+  int? wPoints;
   bool isConfirmed;
 
   Student({
@@ -36,11 +37,13 @@ class Student extends Equatable {
     required this.password,
     required this.email,
     this.marks,
+    this.wPoints,
     this.isConfirmed = false,
   });
 
   @override
-  List<Object?> get props => [name, grade, password, isConfirmed];
+  List<Object?> get props =>
+      [name, grade, password, isConfirmed, wPoints, marks];
 
   Map<String, dynamic> toMap() {
     return {
@@ -50,6 +53,7 @@ class Student extends Equatable {
       'grade_id': gradeId,
       'email': email,
       'marks': marks,
+      'w_points': wPoints,
       'confirmed': isConfirmed,
     };
   }
@@ -62,6 +66,7 @@ class Student extends Equatable {
       isConfirmed: json['confirmed'],
       email: json["email"],
       marks: json["marks"],
+      wPoints: json["w_points"],
       gradeId: json["grade_id"],
     );
   }

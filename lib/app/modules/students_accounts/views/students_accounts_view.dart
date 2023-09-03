@@ -14,10 +14,42 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
         builder: (_) {
           return Scaffold(
               body: controller.isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const CircularProgressIndicator(),
+                          const SizedBox(height: 16),
+                          controller.upadataingUsers
+                              ? Text(
+                                  '${controller.updatedUsersCount}/${controller.studentList.length} من الطلاب تم تحديث نقاطهم',
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.black),
+                                )
+                              : const SizedBox()
+                        ],
+                      ),
+                    )
                   : SingleChildScrollView(
                       child: Column(
                         children: [
+                          InkWell(
+                            onTap: () {
+                              controller.resetWPointsToZero();
+                            },
+                            child: Card(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: context.width * 0.25,
+                                    vertical: context.height * 0.015),
+                                child: const Column(
+                                  children: [Text("بدء اسبوع جديد")],
+                                ),
+                              ),
+                            ),
+                          ),
                           TextField(
                             onChanged: controller.setSearchQuery,
                             decoration: const InputDecoration(

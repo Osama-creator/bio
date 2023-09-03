@@ -92,12 +92,13 @@ class StudentExamController extends GetxController {
             .where('email', isEqualTo: userEmail)
             .get();
         final userMarks = userSnapshot.docs[0]['marks'] + finalMark();
+        final userWPoints = userSnapshot.docs[0]['w_points'] + finalMark();
         log(userMarks.toString());
         String documentId = userSnapshot.docs[0].id;
         await FirebaseFirestore.instance
             .collection('users')
             .doc(documentId)
-            .update({'marks': userMarks});
+            .update({'marks': userMarks, 'w_points': userWPoints});
         markesCollection.add(studentmark.toJson());
         Get.find<HomeController>().getData();
         update();

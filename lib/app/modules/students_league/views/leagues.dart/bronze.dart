@@ -142,7 +142,7 @@ class LeagueWidget extends StatelessWidget {
                                       Row(
                                         children: [
                                           Text(
-                                            "0",
+                                            students[index].wPoints.toString(),
                                             style: TextStyle(
                                                 color: leagueFirstColor),
                                           ),

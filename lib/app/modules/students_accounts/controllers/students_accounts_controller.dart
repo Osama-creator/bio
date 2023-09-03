@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 class StudentsAccountsController extends GetxController {
   bool isLoading = false;
   List<Student> studentList = [];
-
+  int updatedUsersCount = 0;
+  bool upadataingUsers = false;
   Future<void> getData() async {
     isLoading = true;
     update();
@@ -71,6 +72,33 @@ class StudentsAccountsController extends GetxController {
       log(e.toString());
     } finally {
       isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> resetWPointsToZero() async {
+    try {
+      isLoading = true;
+      upadataingUsers = true;
+      update();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        String documentId = doc.id;
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(documentId)
+            .update({'w_points': 0});
+        updatedUsersCount++;
+        update();
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    } finally {
+      isLoading = false;
+      upadataingUsers = false;
       update();
     }
   }

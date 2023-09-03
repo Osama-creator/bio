@@ -94,6 +94,7 @@ class SignUpController extends GetxController {
         email: emailC.text,
         isConfirmed: false,
         marks: 0,
+        wPoints: 0,
         gradeId: selectedGrade.value!.id,
       );
       await FirebaseFirestore.instance
