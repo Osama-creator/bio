@@ -40,10 +40,10 @@ class StudentsLeagueView extends StatelessWidget {
             leagueWidget = LeagueWidget(
               controller: controller,
               leagueSecondColor: Colors.white,
-              imageNum: "3",
+              imageNum: "4",
               leagueFirstColor: Colors.orange,
               leagueName: 'الدوري الذهبي ',
-              level: "الثالث",
+              level: "الرابع",
               students: controller.leagueStudents[League.GOLD]!,
             );
             break;
@@ -51,31 +51,49 @@ class StudentsLeagueView extends StatelessWidget {
             leagueWidget = LeagueWidget(
               controller: controller,
               leagueSecondColor: Colors.blueGrey[50]!,
-              imageNum: "4",
+              imageNum: "3",
               leagueFirstColor: Colors.blueGrey,
               leagueName: 'الدوري البلاتيني  ',
-              level: "الرابع",
+              level: "الثالث",
               students: controller.leagueStudents[League.PLATINUM]!,
             );
             break;
-          case League.DIAMOND:
+          case League.ACE:
             leagueWidget = LeagueWidget(
               controller: controller,
               leagueSecondColor: Colors.red[50]!,
               imageNum: "5",
               leagueFirstColor: Colors.red,
-              leagueName: 'التااج',
-              level: "الافضل",
-              students: controller.leagueStudents[League.DIAMOND]!,
+              leagueName: 'الماسى',
+              level: "المستوى الخامس",
+              students: controller.leagueStudents[League.ACE]!,
             );
             break;
+          case League.CROWN:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.red[50]!,
+              imageNum: "6",
+              leagueFirstColor: Colors.purple,
+              leagueName: 'التااج',
+              imageScale: 2,
+              level: "المستوى الممتاز",
+              students: controller.leagueStudents[League.CROWN]!,
+            );
+            break;
+          case League.CONQUEROR:
+            leagueWidget = LeagueWidget(
+              controller: controller,
+              leagueSecondColor: Colors.red[50]!,
+              imageNum: "7",
+              leagueFirstColor: Colors.blue,
+              leagueName: 'الكونكر',
+              level: "الافضل",
+              students: controller.leagueStudents[League.CONQUEROR]!,
+            );
         }
 
-        return Scaffold(
-          body: Center(
-            child: leagueWidget,
-          ),
-        );
+        return leagueWidget;
       },
     );
   }

@@ -15,7 +15,6 @@ import '../../../routes/app_pages.dart';
 class StudentExamController extends GetxController {
   late PageController pageController;
   final exam = Get.arguments;
-
   int qNumber = 1;
   List<Question> quistionList() {
     return exam.questions;
@@ -31,18 +30,6 @@ class StudentExamController extends GetxController {
     final currentQuestion = quistionList()[pageController.page!.toInt()];
     currentQuestion.userChoice = value;
     update();
-  }
-
-  bool hasNoAnswer() {
-    late bool qDidnotAnswerd;
-    for (var qAnswer in quistionList()) {
-      if (qAnswer.userChoice == null) {
-        return qDidnotAnswerd = true;
-      } else {
-        return qDidnotAnswerd = false;
-      }
-    }
-    return qDidnotAnswerd;
   }
 
   Future<void> uploadMark() async {
@@ -110,19 +97,28 @@ class StudentExamController extends GetxController {
     }
   }
 
-  void goToNextPage(int index) async {
+  Future<void> goToNextPage(int index) async {
+    // Check if there are more questions
     if (qNumber < quistionList().length) {
       pageController.nextPage(
         duration: const Duration(milliseconds: 500),
         curve: Curves.ease,
       );
       qNumber++;
-      update();
     } else {
-      final prefs = await SharedPreferences.getInstance();
-      if (hasNoAnswer()) {
-        Get.snackbar('تحذير', "يوجد اسئله لم يتم الجواب عليها");
+      bool hasUnansweredQuestions = false; // Initialize the flag
+      for (var element in quistionList()) {
+        if (element.userChoice == null) {
+          hasUnansweredQuestions =
+              true; // Set the flag if an unanswered question is found
+          break; // Exit the loop as soon as an unanswered question is found
+        }
+      }
+
+      if (hasUnansweredQuestions) {
+        Get.snackbar('تحذير', "يوجد أسئلة لم يتم الجواب عليها.");
       } else {
+        final prefs = await SharedPreferences.getInstance();
         await uploadMark();
         Get.offAllNamed(Routes.STUDENT_EXAM_PREVIEW,
             arguments: [quistionList(), finalMark(), exam]);

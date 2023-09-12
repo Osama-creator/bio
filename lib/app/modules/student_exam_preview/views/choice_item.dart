@@ -32,7 +32,7 @@ class ChoiceItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    overflow: TextOverflow.ellipsis,
+                    overflow: TextOverflow.clip,
                     style: const TextStyle(fontSize: 16),
                   ),
                 ),

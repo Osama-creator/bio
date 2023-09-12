@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bio/app/data/models/student_model.dart';
+import 'package:bio/config/utils/colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
@@ -14,8 +15,10 @@ class StudentsAccountsController extends GetxController {
     update();
 
     try {
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isNotEqualTo: 'admin.mo@gmail.com')
+          .get();
       studentList.clear();
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -63,6 +66,36 @@ class StudentsAccountsController extends GetxController {
             .update({'confirmed': true});
 
         student.isConfirmed = true;
+        update();
+      } else {
+        Get.snackbar('Error', 'Student not found');
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> deleteUser(Student student) async {
+    try {
+      isLoading = true;
+      update();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection('users')
+          .where('email', isEqualTo: student.email)
+          .get();
+
+      if (querySnapshot.size == 1) {
+        String documentId = querySnapshot.docs[0].id;
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(documentId)
+            .delete();
+        studentList.remove(student);
+        Get.snackbar('تم', "الحساب اتشيبع", backgroundColor: AppColors.primary);
         update();
       } else {
         Get.snackbar('Error', 'Student not found');

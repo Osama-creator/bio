@@ -22,8 +22,12 @@ class StudentsLeagueController extends GetxController {
       return League.GOLD;
     } else if (points < 400) {
       return League.PLATINUM;
+    } else if (points < 600) {
+      return League.ACE;
+    } else if (points < 500) {
+      return League.CROWN;
     } else {
-      return League.DIAMOND;
+      return League.CONQUEROR;
     }
   }
 
@@ -77,7 +81,8 @@ class StudentsLeagueController extends GetxController {
     League.SILVER: [],
     League.GOLD: [],
     League.PLATINUM: [],
-    League.DIAMOND: [],
+    League.CONQUEROR: [],
+    League.CROWN: [],
   };
   @override
   void onInit() async {

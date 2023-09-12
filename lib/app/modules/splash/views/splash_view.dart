@@ -13,7 +13,7 @@ class SplashView extends GetView<SplashController> {
         child: Image.asset(
           "assets/images/logo.png",
           height: context.height * 0.5,
-          width: context.width * 0.5,
+          width: context.width * 0.8,
         ),
       ),
     );

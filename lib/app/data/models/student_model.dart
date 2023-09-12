@@ -61,13 +61,13 @@ class Student extends Equatable {
   factory Student.fromJson(Map<String, dynamic> json) {
     return Student(
       name: json['name'],
-      grade: json['grade'],
+      grade: json['grade'] ?? "",
       password: json['password'],
-      isConfirmed: json['confirmed'],
+      isConfirmed: json['confirmed'] ?? false,
       email: json["email"],
-      marks: json["marks"],
-      wPoints: json["w_points"],
-      gradeId: json["grade_id"],
+      marks: json["marks"] ?? 0,
+      wPoints: json["w_points"] ?? 0,
+      gradeId: json["grade_id"] ?? "",
     );
   }
 }

@@ -11,12 +11,14 @@ class LeagueWidget extends StatelessWidget {
     required this.leagueName,
     required this.leagueFirstColor,
     required this.level,
+    this.imageScale = 4,
     required this.leagueSecondColor,
     required this.students, // Use the 'students' parameter here
   }) : super(key: key);
 
   final String imageNum;
   final String level;
+  final double imageScale;
   final String leagueName;
   final Color leagueFirstColor;
   final Color leagueSecondColor;
@@ -26,7 +28,7 @@ class LeagueWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: leagueSecondColor,
+      backgroundColor: Colors.white,
       body: GetBuilder<StudentsLeagueController>(
         init: controller,
         builder: (_) {
@@ -34,7 +36,7 @@ class LeagueWidget extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : students.isEmpty // Use the 'students' parameter here
+              : students.isEmpty
                   ? const Center(
                       child: Text("لا يوجد طلاب حتى الان"),
                     )
@@ -55,7 +57,7 @@ class LeagueWidget extends StatelessWidget {
                           ),
                           Image.asset(
                             "assets/images/q$imageNum.png",
-                            scale: 2.5,
+                            scale: imageScale,
                           ),
                           const SizedBox(
                             height: 10,

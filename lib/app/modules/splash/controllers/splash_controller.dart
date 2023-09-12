@@ -1,7 +1,8 @@
+import 'dart:convert';
+
+import 'package:bio/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
   @override
@@ -12,24 +13,22 @@ class SplashController extends GetxController {
 
   Future<void> checkUserSignIn() async {
     final prefs = await SharedPreferences.getInstance();
-    final userToken = prefs.getString('userToken');
     final userData = prefs.getString('userData');
-
     Future.delayed(const Duration(seconds: 2), () {
-      if (userToken != null) {
-        if (userData != null) {
-          Get.offAndToNamed(
-            Routes.HOME,
-          );
+      if (userData != null) {
+        final userDataMap = jsonDecode(userData);
+        final userEmail = userDataMap['email'];
+        final userPassword = userDataMap['password'];
+        if (userEmail == "admin.mo@gmail.com" &&
+            userPassword == "XUcr7HNBSY2g") {
+          Get.offAllNamed(Routes.TEACHER_HOME);
         } else {
-          Get.offAndToNamed(
-            Routes.TEACHER_HOME,
+          Get.offAllNamed(
+            Routes.HOME,
           );
         }
       } else {
-        Get.offAndToNamed(
-          Routes.SIGN_IN,
-        );
+        Get.offAndToNamed(Routes.SIGN_IN);
       }
     });
   }

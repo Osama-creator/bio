@@ -54,11 +54,24 @@ class StudentExamPreviewView extends GetView<StudentExamPreviewController> {
                         child: Text(
                           e.question!,
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                              Theme.of(context).textTheme.bodyLarge!.copyWith(
                                     color: AppColors.primary,
                                   ),
                         ),
                       ),
+                      if (e.image!.isNotEmpty) ...[
+                        SizedBox(
+                            height: context.height * 0.3,
+                            width: context.width * 0.9,
+                            child: Image.network(
+                              e.image!,
+                              fit: BoxFit.contain,
+                            )),
+                      ] else ...[
+                        SizedBox(
+                          height: context.height * 0.2,
+                        )
+                      ],
                       Column(
                         children: [
                           ChoiceItem(

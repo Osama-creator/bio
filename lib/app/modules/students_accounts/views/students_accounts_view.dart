@@ -73,8 +73,22 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      Text(
-                                          "الاسم :${controller.filteredStudents[index].name}"),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              "الاسم :${controller.filteredStudents[index].name}"),
+                                          const Spacer(),
+                                          IconButton(
+                                              onPressed: () {
+                                                controller.deleteUser(controller
+                                                    .filteredStudents[index]);
+                                              },
+                                              icon: const Icon(
+                                                Icons.delete,
+                                                color: AppColors.white,
+                                              ))
+                                        ],
+                                      ),
                                       const Divider(),
                                       Text(
                                           "الحساب :${controller.filteredStudents[index].email}"),

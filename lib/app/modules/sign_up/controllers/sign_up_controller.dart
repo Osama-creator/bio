@@ -102,10 +102,6 @@ class SignUpController extends GetxController {
           .doc(userCredential.user!.uid)
           .set(student.toMap());
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-        'userToken',
-        student.password,
-      );
       await prefs.setString('userData', jsonEncode(student.toMap()));
       isLoading = false;
       update();

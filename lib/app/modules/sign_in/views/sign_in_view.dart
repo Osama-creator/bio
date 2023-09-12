@@ -36,34 +36,34 @@ class SignInView extends GetView<SignInController> {
               labelText: "كلمه السر",
               obscureText: true,
             ),
-            Obx(
-              () => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      controller.isTeacher.value = false;
-                    },
-                    child: Text('طالب',
-                        style: context.textTheme.headline6!.copyWith(
-                            color: controller.isTeacher.value
-                                ? AppColors.grey
-                                : AppColors.primary)),
-                  ),
-                  const SizedBox(width: 20),
-                  TextButton(
-                    onPressed: () {
-                      controller.isTeacher.value = true;
-                    },
-                    child: Text('مدرس',
-                        style: context.textTheme.bodyText2!.copyWith(
-                            color: controller.isTeacher.value
-                                ? AppColors.primary
-                                : Colors.grey)),
-                  ),
-                ],
-              ),
-            ),
+            // Obx(
+            //   () => Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       TextButton(
+            //         onPressed: () {
+            //           controller.isTeacher.value = false;
+            //         },
+            //         child: Text('طالب',
+            //             style: context.textTheme.headline6!.copyWith(
+            //                 color: controller.isTeacher.value
+            //                     ? AppColors.grey
+            //                     : AppColors.primary)),
+            //       ),
+            //       const SizedBox(width: 20),
+            //       TextButton(
+            //         onPressed: () {
+            //           controller.isTeacher.value = true;
+            //         },
+            //         child: Text('مدرس',
+            //             style: context.textTheme.bodyText2!.copyWith(
+            //                 color: controller.isTeacher.value
+            //                     ? AppColors.primary
+            //                     : Colors.grey)),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             GetBuilder<SignInController>(
                 init: controller,
                 builder: (_) {
@@ -82,7 +82,7 @@ class SignInView extends GetView<SignInController> {
                               )
                             : Text(
                                 'تسجيل الدخول',
-                                style: context.textTheme.headline6!.copyWith(
+                                style: context.textTheme.titleLarge!.copyWith(
                                   fontSize: 18,
                                 ),
                               ),
@@ -98,7 +98,7 @@ class SignInView extends GetView<SignInController> {
                 ),
                 child: Text(
                   "إنشاء حساب جديد",
-                  style: context.textTheme.headline6!
+                  style: context.textTheme.titleLarge!
                       .copyWith(fontSize: 18, color: AppColors.primary),
                 ),
               ),
