@@ -29,6 +29,10 @@ class Student extends Equatable {
   int? marks;
   int? wPoints;
   bool isConfirmed;
+  int rightAnswers; // New field
+  int wrongAnswers; // New field
+  int examCount; // New field
+  String nickname; // New field
 
   Student({
     required this.name,
@@ -39,6 +43,10 @@ class Student extends Equatable {
     this.marks,
     this.wPoints,
     this.isConfirmed = false,
+    this.rightAnswers = 0, // Initialize with default values
+    this.wrongAnswers = 0,
+    this.examCount = 0,
+    this.nickname = "",
   });
 
   @override
@@ -55,6 +63,10 @@ class Student extends Equatable {
       'marks': marks,
       'w_points': wPoints,
       'confirmed': isConfirmed,
+      'right_answers': rightAnswers,
+      'wrong_answers': wrongAnswers,
+      'exam_count': examCount,
+      'nickname': nickname,
     };
   }
 
@@ -67,6 +79,10 @@ class Student extends Equatable {
       email: json["email"],
       marks: json["marks"] ?? 0,
       wPoints: json["w_points"] ?? 0,
+      rightAnswers: json['right_answers'] ?? 0,
+      wrongAnswers: json['wrong_answers'] ?? 0,
+      examCount: json['exam_count'] ?? 0,
+      nickname: json['nickname'] ?? "",
       gradeId: json["grade_id"] ?? "",
     );
   }

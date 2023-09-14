@@ -18,7 +18,16 @@ class HomeView extends GetView<HomeController> {
           length: 3,
           child: Scaffold(
               appBar: AppBar(
-                title: const Text('الطالب'),
+                title: Row(
+                  children: [
+                    Image.asset(
+                      "assets/images/logo_icon.png",
+                      color: AppColors.white,
+                      height: context.height * 0.05,
+                    ),
+                    const Text('Bio Fantasy'),
+                  ],
+                ),
                 automaticallyImplyLeading: false,
                 actions: [
                   PopupMenuButton<String>(
@@ -41,13 +50,14 @@ class HomeView extends GetView<HomeController> {
                 ],
                 bottom: const TabBar(
                   tabs: [
-                    Tab(text: 'الإمتحانات'),
                     Tab(text: 'دوري الابطال'),
+                    Tab(text: 'الإمتحانات'),
                     Tab(text: 'الشروحات'),
                   ],
                 ),
               ),
               body: TabBarView(children: [
+                const StudentsLeagueView(),
                 controller.isLoading
                     ? const Center(child: CircularProgressIndicator())
                     : !controller.isConfirmed
@@ -140,7 +150,6 @@ class HomeView extends GetView<HomeController> {
                                   ),
                                 ],
                               ),
-                const StudentsLeagueView(),
                 const VideosPageView()
               ])),
         );

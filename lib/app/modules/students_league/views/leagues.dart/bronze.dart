@@ -1,5 +1,6 @@
 import 'package:bio/app/data/models/student_model.dart';
 import 'package:bio/app/modules/students_league/controllers/students_league_controller.dart';
+import 'package:bio/app/modules/students_league/views/leagues.dart/widgets.dart/head.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -45,6 +46,31 @@ class LeagueWidget extends StatelessWidget {
                         children: [
                           const SizedBox(
                             height: 10,
+                          ),
+                          const HeaderWidget(),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          FantasyUI(
+                            avg: controller.getAvg(students),
+                            heighst: students.first.wPoints!,
+                            myPoints: controller.userWPoints,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: context.width * 0.1),
+                            child: Column(
+                              children: [
+                                Divider(
+                                  thickness: 1,
+                                  color: leagueFirstColor,
+                                ),
+                                Divider(
+                                  thickness: 1,
+                                  color: leagueFirstColor,
+                                ),
+                              ],
+                            ),
                           ),
                           Text(
                             "المستوى $level",

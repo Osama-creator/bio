@@ -75,6 +75,10 @@ class SignInController extends GetxController {
           'marks': userData['marks'] ?? 0,
           'w_points': userData['w_points'] ?? 0,
           'confirmed': userData['confirmed'] ?? false,
+          'right_answers': userData['right_answers'] ?? 0,
+          'wrong_answers': userData['wrong_answers'] ?? 0,
+          'exam_count': userData['exam_count'] ?? 0,
+          'nickname': userData['nickname'] ?? "",
         }),
       );
     } catch (e) {

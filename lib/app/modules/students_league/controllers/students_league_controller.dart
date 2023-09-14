@@ -11,7 +11,15 @@ import '../../../../config/utils/enums.dart';
 class StudentsLeagueController extends GetxController {
   bool isLoading = false;
   List<Student> studentList = [];
+  String studentName = "";
+  int studentStudentRightAns = 0;
+  int studentStudentWrongAns = 0;
+  double studentStudentRF = 0;
+  String studentDesc = "";
+  int examsCount = 0;
+
   int userPoints = 0;
+  int userWPoints = 0;
   League userLeage = League.BRONZE;
   League determineLeague(int points) {
     if (points < 100) {
@@ -62,6 +70,24 @@ class StudentsLeagueController extends GetxController {
     }
   }
 
+  int getAvg(List<Student> students) {
+    int totalPoints = 0;
+    int totalStudents = 0;
+
+    for (var std in students) {
+      if (std.wPoints != null && std.wPoints! > 0) {
+        totalPoints += std.wPoints!;
+        totalStudents++;
+      }
+    }
+
+    if (totalStudents > 0) {
+      return totalPoints ~/ totalStudents;
+    } else {
+      return 0;
+    }
+  }
+
   void categorizeStudents() {
     leagueStudents.forEach((league, students) {
       students.clear();
@@ -92,7 +118,18 @@ class StudentsLeagueController extends GetxController {
       throw Exception("User data not found in SharedPreferences");
     }
     final userDataMap = jsonDecode(userData);
-    userPoints = userDataMap['marks'];
+    try {
+      userPoints = userDataMap['marks'];
+      userWPoints = userDataMap['w_points'];
+      studentName = userDataMap['name'];
+      studentDesc = userDataMap['nickname'];
+      studentStudentRightAns = userDataMap['right_answers'];
+      studentStudentWrongAns = userDataMap['wrong_answers'];
+      examsCount = userDataMap['exam_count'];
+      studentStudentRF = studentStudentRightAns / studentStudentWrongAns;
+    } catch (e, st) {
+      log(st.toString());
+    }
     userLeage = determineLeague(userPoints);
     update();
     getData();

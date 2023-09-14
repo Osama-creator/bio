@@ -19,9 +19,13 @@ class SignInView extends GetView<SignInController> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
-                height: context.height * 0.3,
-                width: context.width * 0.5,
-                child: Image.asset("assets/images/logo.png")),
+              height: context.height * 0.3,
+              width: context.width * 0.5,
+              child: Image.asset(
+                "assets/images/logo.png",
+                color: AppColors.primary,
+              ),
+            ),
             MyTextFeild(
               width: context.width * 0.8,
               controller: controller.emailC,

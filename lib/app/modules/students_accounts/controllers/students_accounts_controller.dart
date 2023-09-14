@@ -41,6 +41,44 @@ class StudentsAccountsController extends GetxController {
     update();
   }
 
+  Future<void> addNewFieldsToAllUsers() async {
+    try {
+      // Query for all user documents
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').get();
+
+      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
+        String documentId = doc.id;
+        Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+
+        // Check if the fields exist, and add them if not
+        if (!userData.containsKey('right_answers')) {
+          userData['right_answers'] = 0;
+        }
+        if (!userData.containsKey('wrong_answers')) {
+          userData['wrong_answers'] = 0;
+        }
+        if (!userData.containsKey('exam_count')) {
+          userData['exam_count'] = 0;
+        }
+        if (!userData.containsKey('nickname')) {
+          userData['nickname'] = "";
+        }
+
+        // Update the document with the new fields
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(documentId)
+            .update(userData);
+      }
+
+      update(); // Update the UI to reflect changes
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
+    }
+  }
+
   List<Student> get filteredStudents {
     return studentList.where((student) {
       final lowerQuery = searchQuery.toLowerCase();

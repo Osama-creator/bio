@@ -1,3 +1,4 @@
+import 'package:bio/config/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,6 +13,7 @@ class SplashView extends GetView<SplashController> {
       body: Center(
         child: Image.asset(
           "assets/images/logo.png",
+          color: AppColors.primary,
           height: context.height * 0.5,
           width: context.width * 0.8,
         ),
