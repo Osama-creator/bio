@@ -19,14 +19,14 @@ dependencies:
   google_fonts: ^5.1.0
   image_picker: ^0.8.6+1
   internet_connection_checker: ^1.0.0+1
-  intl: ^0.17.0
-  laravel_exception: ^0.0.4
-  location: ^4.4.0
+  intl: ^0.18.1
   lottie: ^2.2.0
   shared_preferences: ^2.0.18
   uuid: ^3.0.7
   need_resume: 
   youtube_player_flutter: ^8.1.2
+  sentry_flutter: ^7.10.1
+  equatable: ^2.0.5
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:equatable/equatable.dart';
 
 class Studen {
@@ -29,10 +27,10 @@ class Student extends Equatable {
   int? marks;
   int? wPoints;
   bool isConfirmed;
-  int rightAnswers; // New field
-  int wrongAnswers; // New field
-  int examCount; // New field
-  String nickname; // New field
+  int rightAnswers;
+  int wrongAnswers;
+  int examCount;
+  String nickname;
 
   Student({
     required this.name,
@@ -43,7 +41,7 @@ class Student extends Equatable {
     this.marks,
     this.wPoints,
     this.isConfirmed = false,
-    this.rightAnswers = 0, // Initialize with default values
+    this.rightAnswers = 0,
     this.wrongAnswers = 0,
     this.examCount = 0,
     this.nickname = "",
