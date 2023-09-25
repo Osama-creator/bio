@@ -49,7 +49,7 @@ class HeaderWidget extends StatelessWidget {
                 Column(
                   children: [
                     Text(
-                      "r/f ${controller.studentStudentRF}",
+                      "r/f ${double.parse(controller.studentStudentRF.toStringAsFixed(2))}",
                       style: const TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold),

@@ -74,81 +74,89 @@ class HomeView extends GetView<HomeController> {
                                   style: TextStyle(color: AppColors.black),
                                 ),
                               )
-                            : Column(
-                                children: [
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  GridView.builder(
-                                    shrinkWrap: true,
-                                    gridDelegate:
-                                        const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
+                            : SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    const SizedBox(
+                                      height: 10,
                                     ),
-                                    itemCount: controller.examList.length,
-                                    itemBuilder: (context, index) {
-                                      final exam = controller.examList[index];
+                                    GridView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                      ),
+                                      itemCount: controller.examList.length,
+                                      itemBuilder: (context, index) {
+                                        final exam = controller.examList[index];
 
-                                      return FutureBuilder<bool>(
-                                        future: controller
-                                            .isExamInfoAvailable(exam.id),
-                                        builder: (context, snapshot) {
-                                          final isExamInfoAvailable =
-                                              snapshot.data ?? false;
+                                        return FutureBuilder<bool>(
+                                          future: controller
+                                              .isExamInfoAvailable(exam.id),
+                                          builder: (context, snapshot) {
+                                            final isExamInfoAvailable =
+                                                snapshot.data ?? false;
 
-                                          return InkWell(
-                                            onTap: () {
-                                              controller
-                                                  .navigateExamPage(index);
-                                            },
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(4.0),
-                                              child: Card(
-                                                elevation: 10,
-                                                color: isExamInfoAvailable
-                                                    ? AppColors.primary
-                                                    : AppColors.grey,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: SizedBox(
-                                                          height:
-                                                              context.height *
-                                                                  0.1,
-                                                          width: context.width *
-                                                              0.3,
-                                                          child: Image.asset(
-                                                              'assets/images/exam.png'),
+                                            return InkWell(
+                                              onTap: () {
+                                                controller
+                                                    .navigateExamPage(index);
+                                              },
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Card(
+                                                  elevation: 10,
+                                                  color: isExamInfoAvailable
+                                                      ? AppColors.primary
+                                                      : AppColors.grey,
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: SizedBox(
+                                                            height:
+                                                                context.height *
+                                                                    0.1,
+                                                            width:
+                                                                context.width *
+                                                                    0.3,
+                                                            child: Image.asset(
+                                                                'assets/images/exam.png'),
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Flexible(
-                                                        child: Text(
-                                                          exam.name,
-                                                          overflow:
-                                                              TextOverflow.fade,
-                                                          style:
-                                                              const TextStyle(
-                                                                  fontSize: 14),
+                                                        Flexible(
+                                                          child: Text(
+                                                            exam.name,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .fade,
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        14),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                 const VideosPageView()
               ])),

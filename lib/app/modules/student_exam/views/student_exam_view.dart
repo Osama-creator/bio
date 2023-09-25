@@ -20,7 +20,7 @@ class StudentExamView extends GetView<StudentExamController> {
               appBar: AppBar(
                 title: Text(
                     "السؤال ${controller.qNumber} من ${controller.quistionList().length}",
-                    style: Theme.of(context).textTheme.bodyText1),
+                    style: Theme.of(context).textTheme.bodyLarge),
                 centerTitle: true,
                 elevation: 10,
               ),
@@ -68,7 +68,7 @@ class StudentExamView extends GetView<StudentExamController> {
                           height: context.width * 0.12,
                           child: ElevatedButton(
                               onPressed: () {
-                                controller.goToNextPage(index);
+                                controller.goToNextPage(index, context);
                               },
                               child: Text(controller.qNumber ==
                                       controller.quistionList().length

@@ -5,8 +5,8 @@ import '../controllers/student_exam_preview_controller.dart';
 class StudentExamPreviewBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<StudentExamPreviewController>(
-      () => StudentExamPreviewController(),
+    Get.put<StudentExamPreviewController>(
+      StudentExamPreviewController(),
     );
   }
 }
