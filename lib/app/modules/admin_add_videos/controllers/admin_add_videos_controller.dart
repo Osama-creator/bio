@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:bio/app/data/models/video_model.dart';
+import 'package:bio/app/services/videos.dart';
 import 'package:bio/app/views/text_field.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -15,6 +15,7 @@ class AdminAddVideosController extends GetxController {
   TextEditingController vidUrlController = TextEditingController();
   bool isLoading = false;
   var videosList = <VideoModel>[];
+  final videosService = VideosService();
   @override
   void onInit() {
     getData();
@@ -26,16 +27,11 @@ class AdminAddVideosController extends GetxController {
       isLoading = true;
       update();
       VideoModel video = VideoModel(
-          id: const Uuid().v1(),
-          title: vidTitleController.text,
-          url: vidUrlController.text);
-      CollectionReference videoCollection = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args.id)
-          .collection('videos');
-
-      await videoCollection.add(video.toMap());
-
+        id: const Uuid().v1(),
+        title: vidTitleController.text,
+        url: vidUrlController.text,
+      );
+      await videosService.createVideo(args.id, video);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -50,7 +46,6 @@ class AdminAddVideosController extends GetxController {
     VideoModel video = videosList[index];
     vidTitleController.text = video.title;
     vidUrlController.text = video.url;
-
     showDialog(
       context: Get.context!,
       barrierDismissible: false,
@@ -106,14 +101,8 @@ class AdminAddVideosController extends GetxController {
 
   void deleteVid(int index) async {
     VideoModel vid = videosList[index];
-
     try {
-      DocumentReference gradeRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args.id)
-          .collection('videos')
-          .doc(vid.id);
-      await gradeRef.delete();
+      await videosService.deleteVideo(args.id, vid.id);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -124,19 +113,8 @@ class AdminAddVideosController extends GetxController {
   Future<void> getData() async {
     isLoading = true;
     try {
-      QuerySnapshot videos = await FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args.id)
-          .collection('videos')
-          .get();
       videosList.clear();
-      for (var category in videos.docs) {
-        videosList.add(VideoModel(
-          title: category['title'],
-          url: category['url'],
-          id: category.id,
-        ));
-      }
+      videosList = await videosService.getVideos(args.id);
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -150,12 +128,7 @@ class AdminAddVideosController extends GetxController {
     isLoading = true;
     update();
     try {
-      DocumentReference gradeRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args.id)
-          .collection('videos')
-          .doc(video.id);
-      await gradeRef.update({'title': video.title, 'url': video.url});
+      videosService.updateVideo(args.id, video);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());

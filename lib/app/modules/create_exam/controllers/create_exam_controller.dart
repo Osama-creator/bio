@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bio/app/services/exam.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +17,7 @@ class CreateExamController extends GetxController {
   TextEditingController examNameController = TextEditingController();
   final List<QuestionC> questions = [];
   DateTime nowDate = DateTime.now();
+  final examService = ExamService();
 
   bool isLoading = false;
   int uploadedQuestionCount = 0; // Track uploaded questions count
@@ -42,17 +43,15 @@ class CreateExamController extends GetxController {
         uploadTasks.add(uploadTask.whenComplete(() async {
           questionC.imageString = await reference.getDownloadURL();
           questionC.imageUploaded = true;
-          uploadedQuestionCount++; // Increment uploaded question count
-          update(); // Update the UI to reflect the progress
+          uploadedQuestionCount++;
+          update();
           log(questionC.imageString);
         }));
       } else {
         questionC.imageUploaded = false;
       }
     }
-    // wait for all the upload tasks to complete
     await Future.wait(uploadTasks);
-    // create the Question objects with the imageString property
     for (var questionC in questions) {
       examQuestions.add(Question(
         question: questionC.questionC.text.trim(),
@@ -75,12 +74,9 @@ class CreateExamController extends GetxController {
     );
 
     try {
-      CollectionReference examCollection = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args.id)
-          .collection('exams');
+      Map<String, dynamic> examData = newExam.toJson();
 
-      await examCollection.add(newExam.toJson());
+      await examService.addExamDocument(args.id, examData);
       isLoading = false;
       update();
       Get.back();

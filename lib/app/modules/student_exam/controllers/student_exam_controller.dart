@@ -61,9 +61,10 @@ class StudentExamController extends GetxController {
         final userPerformance =
             calculateUserPerformance(userSnapshot, studentmark);
         final currentNickname = userPerformance['currentNickname'];
-        if (currentNickname.isEmpty) {
-          await updateUserData(documentId, userPerformance);
-        }
+        await updateUserData(documentId, userPerformance);
+        // if (currentNickname.isEmpty) {
+        //   await updateUserData(documentId, userPerformance);
+        // }
         Get.find<HomeController>().getData();
       } catch (e, st) {
         log(st.toString());
@@ -178,7 +179,7 @@ class StudentExamController extends GetxController {
         userNickname = "المثابر";
         break;
       default:
-        userNickname = "";
+        userNickname = "المثابر";
     }
 
     return {

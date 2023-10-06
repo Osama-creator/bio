@@ -26,72 +26,77 @@ class ExamsBody extends StatelessWidget {
                   );
                 }
                 {
-                  return ListView.builder(
-                    itemCount: controller.examList.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          controller.navigateExamPage(index);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Card(
-                            elevation: 10,
-                            color: AppColors.grey,
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      controller.examList[index].name,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontSize: 14),
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: context.height * 0.05),
+                    child: ListView.builder(
+                      itemCount: controller.examList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            controller.navigateExamPage(index);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: Card(
+                              elevation: 10,
+                              color: AppColors.grey,
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        controller.examList[index].name,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(fontSize: 14),
+                                      ),
                                     ),
-                                  ),
-                                  Switch(
-                                    value: controller.examList[index].isActive,
-                                    activeColor: AppColors.primary,
-                                    inactiveThumbColor: AppColors.white,
-                                    inactiveTrackColor: Colors.white,
-                                    onChanged: (newValue) {
-                                      controller.updateExamActivation(
-                                          controller.examList[index].id,
-                                          newValue);
-                                    },
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      controller.deleteGroup(
-                                          controller.examList[index].id);
-                                    },
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: AppColors.white,
+                                    Switch(
+                                      value:
+                                          controller.examList[index].isActive,
+                                      activeColor: AppColors.primary,
+                                      inactiveThumbColor: AppColors.white,
+                                      inactiveTrackColor: Colors.white,
+                                      onChanged: (newValue) {
+                                        controller.updateExamActivation(
+                                            controller.examList[index].id,
+                                            newValue);
+                                      },
                                     ),
-                                  ),
-                                  IconButton(
+                                    IconButton(
                                       onPressed: () {
-                                        Get.toNamed(
-                                            Routes.STUDENT_MARKES_FOR_TEACHER,
-                                            arguments: [
-                                              controller.examList[index],
-                                              controller.args
-                                            ]);
+                                        controller.deleteGroup(
+                                            controller.examList[index].id);
                                       },
                                       icon: const Icon(
-                                        Icons.group,
+                                        Icons.delete,
                                         color: AppColors.white,
-                                      ))
-                                ],
+                                      ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Get.toNamed(
+                                              Routes.STUDENT_MARKES_FOR_TEACHER,
+                                              arguments: [
+                                                controller.examList[index],
+                                                controller.args
+                                              ]);
+                                        },
+                                        icon: const Icon(
+                                          Icons.group,
+                                          color: AppColors.white,
+                                        ))
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   );
                 }
               }),

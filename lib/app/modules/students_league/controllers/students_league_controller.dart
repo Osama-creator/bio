@@ -16,23 +16,32 @@ class StudentsLeagueController extends GetxController {
   int studentStudentWrongAns = 0;
   double studentStudentRF = 0;
   String studentDesc = "";
+  String studentGrade = "";
   int examsCount = 0;
-
   int userPoints = 0;
   int userWPoints = 0;
+
   League userLeage = League.BRONZE;
+  bool isThirdScStudent() {
+    bool myVar = false;
+    if (studentGrade == "٣ ثانوي" || studentGrade == "3rd secondary") {
+      myVar = true;
+    }
+    return myVar;
+  }
+
   League determineLeague(int points) {
-    if (points < 100) {
+    if (points < (isThirdScStudent() ? 300 : 100)) {
       return League.BRONZE;
-    } else if (points < 200) {
+    } else if (points < (isThirdScStudent() ? 500 : 200)) {
       return League.SILVER;
-    } else if (points < 300) {
+    } else if (points < (isThirdScStudent() ? 800 : 300)) {
       return League.GOLD;
-    } else if (points < 400) {
+    } else if (points < (isThirdScStudent() ? 1000 : 400)) {
       return League.PLATINUM;
-    } else if (points < 600) {
+    } else if (points < (isThirdScStudent() ? 1200 : 600)) {
       return League.ACE;
-    } else if (points < 500) {
+    } else if (points < (isThirdScStudent() ? 1500 : 700)) {
       return League.CROWN;
     } else {
       return League.CONQUEROR;
@@ -126,6 +135,7 @@ class StudentsLeagueController extends GetxController {
       studentStudentRightAns = userDataMap['right_answers'];
       studentStudentWrongAns = userDataMap['wrong_answers'];
       examsCount = userDataMap['exam_count'];
+      studentGrade = userDataMap['grade'];
       studentStudentRF = studentStudentRightAns / studentStudentWrongAns;
     } catch (e, st) {
       log(st.toString());

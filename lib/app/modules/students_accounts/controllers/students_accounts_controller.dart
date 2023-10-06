@@ -72,7 +72,7 @@ class StudentsAccountsController extends GetxController {
             .update(userData);
       }
 
-      update(); // Update the UI to reflect changes
+      update();
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -160,7 +160,9 @@ class StudentsAccountsController extends GetxController {
         await FirebaseFirestore.instance
             .collection('users')
             .doc(documentId)
-            .update({'w_points': 0});
+            .update({
+          'w_points': 0,
+        });
         updatedUsersCount++;
         update();
       }
@@ -178,7 +180,6 @@ class StudentsAccountsController extends GetxController {
     try {
       isLoading = true;
       update();
-      // Query for the document based on student data
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance
           .collection('users')
           .where('email', isEqualTo: student.email)
@@ -208,6 +209,7 @@ class StudentsAccountsController extends GetxController {
   @override
   void onInit() {
     getData();
+    addNewFieldsToAllUsers();
     super.onInit();
   }
 }
