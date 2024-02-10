@@ -57,12 +57,16 @@ class StudentsLeagueController extends GetxController {
       throw Exception("User data not found in SharedPreferences");
     }
     final userDataMap = jsonDecode(userData);
-    final userEmail = userDataMap['grade_id'];
+    final userEmail = userDataMap['email'];
+
+    final userSnapshot =
+        await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: userEmail).get();
+    final documentId = userSnapshot.docs[0].id;
+    await updateMark(userDataMap, documentId);
+    final userGrade = userDataMap['grade_id'];
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('grade_id', isEqualTo: userEmail)
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('grade_id', isEqualTo: userGrade).get();
       studentList.clear();
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -76,6 +80,43 @@ class StudentsLeagueController extends GetxController {
     } finally {
       isLoading = false;
       update();
+    }
+  }
+
+  Future<void> updateMark(Map<String, dynamic>? userData, String documentId) async {
+    try {
+      if (userData != null) {
+        // Loop through all exams for the current user
+        QuerySnapshot exams =
+            await FirebaseFirestore.instance.collection('grades').doc(userData['grade_id']).collection('exams').get();
+
+        num sumOfMarks = 0;
+
+        for (var exam in exams.docs) {
+          // Loop through all exam marks for the current exam and user
+          QuerySnapshot marks = await FirebaseFirestore.instance
+              .collection('grades')
+              .doc(userData['grade_id'])
+              .collection('exams')
+              .doc(exam.id)
+              .collection('markes')
+              .where('email', isEqualTo: userData['email'])
+              .get();
+
+          for (var mark in marks.docs) {
+            // Retrieve and add the student_mark to the sum
+            sumOfMarks += mark['student_mark'] as num;
+          }
+        }
+        // Update the student marks field in the user document
+        await FirebaseFirestore.instance.collection('users').doc(documentId).update({'marks': sumOfMarks});
+        log("Updated sumOfMarks: $sumOfMarks");
+
+        update();
+      }
+    } catch (e) {
+      Get.snackbar('Error', e.toString());
+      log(e.toString());
     }
   }
 

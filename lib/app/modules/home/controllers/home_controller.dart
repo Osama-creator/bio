@@ -39,10 +39,8 @@ class HomeController extends GetxController {
       final userDataMap = jsonDecode(userData);
       final userEmail = userDataMap['email'];
 
-      final userSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: userEmail)
-          .get();
+      final userSnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: userEmail).get();
 
       if (userSnapshot.size == 0) {
         throw Exception("User data not found in Firestore");

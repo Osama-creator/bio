@@ -1,13 +1,11 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bio/helpers/Image_Picker.dart';
 import 'package:bio/app/services/exam.dart';
-import 'package:bio/helpers/pick.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uuid/uuid.dart';
 
 class AddNewQuistionController extends GetxController {
   final args = Get.arguments as List;
@@ -15,6 +13,7 @@ class AddNewQuistionController extends GetxController {
   late bool imageUploaded;
   File? image;
   bool isLoading = false;
+
   final examService = ExamService();
   TextEditingController questionController = TextEditingController();
   TextEditingController rightAnswerController = TextEditingController();
@@ -23,7 +22,7 @@ class AddNewQuistionController extends GetxController {
   TextEditingController wrongAnswer3Controller = TextEditingController();
 
   Future<void> pickFile() async {
-    final tempImage = await Pick.imageFromGallery();
+    final tempImage = await ImageHelper.pickFile();
     if (tempImage != null) {
       image = tempImage;
       update();
@@ -42,7 +41,6 @@ class AddNewQuistionController extends GetxController {
           .doc(args[1].id);
 
       await uploadPhotos();
-      // Move the data preparation and Firestore update to the service
       await examService.addQuestion(
         args,
         examRef,
@@ -55,7 +53,6 @@ class AddNewQuistionController extends GetxController {
           wrongAnswer3Controller.text.trim(),
         ],
       );
-
       Get.back();
       Get.snackbar('تم', "تمت الإضافة بنجاح");
     } catch (e, st) {
@@ -69,14 +66,9 @@ class AddNewQuistionController extends GetxController {
 
   Future<void> uploadPhotos() async {
     if (image != null) {
-      final reference = FirebaseStorage.instance.ref().child(const Uuid().v1());
-      final uploadTask = reference.putFile(image!);
-      await uploadTask.whenComplete(() async {
-        imageString = await reference.getDownloadURL();
-        imageUploaded = true;
-        update();
-        log(imageString);
-      });
+      imageString = await ImageHelper.uploadPhoto(image!);
+      imageUploaded = true;
+      update();
     } else {
       imageUploaded = false;
     }

@@ -58,8 +58,7 @@ class StudentExamController extends GetxController {
         markesCollection.add(studentmark.toJson());
         final userSnapshot = await getUserSnapshot(data);
         final documentId = userSnapshot.docs[0].id;
-        final userPerformance =
-            calculateUserPerformance(userSnapshot, studentmark);
+        final userPerformance = calculateUserPerformance(userSnapshot, studentmark);
         final currentNickname = userPerformance['currentNickname'];
         await updateUserData(documentId, userPerformance);
         // if (currentNickname.isEmpty) {
@@ -100,13 +99,10 @@ class StudentExamController extends GetxController {
                 onPressed: () async {
                   await uploadMarkAndUpdateUserData();
                   final prefs = await SharedPreferences.getInstance();
-                  Get.offAllNamed(Routes.STUDENT_EXAM_PREVIEW,
-                      arguments: [quistionList(), finalMark(), exam]);
+                  Get.offAllNamed(Routes.STUDENT_EXAM_PREVIEW, arguments: [quistionList(), finalMark(), exam]);
                   prefs.setString('exam_${exam.id}', "exam had been entered");
                 },
-                child: isLoading.value
-                    ? const CircularProgressIndicator()
-                    : const Text('نعم'),
+                child: isLoading.value ? const CircularProgressIndicator() : const Text('نعم'),
               ),
             ),
           ],
@@ -147,20 +143,15 @@ class StudentExamController extends GetxController {
     }
     final userDataMap = jsonDecode(userData);
     final userEmail = userDataMap['email'];
-    return await FirebaseFirestore.instance
-        .collection('users')
-        .where('email', isEqualTo: userEmail)
-        .get();
+    return await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: userEmail).get();
   }
 
-  Map<String, dynamic> calculateUserPerformance(
-      QuerySnapshot userSnapshot, Mark studentmark) {
+  Map<String, dynamic> calculateUserPerformance(QuerySnapshot userSnapshot, Mark studentmark) {
     final userDoc = userSnapshot.docs[0];
     final userMarks = userDoc['marks'] + studentmark.studentMark;
     final userWPoints = userDoc['w_points'] + studentmark.studentMark;
     String userNickname = "";
-    final userWrongAns = userDoc['wrong_answers'] +
-        (quistionList().length - studentmark.studentMark);
+    final userWrongAns = userDoc['wrong_answers'] + (quistionList().length - studentmark.studentMark);
     final userRightAns = userDoc['right_answers'] + studentmark.studentMark;
     final userExamsCount = userDoc['exam_count'] + 1;
 
@@ -194,10 +185,7 @@ class StudentExamController extends GetxController {
   }
 
   Future<void> updateUserData(documentId, userPerformance) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(documentId)
-        .update({
+    await FirebaseFirestore.instance.collection('users').doc(documentId).update({
       'marks': userPerformance['userMarks'],
       'w_points': userPerformance['userWPoints'],
       'wrong_answers': userPerformance['userWrongAns'],

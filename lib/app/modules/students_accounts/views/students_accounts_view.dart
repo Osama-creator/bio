@@ -24,9 +24,7 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                               ? Text(
                                   '${controller.updatedUsersCount}/${controller.studentList.length} من الطلاب تم تحديث نقاطهم',
                                   style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.black),
+                                      fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.black),
                                 )
                               : const SizedBox()
                         ],
@@ -42,8 +40,7 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                             child: Card(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: context.width * 0.25,
-                                    vertical: context.height * 0.015),
+                                    horizontal: context.width * 0.25, vertical: context.height * 0.015),
                                 child: const Column(
                                   children: [Text("بدء اسبوع جديد")],
                                 ),
@@ -63,25 +60,20 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) {
                               return Card(
-                                color: controller
-                                        .filteredStudents[index].isConfirmed
-                                    ? AppColors.primary
-                                    : AppColors.grey,
+                                color:
+                                    controller.filteredStudents[index].isConfirmed ? AppColors.primary : AppColors.grey,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
                                       Row(
                                         children: [
-                                          Text(
-                                              "الاسم :${controller.filteredStudents[index].name}"),
+                                          Text("الاسم :${controller.filteredStudents[index].name}"),
                                           const Spacer(),
                                           IconButton(
                                               onPressed: () {
-                                                controller.deleteUser(controller
-                                                    .filteredStudents[index]);
+                                                controller.deleteUser(controller.filteredStudents[index]);
                                               },
                                               icon: const Icon(
                                                 Icons.delete,
@@ -90,31 +82,27 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                                         ],
                                       ),
                                       const Divider(),
-                                      Text(
-                                          "الحساب :${controller.filteredStudents[index].email}"),
+                                      Text("الحساب :${controller.filteredStudents[index].email}"),
                                       const Divider(),
-                                      Text(
-                                          "الصف :${controller.filteredStudents[index].grade}"),
+                                      Text("الصف :${controller.filteredStudents[index].grade}"),
                                       const Divider(),
-                                      Text(
-                                          "كلمه المرور : ${controller.filteredStudents[index].password}"),
-                                      if (!controller
-                                          .filteredStudents[index].isConfirmed)
+                                      Text("كلمه المرور : ${controller.filteredStudents[index].password}"),
+                                      const Divider(),
+                                      Text("مجموع النقاط : ${controller.filteredStudents[index].marks}"),
+                                      const Divider(),
+                                      Text("مجموع الاسبوع : ${controller.filteredStudents[index].wPoints}"),
+                                      if (!controller.filteredStudents[index].isConfirmed)
                                         ElevatedButton(
                                             onPressed: () {
-                                              controller.confirmUser(controller
-                                                  .filteredStudents[index]);
+                                              controller.confirmUser(controller.filteredStudents[index]);
                                             },
                                             child: controller.isLoading
                                                 ? const CircularProgressIndicator()
                                                 : const Text("تأكيد")),
-                                      if (controller
-                                          .filteredStudents[index].isConfirmed)
+                                      if (controller.filteredStudents[index].isConfirmed)
                                         ElevatedButton(
                                             onPressed: () {
-                                              controller.deconfirmUser(
-                                                  controller
-                                                      .filteredStudents[index]);
+                                              controller.deconfirmUser(controller.filteredStudents[index]);
                                             },
                                             child: controller.isLoading
                                                 ? const CircularProgressIndicator()

@@ -1,4 +1,4 @@
-package com.example.bio
+package com.bio_fantasy
 
 import io.flutter.embedding.android.FlutterActivity
 

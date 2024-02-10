@@ -17,7 +17,7 @@ class VideosPageView extends GetView<VideosPageController> {
         return Scaffold(
           body: controller.isLoading
               ? const Center(child: CircularProgressIndicator())
-              : controller.videoUrls.isEmpty
+              : controller.videosList.isEmpty
                   ? const Center(
                       child: Text(
                         "لايوجد فيديوهات حاليا",
@@ -25,12 +25,11 @@ class VideosPageView extends GetView<VideosPageController> {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: controller.videoUrls.length,
+                      itemCount: controller.videosList.length,
                       itemBuilder: (context, index) {
-                        final videoUrl = controller.videoUrls[index];
+                        final videoUrl = controller.videosList[index];
                         return InkWell(
-                          onTap: () => Get.toNamed(Routes.VIDEO_PAGE,
-                              arguments: videoUrl.url),
+                          onTap: () => Get.toNamed(Routes.VIDEO_PAGE, arguments: videoUrl.url),
                           child: Card(
                             color: AppColors.primary,
                             child: Padding(

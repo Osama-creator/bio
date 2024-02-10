@@ -15,10 +15,8 @@ class StudentsAccountsController extends GetxController {
     update();
 
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isNotEqualTo: 'admin.mo@gmail.com')
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isNotEqualTo: 'admin.mo@gmail.com').get();
       studentList.clear();
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
@@ -44,8 +42,7 @@ class StudentsAccountsController extends GetxController {
   Future<void> addNewFieldsToAllUsers() async {
     try {
       // Query for all user documents
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('users').get();
 
       for (QueryDocumentSnapshot doc in querySnapshot.docs) {
         String documentId = doc.id;
@@ -66,10 +63,7 @@ class StudentsAccountsController extends GetxController {
         }
 
         // Update the document with the new fields
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(documentId)
-            .update(userData);
+        await FirebaseFirestore.instance.collection('users').doc(documentId).update(userData);
       }
 
       update();
@@ -91,17 +85,12 @@ class StudentsAccountsController extends GetxController {
     try {
       isLoading = true;
       update();
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: student.email)
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student.email).get();
 
       if (querySnapshot.size == 1) {
         String documentId = querySnapshot.docs[0].id;
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(documentId)
-            .update({'confirmed': true});
+        await FirebaseFirestore.instance.collection('users').doc(documentId).update({'confirmed': true});
 
         student.isConfirmed = true;
         update();
@@ -121,17 +110,12 @@ class StudentsAccountsController extends GetxController {
     try {
       isLoading = true;
       update();
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: student.email)
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student.email).get();
 
       if (querySnapshot.size == 1) {
         String documentId = querySnapshot.docs[0].id;
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(documentId)
-            .delete();
+        await FirebaseFirestore.instance.collection('users').doc(documentId).delete();
         studentList.remove(student);
         Get.snackbar('تم', "الحساب اتشيبع", backgroundColor: AppColors.primary);
         update();
@@ -152,19 +136,48 @@ class StudentsAccountsController extends GetxController {
       isLoading = true;
       upadataingUsers = true;
       update();
-      QuerySnapshot querySnapshot =
-          await FirebaseFirestore.instance.collection('users').get();
+      // Fetch all users
+      QuerySnapshot users = await FirebaseFirestore.instance.collection('users').get();
 
-      for (QueryDocumentSnapshot doc in querySnapshot.docs) {
-        String documentId = doc.id;
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(documentId)
-            .update({
-          'w_points': 0,
-        });
-        updatedUsersCount++;
-        update();
+      for (var user in users.docs) {
+        // Fetch user data for each user
+        DocumentSnapshot<Map<String, dynamic>> userDataQuery =
+            await FirebaseFirestore.instance.collection('users').doc(user.id).get();
+
+        var userData = userDataQuery.data();
+
+        if (userData != null) {
+          // Loop through all exams for the current user
+          QuerySnapshot exams =
+              await FirebaseFirestore.instance.collection('grades').doc(userData['grade_id']).collection('exams').get();
+
+          num sumOfMarks = 0;
+
+          for (var exam in exams.docs) {
+            // Loop through all exam marks for the current exam and user
+            QuerySnapshot marks = await FirebaseFirestore.instance
+                .collection('grades')
+                .doc(userData['grade_id'])
+                .collection('exams')
+                .doc(exam.id)
+                .collection('markes')
+                .where('email', isEqualTo: userData['email'])
+                .get();
+
+            for (var mark in marks.docs) {
+              // Retrieve and add the student_mark to the sum
+              sumOfMarks += mark['student_mark'] as num;
+            }
+          }
+          // Update the student marks field in the user document
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.id)
+              .update({'w_points': 0, 'marks': sumOfMarks});
+          print("Updated sumOfMarks: $sumOfMarks");
+          updatedUsersCount++;
+          update();
+        }
       }
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -180,17 +193,12 @@ class StudentsAccountsController extends GetxController {
     try {
       isLoading = true;
       update();
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .where('email', isEqualTo: student.email)
-          .get();
+      QuerySnapshot querySnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student.email).get();
 
       if (querySnapshot.size == 1) {
         String documentId = querySnapshot.docs[0].id;
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(documentId)
-            .update({'confirmed': false});
+        await FirebaseFirestore.instance.collection('users').doc(documentId).update({'confirmed': false});
 
         student.isConfirmed = false;
         update();
