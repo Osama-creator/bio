@@ -15,7 +15,7 @@ class GroupsListView extends GetView<GroupsListController> {
       builder: (controller) {
         return Scaffold(
           body: FutureBuilder(
-            future: controller.getData(),
+            future: controller.getGroupsData(),
             builder: (context, snapshot) {
               // if (snapshot.connectionState == ConnectionState.waiting) {
               //   return const Center(
@@ -46,15 +46,13 @@ class GroupsListView extends GetView<GroupsListController> {
                               Column(
                                 children: [
                                   Text(controller.groupList[index].name),
-                                  Text(
-                                      "${controller.groupList[index].students!.length} طالب")
+                                  Text("${controller.groupList[index].students!.length} طالب")
                                 ],
                               ),
                               const Spacer(),
                               IconButton(
                                 onPressed: () {
-                                  controller.deleteGroup(
-                                      controller.groupList[index].id);
+                                  controller.deleteGroup(controller.groupList[index].id);
                                 },
                                 icon: const Icon(
                                   Icons.delete,
@@ -81,7 +79,7 @@ class GroupsListView extends GetView<GroupsListController> {
                   Get.offAndToNamed(Routes.CREATE_GROUP);
                 },
                 backgroundColor: AppColors.primary,
-                child: Icon(Icons.add),
+                child: const Icon(Icons.add),
               ),
             ],
           ),

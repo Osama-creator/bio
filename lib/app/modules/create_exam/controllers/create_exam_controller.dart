@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:bio/app/services/exam.dart';
+import 'package:bio/app/services/exam/exam.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,8 +37,7 @@ class CreateExamController extends GetxController {
     for (var questionC in questions) {
       // pick the image file and start uploading it
       if (questionC.image != null) {
-        Reference reference =
-            FirebaseStorage.instance.ref().child(const Uuid().v1());
+        Reference reference = FirebaseStorage.instance.ref().child(const Uuid().v1());
         final UploadTask uploadTask = reference.putFile(questionC.image!);
         uploadTasks.add(uploadTask.whenComplete(() async {
           questionC.imageString = await reference.getDownloadURL();

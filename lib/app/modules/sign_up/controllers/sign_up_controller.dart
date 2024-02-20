@@ -1,13 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
-
 import 'package:bio/app/data/models/student_model.dart';
 import 'package:bio/app/routes/app_pages.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bio/app/services/auth_service.dart';
+import 'package:bio/app/services/utils_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../data/models/grade_item_model.dart';
 
@@ -19,6 +17,8 @@ class SignUpController extends GetxController {
   var selectedGrade = Rx<GradeItem?>(null);
   Rx<bool> isTeacher = false.obs;
   bool isLoading = false;
+  final utilsService = UtilsService();
+  final authService = AuthService();
 
   @override
   void onInit() {
@@ -28,15 +28,7 @@ class SignUpController extends GetxController {
 
   Future<void> getGrades() async {
     try {
-      QuerySnapshot grades =
-          await FirebaseFirestore.instance.collection('grades').get();
-      gradeList.clear();
-      for (var category in grades.docs) {
-        gradeList.add(GradeItem(
-          name: category['name'],
-          id: category.id,
-        ));
-      }
+      gradeList = await utilsService.getGradesFromApi();
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -84,9 +76,6 @@ class SignUpController extends GetxController {
     try {
       isLoading = true;
       update();
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: emailC.text, password: passwordC.text);
       Student student = Student(
         name: nameC.text.trim(),
         grade: selectedGrade.value!.name,
@@ -97,12 +86,7 @@ class SignUpController extends GetxController {
         wPoints: 0,
         gradeId: selectedGrade.value!.id,
       );
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set(student.toMap());
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('userData', jsonEncode(student.toMap()));
+      await authService.signUp(student, emailC.text, passwordC.text);
       isLoading = false;
       update();
       Get.offAndToNamed(Routes.HOME);

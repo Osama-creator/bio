@@ -7,10 +7,35 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserDataService {
   static const String userDataKey = 'userData';
 
-  Future<void> saveUserDataToLocal(Map<String, dynamic> userData) async {
+  static Future<void> saveUserDataToLocal(Map<String, dynamic> userData) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(userDataKey, jsonEncode(userData));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> saveUserDataToPrefs(Map<String, dynamic> userData) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+        'userData',
+        jsonEncode({
+          'name': userData['name'],
+          'email': userData['email'],
+          'password': userData['password'],
+          'grade_id': userData['grade_id'] ?? "",
+          'grade': userData['grade'] ?? "",
+          'marks': userData['marks'] ?? 0,
+          'w_points': userData['w_points'] ?? 0,
+          'confirmed': userData['confirmed'] ?? false,
+          'right_answers': userData['right_answers'] ?? 0,
+          'wrong_answers': userData['wrong_answers'] ?? 0,
+          'exam_count': userData['exam_count'] ?? 0,
+          'nickname': userData['nickname'] ?? "",
+        }),
+      );
     } catch (e) {
       rethrow;
     }
@@ -33,6 +58,7 @@ class UserDataService {
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(userDataKey);
+      await prefs.remove('userToken');
     } catch (e) {
       rethrow;
     }

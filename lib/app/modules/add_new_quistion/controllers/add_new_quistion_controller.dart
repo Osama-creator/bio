@@ -1,8 +1,8 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bio/app/services/exam/exam.dart';
 import 'package:bio/helpers/Image_Picker.dart';
-import 'package:bio/app/services/exam.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,11 +34,7 @@ class AddNewQuistionController extends GetxController {
       isLoading = true;
       update();
 
-      final examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      final examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
 
       await uploadPhotos();
       await examService.addQuestion(

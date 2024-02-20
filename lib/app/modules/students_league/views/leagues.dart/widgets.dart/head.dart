@@ -23,23 +23,16 @@ class HeaderWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      controller.studentName,
-                      style: const TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold),
+                      controller.student!.name,
+                      style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
                     ),
                     Card(
                       color: AppColors.primary,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         child: Text(
-                          controller.studentDesc.isEmpty
-                              ? "- - - - - - -"
-                              : controller.studentDesc,
-                          style: const TextStyle(
-                              color: AppColors.grey,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16),
+                          controller.student!.nickname.isEmpty ? "- - - - - - -" : controller.student!.nickname,
+                          style: const TextStyle(color: AppColors.grey, fontWeight: FontWeight.bold, fontSize: 16),
                         ),
                       ),
                     ),
@@ -50,12 +43,10 @@ class HeaderWidget extends StatelessWidget {
                   children: [
                     Text(
                       "r/f ${double.parse(controller.studentStudentRF.toStringAsFixed(2))}",
-                      style: const TextStyle(
-                          color: AppColors.primary,
-                          fontWeight: FontWeight.bold),
+                      style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      "${controller.examsCount} امتحان",
+                      "${controller.student!.examCount} امتحان",
                       style: const TextStyle(
                         color: AppColors.primary,
                       ),

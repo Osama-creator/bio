@@ -9,14 +9,32 @@ class Studen {
   int absence;
   int? price;
 
-  Studen(
-      {required this.name,
-      required this.id,
-      required this.absence,
-      this.price,
-      this.isPaid});
+  Studen({
+    required this.name,
+    required this.id,
+    required this.absence,
+    this.price,
+    this.isPaid,
+  });
+
+  factory Studen.fromJson(Map<String, dynamic> json) {
+    return Studen(
+      name: json['name'],
+      id: json['id'],
+      absence: json['absence'],
+      price: json['price'],
+      isPaid: json['isPaid'],
+    );
+  }
+
   Map<String, dynamic> toJson() {
-    return {'name': name, 'id': id, 'absence': absence, 'price': price};
+    return {
+      'name': name,
+      'id': id,
+      'absence': absence,
+      'price': price,
+      'isPaid': isPaid,
+    };
   }
 }
 
@@ -50,8 +68,7 @@ class Student extends Equatable {
   });
 
   @override
-  List<Object?> get props =>
-      [name, grade, password, isConfirmed, wPoints, marks];
+  List<Object?> get props => [name, grade, password, isConfirmed, wPoints, marks];
 
   Map<String, dynamic> toMap() {
     return {

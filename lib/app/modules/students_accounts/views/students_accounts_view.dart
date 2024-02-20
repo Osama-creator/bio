@@ -35,7 +35,7 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                         children: [
                           InkWell(
                             onTap: () {
-                              controller.resetWPointsToZero();
+                              controller.resetWPoints();
                             },
                             child: Card(
                               child: Padding(

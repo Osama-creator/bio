@@ -25,4 +25,18 @@ class Question {
       'right_answer': rightAnswer,
     };
   }
+
+  factory Question.fromJson(Map<String, dynamic> json) {
+    final wrongAnswers = List<String>.from(json['wrong_answer']);
+    return Question(
+      question: json['question'],
+      id: json['id'],
+      rightAnswer: json['right_answer'],
+      image: json['image'],
+      wrongAnswers: [
+        ...wrongAnswers,
+        json['right_answer'],
+      ]..shuffle(),
+    );
+  }
 }

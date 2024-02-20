@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:bio/app/services/auth_service.dart';
+import 'package:bio/app/services/user_local.dart';
 import 'package:bio/helpers/alert.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,8 @@ import '../../../routes/app_pages.dart';
 class SignInController extends GetxController {
   TextEditingController emailC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
+  final authService = AuthService();
+  final localDataService = UserDataService();
   Rx<bool> isTeacher = false.obs;
   bool loading = false;
 
@@ -20,14 +23,14 @@ class SignInController extends GetxController {
     try {
       loading = true;
       update();
-      UserCredential userCredential = await signInWithEmailAndPassword();
+      UserCredential userCredential = await authService.signInWithEmailAndPassword(emailC.text, passwordC.text);
       final userToken = userCredential.user!.uid;
       log(userToken);
-      final userData = await getUserData(userToken);
+      final userData = await authService.getUserData(userToken);
 
       if (userData.exists) {
         final data = userData.data()!;
-        await saveUserDataToPrefs(data as Map<String, dynamic>);
+        await localDataService.saveUserDataToPrefs(data as Map<String, dynamic>);
         navigateToHome();
       } else {
         showLoginError();
@@ -36,53 +39,6 @@ class SignInController extends GetxController {
       handleFirebaseAuthError(e);
     } catch (e) {
       handleGenericError(e);
-    }
-  }
-
-  Future<UserCredential> signInWithEmailAndPassword() async {
-    try {
-      return await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailC.text,
-        password: passwordC.text,
-      );
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<DocumentSnapshot> getUserData(String userToken) async {
-    try {
-      return await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userToken)
-          .get();
-    } catch (e) {
-      rethrow;
-    }
-  }
-
-  Future<void> saveUserDataToPrefs(Map<String, dynamic> userData) async {
-    try {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-        'userData',
-        jsonEncode({
-          'name': userData['name'],
-          'email': userData['email'],
-          'password': userData['password'],
-          'grade_id': userData['grade_id'] ?? "",
-          'grade': userData['grade'] ?? "",
-          'marks': userData['marks'] ?? 0,
-          'w_points': userData['w_points'] ?? 0,
-          'confirmed': userData['confirmed'] ?? false,
-          'right_answers': userData['right_answers'] ?? 0,
-          'wrong_answers': userData['wrong_answers'] ?? 0,
-          'exam_count': userData['exam_count'] ?? 0,
-          'nickname': userData['nickname'] ?? "",
-        }),
-      );
-    } catch (e) {
-      rethrow;
     }
   }
 

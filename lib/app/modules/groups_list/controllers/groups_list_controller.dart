@@ -1,39 +1,20 @@
 import 'dart:developer';
 
 import 'package:bio/app/data/models/group_model.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bio/app/services/utils_service.dart';
 import 'package:get/get.dart';
 
-import '../../../data/models/student_model.dart';
 import '../../../routes/app_pages.dart';
 
 class GroupsListController extends GetxController {
   bool isLoading = false;
   var groupList = <Group>[];
   bool error = false;
-
-  Future<void> getData() async {
+  final utilsService = UtilsService();
+  Future<void> getGroupsData() async {
     isLoading = true;
     try {
-      QuerySnapshot categories =
-          await FirebaseFirestore.instance.collection('groups').get();
-      groupList.clear();
-      for (var category in categories.docs) {
-        groupList.add(Group(
-          name: category['name'],
-          id: category.id,
-          price: category['price'],
-          sessions: category['sessions'],
-          currentSession: category['current_session'],
-          students: (category['students'] as List<dynamic>)
-              .map((studentData) => Studen(
-                  name: studentData['name'],
-                  id: studentData['id'],
-                  absence: studentData['absence'],
-                  price: studentData['price']))
-              .toList(),
-        ));
-      }
+      groupList = await utilsService.getGroupsFromAPI();
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -46,11 +27,7 @@ class GroupsListController extends GetxController {
 
   Future<void> deleteGroup(String groupId) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('groups')
-          .doc(groupId)
-          .delete();
-      groupList.removeWhere((group) => group.id == groupId);
+      groupList = await utilsService.deleteGroup(groupId);
       update();
       Get.snackbar('Success', 'تم حذف المجموعه بنجاح');
     } catch (e) {
@@ -68,7 +45,7 @@ class GroupsListController extends GetxController {
 
   @override
   void onInit() {
-    getData();
+    getGroupsData();
     super.onInit();
   }
 }

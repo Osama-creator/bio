@@ -23,11 +23,7 @@ class ExamDetailsController extends GetxController {
 
   void updateQuestionInFirebase(int index, Question newQuestion) async {
     try {
-      var examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
 
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
@@ -51,11 +47,7 @@ class ExamDetailsController extends GetxController {
 
   Future<void> updateName() async {
     try {
-      var examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
       await examRef.update(({'name': exam.name}));
       update();
     } catch (e) {
@@ -107,11 +99,7 @@ class ExamDetailsController extends GetxController {
 
   void removeQuestion(int index) async {
     try {
-      var examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
 
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
@@ -130,11 +118,7 @@ class ExamDetailsController extends GetxController {
 
   void addQuestion(Question newQuestion) async {
     try {
-      var examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
 
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
@@ -151,20 +135,14 @@ class ExamDetailsController extends GetxController {
     }
   }
 
-  void showEditQuestionSheet(
-      {Question? initialQuestion, bool? isNew, int? index}) async {
+  void showEditQuestionSheet({Question? initialQuestion, bool? isNew, int? index}) async {
     Question question = exam.questions[index!];
 
-    TextEditingController questionController =
-        TextEditingController(text: initialQuestion?.question ?? '');
-    TextEditingController rightAnswerController =
-        TextEditingController(text: initialQuestion?.rightAnswer ?? '');
-    TextEditingController wrongAnswer1Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[0] ?? '');
-    TextEditingController wrongAnswer2Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[1] ?? '');
-    TextEditingController wrongAnswer3Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[2] ?? '');
+    TextEditingController questionController = TextEditingController(text: initialQuestion?.question ?? '');
+    TextEditingController rightAnswerController = TextEditingController(text: initialQuestion?.rightAnswer ?? '');
+    TextEditingController wrongAnswer1Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[0] ?? '');
+    TextEditingController wrongAnswer2Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[1] ?? '');
+    TextEditingController wrongAnswer3Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[2] ?? '');
 
     bool? result = await showDialog(
       context: Get.context!,
@@ -251,16 +229,11 @@ class ExamDetailsController extends GetxController {
   void showAddQuestionSheet({
     Question? initialQuestion,
   }) async {
-    TextEditingController questionController =
-        TextEditingController(text: initialQuestion?.question ?? '');
-    TextEditingController rightAnswerController =
-        TextEditingController(text: initialQuestion?.rightAnswer ?? '');
-    TextEditingController wrongAnswer1Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[0] ?? '');
-    TextEditingController wrongAnswer2Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[1] ?? '');
-    TextEditingController wrongAnswer3Controller =
-        TextEditingController(text: initialQuestion?.wrongAnswers?[2] ?? '');
+    TextEditingController questionController = TextEditingController(text: initialQuestion?.question ?? '');
+    TextEditingController rightAnswerController = TextEditingController(text: initialQuestion?.rightAnswer ?? '');
+    TextEditingController wrongAnswer1Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[0] ?? '');
+    TextEditingController wrongAnswer2Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[1] ?? '');
+    TextEditingController wrongAnswer3Controller = TextEditingController(text: initialQuestion?.wrongAnswers?[2] ?? '');
 
     bool? result = await showDialog(
       context: Get.context!,

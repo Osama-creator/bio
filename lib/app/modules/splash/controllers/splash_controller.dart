@@ -1,10 +1,11 @@
-import 'dart:convert';
-
+import 'package:bio/app/data/models/student_model.dart';
 import 'package:bio/app/routes/app_pages.dart';
+import 'package:bio/app/services/user_local.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashController extends GetxController {
+  final userDataService = UserDataService();
+  Student? student;
   @override
   void onInit() {
     checkUserSignIn();
@@ -12,15 +13,10 @@ class SplashController extends GetxController {
   }
 
   Future<void> checkUserSignIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    final userData = prefs.getString('userData');
+    student = await userDataService.getUserFromLocal();
     Future.delayed(const Duration(seconds: 2), () {
-      if (userData != null) {
-        final userDataMap = jsonDecode(userData);
-        final userEmail = userDataMap['email'];
-        final userPassword = userDataMap['password'];
-        if (userEmail == "admin.mo@gmail.com" &&
-            userPassword == "XUcr7HNBSY2g") {
+      if (student != null) {
+        if (student!.email == "admin.mo@gmail.com" && student!.password == "XUcr7HNBSY2g") {
           Get.offAllNamed(Routes.TEACHER_HOME);
         } else {
           Get.offAllNamed(

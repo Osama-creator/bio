@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:bio/app/data/models/question_model.dart';
+import 'package:bio/app/services/exam/teacher_exam_side.dart';
 import 'package:bio/helpers/pick.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,6 +19,7 @@ class EditQuistionController extends GetxController {
   TextEditingController wrongAnswer2Controller = TextEditingController();
   TextEditingController wrongAnswer3Controller = TextEditingController();
   String imageString = "";
+  final teacherExService = TeacherExamService();
   late bool imageUploaded;
   late Question question;
   File? image;
@@ -36,17 +38,12 @@ class EditQuistionController extends GetxController {
 
     try {
       isLoading = true;
-      var examRef = FirebaseFirestore.instance
-          .collection('grades')
-          .doc(args[0])
-          .collection('exams')
-          .doc(args[1].id);
+      var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
 
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
       if (image != null) {
-        Reference reference =
-            FirebaseStorage.instance.ref().child(const Uuid().v1());
+        Reference reference = FirebaseStorage.instance.ref().child(const Uuid().v1());
         final UploadTask uploadTask = reference.putFile(image!);
         uploadTasks.add(uploadTask.whenComplete(() async {
           imageString = await reference.getDownloadURL();

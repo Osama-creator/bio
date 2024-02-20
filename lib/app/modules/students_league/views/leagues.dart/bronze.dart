@@ -54,11 +54,10 @@ class LeagueWidget extends StatelessWidget {
                           FantasyUI(
                             avg: controller.getAvg(students),
                             heighst: students.first.wPoints!,
-                            myPoints: controller.userWPoints,
+                            myPoints: controller.student!.wPoints!,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: context.width * 0.1),
+                            padding: EdgeInsets.symmetric(horizontal: context.width * 0.1),
                             child: Column(
                               children: [
                                 Divider(
@@ -90,10 +89,7 @@ class LeagueWidget extends StatelessWidget {
                           ),
                           Text(
                             leagueName,
-                            style: TextStyle(
-                                color: leagueFirstColor,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 27),
+                            style: TextStyle(color: leagueFirstColor, fontWeight: FontWeight.bold, fontSize: 27),
                           ),
                           const SizedBox(
                             height: 10,
@@ -114,18 +110,14 @@ class LeagueWidget extends StatelessWidget {
                                       children: [
                                         Text(
                                           "الاسبوع",
-                                          style: TextStyle(
-                                              color: leagueFirstColor,
-                                              fontSize: 12),
+                                          style: TextStyle(color: leagueFirstColor, fontSize: 12),
                                         ),
                                         const SizedBox(
                                           width: 20,
                                         ),
                                         Text(
                                           "المجموع",
-                                          style: TextStyle(
-                                              color: leagueFirstColor,
-                                              fontSize: 12),
+                                          style: TextStyle(color: leagueFirstColor, fontSize: 12),
                                         ),
                                       ],
                                     ),
@@ -137,29 +129,24 @@ class LeagueWidget extends StatelessWidget {
                           ListView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
-                            itemCount: students
-                                .length, // Use the 'students' parameter here
+                            itemCount: students.length, // Use the 'students' parameter here
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.stretch,
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
                                     Row(children: [
                                       Text(
                                         "(${(index + 1).toString()})",
                                         style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 25,
-                                            color: leagueFirstColor),
+                                            fontWeight: FontWeight.bold, fontSize: 25, color: leagueFirstColor),
                                       ),
                                       SizedBox(
                                         width: context.width * 0.1,
                                       ),
                                       Text(
-                                        students[index]
-                                            .name, // Use the 'students' parameter here
+                                        students[index].name, // Use the 'students' parameter here
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16,
@@ -171,18 +158,14 @@ class LeagueWidget extends StatelessWidget {
                                         children: [
                                           Text(
                                             students[index].wPoints.toString(),
-                                            style: TextStyle(
-                                                color: leagueFirstColor),
+                                            style: TextStyle(color: leagueFirstColor),
                                           ),
                                           SizedBox(
                                             width: context.width * 0.12,
                                           ),
                                           Text(
-                                            students[index]
-                                                .marks!
-                                                .toString(), // Use the 'students' parameter here
-                                            style: TextStyle(
-                                                color: leagueFirstColor),
+                                            students[index].marks!.toString(), // Use the 'students' parameter here
+                                            style: TextStyle(color: leagueFirstColor),
                                           ),
                                         ],
                                       ),

@@ -1,89 +1,43 @@
-import 'dart:convert';
 import 'dart:developer';
-
-import 'package:bio/app/data/models/question_model.dart';
+import 'package:bio/app/data/models/student_model.dart';
+import 'package:bio/app/services/exam/exam.dart';
+import 'package:bio/app/services/user_local.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../data/models/exam_model.dart';
 import '../../../routes/app_pages.dart';
 
 class HomeController extends GetxController {
-  Future<void> signOut() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('userData');
-    await prefs.remove('userToken');
-    await FirebaseAuth.instance.signOut();
-    Get.offAllNamed(Routes.SIGN_IN);
-  }
-
   bool isConfirmed = false;
   bool isLoading = false;
   var examList = <Exam>[];
   bool error = false;
+  final examService = ExamService();
+  final userLocalData = UserDataService();
+  Student? student;
+  Future<void> signOut() async {
+    await userLocalData.clearUserDataLocal();
+    await FirebaseAuth.instance.signOut();
+    Get.offAllNamed(Routes.SIGN_IN);
+  }
 
-  Future<void> getData() async {
+  Future<void> getExamsData() async {
     try {
       isLoading = true;
       update();
-
-      final prefs = await SharedPreferences.getInstance();
-      final userData = prefs.getString('userData');
-
-      if (userData == null) {
-        throw Exception("User data not found in SharedPreferences");
-      }
-
-      final userDataMap = jsonDecode(userData);
-      final userEmail = userDataMap['email'];
-
+      student = await userLocalData.getUserFromLocal();
       final userSnapshot =
-          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: userEmail).get();
-
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student!.email).get();
       if (userSnapshot.size == 0) {
         throw Exception("User data not found in Firestore");
       }
-
       final userDoc = userSnapshot.docs.first;
-      await prefs.setString('userData', jsonEncode(userDoc.data()));
-
+      await userLocalData.saveUserDataToPrefs(userDoc.data());
       isConfirmed = userDoc['confirmed'];
       log(isConfirmed.toString());
-
-      final examsSnapshot = await FirebaseFirestore.instance
-          .collection('grades')
-          .doc(userDoc['grade_id'])
-          .collection('exams')
-          .where('is_active', isEqualTo: true)
-          .get();
-
-      examList.clear();
-
-      for (var examDoc in examsSnapshot.docs) {
-        final questionDataList = examDoc['questions'];
-        final questionList = questionDataList.map<Question>((questionData) {
-          final wrongAnswers = List<String>.from(questionData['wrong_answer']);
-          return Question(
-            question: questionData['question'],
-            id: questionData['id'],
-            rightAnswer: questionData['right_answer'],
-            image: questionData['image'],
-            wrongAnswers: [
-              ...wrongAnswers,
-              questionData['right_answer'],
-            ]..shuffle(),
-          );
-        }).toList();
-
-        examList.add(Exam(
-          name: examDoc['name'],
-          id: examDoc.id,
-          date: (examDoc['date'] as Timestamp).toDate(),
-          questions: questionList,
-        ));
-      }
+      examList = await examService.getExams(student!.gradeId, false);
       for (var element in examList) {
         isExamInfoAvailable(element.id);
       }
@@ -114,7 +68,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() {
-    getData();
+    getExamsData();
     super.onInit();
   }
 }

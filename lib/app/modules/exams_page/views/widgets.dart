@@ -27,8 +27,7 @@ class ExamsBody extends StatelessWidget {
                 }
                 {
                   return Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: context.height * 0.05),
+                    padding: EdgeInsets.symmetric(vertical: context.height * 0.05),
                     child: ListView.builder(
                       itemCount: controller.examList.length,
                       itemBuilder: (context, index) {
@@ -44,8 +43,7 @@ class ExamsBody extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Flexible(
                                       child: Text(
@@ -55,21 +53,17 @@ class ExamsBody extends StatelessWidget {
                                       ),
                                     ),
                                     Switch(
-                                      value:
-                                          controller.examList[index].isActive,
+                                      value: controller.examList[index].isActive,
                                       activeColor: AppColors.primary,
                                       inactiveThumbColor: AppColors.white,
                                       inactiveTrackColor: Colors.white,
                                       onChanged: (newValue) {
-                                        controller.updateExamActivation(
-                                            controller.examList[index].id,
-                                            newValue);
+                                        controller.updateExamActivation(controller.examList[index].id, newValue);
                                       },
                                     ),
                                     IconButton(
                                       onPressed: () {
-                                        controller.deleteGroup(
-                                            controller.examList[index].id);
+                                        controller.deleteExam(controller.examList[index].id);
                                       },
                                       icon: const Icon(
                                         Icons.delete,
@@ -78,12 +72,8 @@ class ExamsBody extends StatelessWidget {
                                     ),
                                     IconButton(
                                         onPressed: () {
-                                          Get.toNamed(
-                                              Routes.STUDENT_MARKES_FOR_TEACHER,
-                                              arguments: [
-                                                controller.examList[index],
-                                                controller.args
-                                              ]);
+                                          Get.toNamed(Routes.STUDENT_MARKES_FOR_TEACHER,
+                                              arguments: [controller.examList[index], controller.args]);
                                         },
                                         icon: const Icon(
                                           Icons.group,

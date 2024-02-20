@@ -26,4 +26,16 @@ class Mark {
       'id': id,
     };
   }
+
+  factory Mark.fromJson(Map<String, dynamic> json) {
+    return Mark(
+      id: json['id'],
+      examName: json['exam_name'],
+      grade: json['grade'],
+      studentName: json['student_name'],
+      email: json['email'],
+      studentMark: json['student_mark'],
+      examMark: json['exam_mark'],
+    );
+  }
 }
