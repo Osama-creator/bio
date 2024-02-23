@@ -10,7 +10,7 @@ import 'package:uuid/uuid.dart';
 import '../../../data/models/grade_item_model.dart';
 
 class AdminAddVideosController extends GetxController {
-  final args = Get.arguments as GradeItem;
+  final args = Get.arguments as List;
   TextEditingController vidTitleController = TextEditingController();
   TextEditingController vidUrlController = TextEditingController();
   bool isLoading = false;
@@ -31,7 +31,7 @@ class AdminAddVideosController extends GetxController {
         title: vidTitleController.text,
         url: vidUrlController.text,
       );
-      await videosService.createVideo(args.id, video);
+      await videosService.createVideo(args.first.id, video);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -102,7 +102,7 @@ class AdminAddVideosController extends GetxController {
   void deleteVid(int index) async {
     VideoModel vid = videosList[index];
     try {
-      await videosService.deleteVideo(args.id, vid.id);
+      await videosService.deleteVideo(args.first.id, vid.id);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -114,7 +114,7 @@ class AdminAddVideosController extends GetxController {
     isLoading = true;
     try {
       videosList.clear();
-      videosList = await videosService.getVideos(args.id);
+      videosList = await videosService.getVideos(args.first.id);
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
@@ -128,7 +128,7 @@ class AdminAddVideosController extends GetxController {
     isLoading = true;
     update();
     try {
-      videosService.updateVideo(args.id, video);
+      videosService.updateVideo(args.first.id, video);
       getData();
     } catch (e) {
       Get.snackbar('Error', e.toString());

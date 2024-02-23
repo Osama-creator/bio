@@ -4,16 +4,21 @@ import 'package:bio/app/services/user_accounts.dart';
 import 'package:get/get.dart';
 
 class StudentsAccountsController extends GetxController {
+  final args = Get.arguments as List;
+
   bool isLoading = false;
   List<Student> studentList = [];
   int updatedUsersCount = 0;
+  String gradeId = '';
   final userAccountsService = UserAccounts();
   bool upadataingUsers = false;
+
   Future<void> getData() async {
     isLoading = true;
     update();
     try {
-      studentList = await userAccountsService.getAccounts();
+      gradeId = args[0].id;
+      studentList = await userAccountsService.getAccounts(gradeId);
     } catch (e, st) {
       Get.snackbar('Error', e.toString());
       log(st.toString());

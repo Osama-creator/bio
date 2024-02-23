@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:bio/app/data/models/grade_item_model.dart';
+import 'package:bio/app/modules/students_accounts/controllers/students_accounts_controller.dart';
 import 'package:bio/app/services/utils_service.dart';
 import 'package:bio/app/views/text_field.dart';
 import 'package:flutter/material.dart';
@@ -120,7 +121,7 @@ class GradesListController extends GetxController {
   void navigate(int index) {
     Get.toNamed(
       Routes.EXAMS_PAGE,
-      arguments: gradeList[index],
+      arguments: [gradeList[index], false],
     );
   }
 

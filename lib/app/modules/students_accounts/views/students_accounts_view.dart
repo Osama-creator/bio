@@ -33,24 +33,24 @@ class StudentsAccountsView extends GetView<StudentsAccountsController> {
                   : SingleChildScrollView(
                       child: Column(
                         children: [
-                          InkWell(
-                            onTap: () {
-                              controller.resetWPoints();
-                            },
-                            child: Card(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: context.width * 0.25, vertical: context.height * 0.015),
-                                child: const Column(
-                                  children: [Text("بدء اسبوع جديد")],
-                                ),
-                              ),
-                            ),
-                          ),
+                          // InkWell(
+                          //   onTap: () {
+                          //     controller.resetWPoints();
+                          //   },
+                          //   child: Card(
+                          //     child: Padding(
+                          //       padding: EdgeInsets.symmetric(
+                          //           horizontal: context.width * 0.25, vertical: context.height * 0.015),
+                          //       child: const Column(
+                          //         children: [Text("بدء اسبوع جديد")],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
                           TextField(
                             onChanged: controller.setSearchQuery,
                             decoration: const InputDecoration(
-                              hintText: 'Search by name',
+                              hintText: 'ابحث',
                               prefixIcon: Icon(Icons.search),
                             ),
                           ),

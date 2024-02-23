@@ -12,7 +12,6 @@ import 'package:uuid/uuid.dart';
 
 class EditQuistionController extends GetxController {
   final args = Get.arguments as List;
-
   TextEditingController questionController = TextEditingController();
   TextEditingController rightAnswerController = TextEditingController();
   TextEditingController wrongAnswer1Controller = TextEditingController();
@@ -66,7 +65,7 @@ class EditQuistionController extends GetxController {
         image: imageString,
         id: const Uuid().v1(),
       );
-      questionDataList[args[3]] = newQuestion.toJson();
+      questionDataList[args[4]] = newQuestion.toJson();
       await examRef.update({'questions': questionDataList});
       Get.back();
       Get.snackbar('تم', "تم التعديل بنجاح");
@@ -81,7 +80,7 @@ class EditQuistionController extends GetxController {
 
   @override
   void onInit() {
-    question = args[2];
+    question = args[3];
     questionController.text = question.question!;
     rightAnswerController.text = question.rightAnswer;
     wrongAnswer1Controller.text = question.wrongAnswers![0];

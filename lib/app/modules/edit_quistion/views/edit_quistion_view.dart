@@ -42,8 +42,7 @@ class EditQuistionView extends GetView<EditQuistionController> {
                               height: context.height * 0.15,
                               child: InkWell(
                                 onTap: controller.pickFile,
-                                child: controller.image == null &&
-                                        controller.imageString.isEmpty
+                                child: controller.image == null && controller.imageString.isEmpty
                                     ? const Icon(
                                         Icons.add,
                                       )
@@ -54,7 +53,8 @@ class EditQuistionView extends GetView<EditQuistionController> {
                                             child: Image.network(
                                               controller.imageString,
                                               fit: BoxFit.contain,
-                                            ))
+                                            ),
+                                          )
                                         : Image.file(
                                             controller.image!,
                                           ),
@@ -99,8 +99,7 @@ class EditQuistionView extends GetView<EditQuistionController> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: context.width * 0.1, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: context.width * 0.1, vertical: 10),
                     child: SizedBox(
                       height: context.height * 0.06,
                       child: ElevatedButton(

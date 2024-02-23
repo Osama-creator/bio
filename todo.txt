@@ -1,0 +1,9 @@
+add new btn  get me to the exams page put with new prameter         DONE
+go to exam page with new parameter                                  DONE
+enable me to select question and all questions                      
+add these quistions to the question list in exam 
+go out 
+can go to another exam 
+can go to his exam and find his questions 
+can add new one 
+can delete question 

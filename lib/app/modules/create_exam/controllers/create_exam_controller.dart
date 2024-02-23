@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:bio/app/mixins/add_exist_questoins.dart';
 import 'package:bio/app/services/exam/exam.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +14,16 @@ import '../../../data/models/grade_item_model.dart';
 import '../../../data/models/question_model.dart';
 
 class CreateExamController extends GetxController {
+  @override
+  final MixinService mixinService = Get.find<MixinService>();
   final args = Get.arguments as GradeItem;
   TextEditingController examNameController = TextEditingController();
-  final List<QuestionC> questions = [];
   DateTime nowDate = DateTime.now();
   final examService = ExamService();
-
   bool isLoading = false;
   int uploadedQuestionCount = 0; // Track uploaded questions count
-
   void addQuestion() {
-    questions.add(QuestionC());
+    mixinService.questionFromList.add(QuestionC());
     update();
   }
 
@@ -34,7 +34,7 @@ class CreateExamController extends GetxController {
     List<Question> examQuestions = [];
     List<Future> uploadTasks = []; // keep track of all the upload tasks
 
-    for (var questionC in questions) {
+    for (var questionC in mixinService.questionFromList) {
       // pick the image file and start uploading it
       if (questionC.image != null) {
         Reference reference = FirebaseStorage.instance.ref().child(const Uuid().v1());
@@ -51,7 +51,7 @@ class CreateExamController extends GetxController {
       }
     }
     await Future.wait(uploadTasks);
-    for (var questionC in questions) {
+    for (var questionC in mixinService.questionFromList) {
       examQuestions.add(Question(
         question: questionC.questionC.text.trim(),
         rightAnswer: questionC.rightAnswerC.text.trim(),
@@ -86,6 +86,14 @@ class CreateExamController extends GetxController {
       update();
     }
   }
+
+  void getLastQuestionImage(int index) {
+    if (index >= 0) {
+      File image = mixinService.questionFromList[index - 1].image!;
+      mixinService.questionFromList[index].image = image;
+      update();
+    }
+  }
 }
 
 class QuestionC {
@@ -94,6 +102,7 @@ class QuestionC {
   TextEditingController wrongAnswer1C = TextEditingController();
   TextEditingController wrongAnswer3C = TextEditingController();
   TextEditingController wrongAnswer2C = TextEditingController();
+
   String imageString = "";
   late bool imageUploaded;
   File? image;

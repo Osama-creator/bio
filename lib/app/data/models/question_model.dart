@@ -6,9 +6,11 @@ class Question {
   late final String? question;
   late final List<String>? wrongAnswers;
   late final String? image;
+  bool isSelected;
 
   Question({
     this.id,
+    this.isSelected = false,
     required this.rightAnswer,
     this.question,
     this.userChoice,

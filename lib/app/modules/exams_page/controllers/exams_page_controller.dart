@@ -10,17 +10,21 @@ import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
 
 class ExamsPageController extends GetxController {
-  final args = Get.arguments as GradeItem;
+  final args = Get.arguments as List;
   bool isLoading = false;
   var examList = <Exam>[];
+  late GradeItem grade;
+  bool wantTogetQuesions = false;
   final examService = ExamService();
   final teacherExamService = TeacherExamService();
   bool error = false;
 
   Future<void> getData() async {
+    grade = args[0];
+    wantTogetQuesions = args[1];
     isLoading = true;
     try {
-      examList = await examService.getExams(args.id, true);
+      examList = await examService.getExams(grade.id, true);
       examList.sort((a, b) => a.date.compareTo(b.date));
     } catch (e, st) {
       // Get.snackbar('Error', e.toString());
@@ -34,7 +38,7 @@ class ExamsPageController extends GetxController {
 
   Future<void> deleteExam(String examId) async {
     try {
-      examList = await teacherExamService.deleteExam(examId: examId, gradeId: args.id);
+      examList = await teacherExamService.deleteExam(examId: examId, gradeId: grade.id);
       Get.snackbar('تم بنجاح', 'تم حذف الإمتحان بنجاح', backgroundColor: AppColors.grey);
     } catch (e) {
       Get.snackbar('Error', e.toString());
@@ -46,7 +50,7 @@ class ExamsPageController extends GetxController {
     try {
       await FirebaseFirestore.instance
           .collection('grades')
-          .doc(args.id)
+          .doc(grade.id)
           .collection('exams')
           .doc(examId)
           .update({'is_active': isActive});
@@ -65,16 +69,16 @@ class ExamsPageController extends GetxController {
   }
 
   void navigateToCreateExam() {
-    Get.toNamed(
+    Get.offAndToNamed(
       Routes.CREATE_EXAM,
-      arguments: args,
+      arguments: grade,
     );
   }
 
   void navigateExamPage(int index) {
     Get.toNamed(
       Routes.EXAM_DETAILS,
-      arguments: [args.id, examList[index]],
+      arguments: [grade.id, examList[index], wantTogetQuesions],
     );
   }
 

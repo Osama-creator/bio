@@ -1,5 +1,6 @@
 import 'package:bio/app/modules/admin_add_videos/views/admin_add_videos_view.dart';
 import 'package:bio/app/modules/exams_page/views/widgets.dart';
+import 'package:bio/app/modules/students_accounts/views/students_accounts_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -14,7 +15,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
         init: controller,
         builder: (controller) {
           return DefaultTabController(
-            length: 2,
+            length: 3,
             child: Scaffold(
                 appBar: AppBar(
                   title: const Text('لوحه التحكم'),
@@ -23,6 +24,7 @@ class ExamsPageView extends GetView<ExamsPageController> {
                     tabs: [
                       Tab(text: 'الإمتحانات'),
                       Tab(text: 'الفيديوهات'),
+                      Tab(text: 'الحسابات'),
                     ],
                   ),
                 ),
@@ -30,7 +32,8 @@ class ExamsPageView extends GetView<ExamsPageController> {
                   ExamsBody(
                     controller: controller,
                   ),
-                  const AdminAddVideosView()
+                  const AdminAddVideosView(),
+                  const StudentsAccountsView()
                 ])),
           );
         });
