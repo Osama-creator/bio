@@ -24,6 +24,7 @@ class Exam {
       name: json['name'],
       id: jsonId,
       date: (json['date'] as Timestamp).toDate(),
+      isActive: json['is_active'],
       questions: questionList,
     );
   }

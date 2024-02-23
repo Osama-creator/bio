@@ -102,6 +102,7 @@ class StudentExamController extends GetxController with ExamHelper {
 
   @override
   void onInit() async {
+    pageController = PageController();
     final prefs = await SharedPreferences.getInstance();
     final examInfo = prefs.getString('exam_${exam.id}');
     if (examInfo != null) {

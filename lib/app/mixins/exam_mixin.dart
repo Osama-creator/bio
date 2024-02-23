@@ -96,10 +96,4 @@ mixin ExamHelper on GetxController {
     }
     return mark;
   }
-
-  @override
-  void onInit() async {
-    pageController = PageController();
-    super.onInit();
-  }
 }

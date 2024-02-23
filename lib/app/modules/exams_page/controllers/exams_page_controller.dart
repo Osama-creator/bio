@@ -4,6 +4,7 @@ import 'package:bio/app/data/models/grade_item_model.dart';
 import 'package:bio/app/services/exam/exam.dart';
 import 'package:bio/app/services/exam/teacher_exam_side.dart';
 import 'package:bio/config/utils/colors.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 
 import '../../../routes/app_pages.dart';
@@ -43,10 +44,18 @@ class ExamsPageController extends GetxController {
 
   Future<void> updateExamActivation(String examId, bool isActive) async {
     try {
-      await teacherExamService.updateExamActivation(examId: examId, isActive: isActive, gradeId: args.id);
+      await FirebaseFirestore.instance
+          .collection('grades')
+          .doc(args.id)
+          .collection('exams')
+          .doc(examId)
+          .update({'is_active': isActive});
+
       final examIndex = examList.indexWhere((exam) => exam.id == examId);
+
       if (examIndex != -1) {
         examList[examIndex].isActive = isActive;
+
         update();
       }
     } catch (e) {
