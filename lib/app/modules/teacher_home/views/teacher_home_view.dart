@@ -1,4 +1,4 @@
-import 'package:bio/app/modules/students_accounts/views/students_accounts_view.dart';
+import 'package:bio/app/modules/admin_setting/views/admin_setting_view.dart';
 import 'package:bio/app/routes/app_pages.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -50,15 +50,15 @@ class _TeacherHomeViewState extends State<TeacherHomeView> {
             tabs: [
               Tab(text: 'الإمتحانات'),
               Tab(text: 'الحضور'),
-              Tab(text: 'الحسابات'),
+              Tab(text: 'الإعدادات'),
             ],
           ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
-            const GradesListView(),
-            const GroupsListView(),
-            StudentsAccountsView(),
+            GradesListView(),
+            GroupsListView(),
+            AdminSettingView(),
           ],
         ),
       ),

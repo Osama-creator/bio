@@ -32,6 +32,7 @@ abstract class Routes {
   static const ADMIN_ADD_VIDEOS = _Paths.ADMIN_ADD_VIDEOS;
   static const ADD_NEW_QUISTION = _Paths.ADD_NEW_QUISTION;
   static const EDIT_QUISTION = _Paths.EDIT_QUISTION;
+  static const ADMIN_SETTING = _Paths.ADMIN_SETTING;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const ADMIN_ADD_VIDEOS = '/admin-add-videos';
   static const ADD_NEW_QUISTION = '/add-new-quistion';
   static const EDIT_QUISTION = '/edit-quistion';
+  static const ADMIN_SETTING = '/admin-setting';
 }

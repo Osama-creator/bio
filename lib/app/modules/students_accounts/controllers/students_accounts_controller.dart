@@ -71,22 +71,6 @@ class StudentsAccountsController extends GetxController {
     }
   }
 
-  Future<void> resetWPoints() async {
-    try {
-      isLoading = true;
-      upadataingUsers = true;
-      update();
-      userAccountsService.resetPointsToZero('w_points');
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
-      log(e.toString());
-    } finally {
-      isLoading = false;
-      upadataingUsers = false;
-      update();
-    }
-  }
-
   Future<void> deconfirmUser(Student student) async {
     try {
       isLoading = true;

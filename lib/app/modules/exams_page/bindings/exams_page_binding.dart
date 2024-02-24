@@ -11,6 +11,6 @@ class ExamsPageBinding extends Bindings {
     Get.lazyPut<MixinService>(() => MixinService());
     Get.lazyPut<ExamsPageController>(() => ExamsPageController());
     Get.lazyPut<AdminAddVideosController>(() => AdminAddVideosController());
-    Get.put<StudentsAccountsController>(StudentsAccountsController());
+    Get.lazyPut<StudentsAccountsController>(() => StudentsAccountsController());
   }
 }

@@ -122,8 +122,7 @@ class CreateExamView extends GetView<CreateExamController> {
                                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                 children: [
                                                   IconButton(
-                                                    onPressed: () =>
-                                                        controller.mixinService.questionFromList[index].pickFile,
+                                                    onPressed: controller.mixinService.questionFromList[index].pickFile,
                                                     icon: const Icon(
                                                       Icons.camera_alt_rounded,
                                                     ),

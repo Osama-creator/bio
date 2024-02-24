@@ -4,6 +4,8 @@ import '../modules/add_new_quistion/bindings/add_new_quistion_binding.dart';
 import '../modules/add_new_quistion/views/add_new_quistion_view.dart';
 import '../modules/admin_add_videos/bindings/admin_add_videos_binding.dart';
 import '../modules/admin_add_videos/views/admin_add_videos_view.dart';
+import '../modules/admin_setting/bindings/admin_setting_binding.dart';
+import '../modules/admin_setting/views/admin_setting_view.dart';
 import '../modules/create_exam/bindings/create_exam_binding.dart';
 import '../modules/create_exam/views/create_exam_view.dart';
 import '../modules/create_group/bindings/create_group_binding.dart';
@@ -204,6 +206,11 @@ class AppPages {
       name: _Paths.EDIT_QUISTION,
       page: () => const EditQuistionView(),
       binding: EditQuistionBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADMIN_SETTING,
+      page: () => const AdminSettingView(),
+      binding: AdminSettingBinding(),
     ),
   ];
 }

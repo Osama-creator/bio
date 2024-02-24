@@ -46,6 +46,9 @@ class CreateExamController extends GetxController {
           update();
           log(questionC.imageString);
         }));
+      } else if (questionC.imageString.isNotEmpty) {
+        questionC.imageUploaded = true;
+        update();
       } else {
         questionC.imageUploaded = false;
       }
