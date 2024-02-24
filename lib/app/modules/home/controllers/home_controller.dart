@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:bio/app/data/models/student_model.dart';
 import 'package:bio/app/services/exam/exam.dart';
 import 'package:bio/app/services/user_local.dart';
+import 'package:bio/app/services/user_marks_league.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -21,6 +22,20 @@ class HomeController extends GetxController {
     await userLocalData.clearUserDataLocal();
     await FirebaseAuth.instance.signOut();
     Get.offAllNamed(Routes.SIGN_IN);
+  }
+
+  final marksService = MarksAndLeague();
+  Future<void> getMarks() async {
+    try {
+      final userSnapshot =
+          await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student!.email).get();
+      final documentId = userSnapshot.docs[0].id;
+      var studentData = await userLocalData.getUserDataFromLocal();
+      await marksService.updateMark(studentData, documentId);
+      update();
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<void> getExamsData() async {

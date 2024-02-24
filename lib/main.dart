@@ -15,8 +15,7 @@ Future<void> main() async {
   if (kReleaseMode == true) {
     await SentryFlutter.init(
       (options) {
-        options.dsn =
-            'https://b2f48562e650a6d493f10f2b05d74e93@o4505935676964864.ingest.sentry.io/4505935678734336';
+        options.dsn = 'https://b2f48562e650a6d493f10f2b05d74e93@o4505935676964864.ingest.sentry.io/4505935678734336';
         options.tracesSampleRate = 0.01;
       },
       appRunner: () => runApp(

@@ -8,9 +8,9 @@ import '../controllers/exams_page_controller.dart';
 class ExamsPageBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<MixinService>(() => MixinService());
-    Get.lazyPut<ExamsPageController>(() => ExamsPageController());
-    Get.lazyPut<AdminAddVideosController>(() => AdminAddVideosController());
-    Get.lazyPut<StudentsAccountsController>(() => StudentsAccountsController());
+    Get.lazyPut<MixinService>(() => MixinService(), fenix: true);
+    Get.lazyPut<ExamsPageController>(() => ExamsPageController(), fenix: true);
+    Get.lazyPut<AdminAddVideosController>(() => AdminAddVideosController(), fenix: true);
+    Get.lazyPut<StudentsAccountsController>(() => StudentsAccountsController(), fenix: true);
   }
 }

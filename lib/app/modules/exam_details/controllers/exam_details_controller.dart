@@ -2,22 +2,30 @@ import 'dart:developer';
 
 import 'package:bio/app/data/models/exam_model.dart';
 import 'package:bio/app/mixins/add_exist_questoins.dart';
+import 'package:bio/app/mixins/select_grade.dart';
+import 'package:bio/app/services/exam/exam.dart';
 import 'package:bio/app/views/text_field.dart';
+import 'package:bio/helpers/alert.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/models/question_model.dart';
 
-class ExamDetailsController extends GetxController with AddExistQuestions {
+class ExamDetailsController extends GetxController with AddExistQuestions, SelectGrade {
   final args = Get.arguments as List;
   TextEditingController examNameCont = TextEditingController();
   RxList<Question> questionDataList = RxList<Question>([]);
   late Exam exam;
+  final examService = ExamService();
+  bool isLoading = false;
+
   @override
   void onInit() {
     exam = args[1];
     questionDataList.addAll(args[1].questions!);
+    getGrades();
+    log(exam.questions[0].toString());
     update();
     super.onInit();
   }
@@ -25,7 +33,6 @@ class ExamDetailsController extends GetxController with AddExistQuestions {
   void updateQuestionInFirebase(int index, Question newQuestion) async {
     try {
       var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
-
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
 
@@ -36,6 +43,28 @@ class ExamDetailsController extends GetxController with AddExistQuestions {
     } catch (e) {
       Get.snackbar('Error', e.toString());
       log(e.toString());
+    }
+  }
+
+  Future<void> addExamToAnotherGrade() async {
+    isLoading = true;
+    update();
+    try {
+      Map<String, dynamic> examData = exam.toJson();
+      if (selectedGrade != null) {
+        await examService.addExamDocument(selectedGrade!.id, examData);
+      } else {
+        Alert.error("يجب إختيار صف");
+      }
+      isLoading = false;
+      Alert.success("تم إضافة الإمتحان للصف ${selectedGrade!.name} بنجاح");
+      update();
+    } catch (e, st) {
+      log(st.toString());
+    } finally {
+      isLoading = false;
+      selectedGrade = null;
+      update();
     }
   }
 

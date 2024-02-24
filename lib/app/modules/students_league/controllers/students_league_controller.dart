@@ -14,11 +14,6 @@ class StudentsLeagueController extends GetxController with LeagueManagingControl
   Future<void> getData() async {
     isLoading = true;
     update();
-    final userSnapshot =
-        await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student!.email).get();
-    final documentId = userSnapshot.docs[0].id;
-    final userData = await userDataService.getUserDataFromLocal();
-    await leagueService.updateMark(userData, documentId);
     try {
       QuerySnapshot querySnapshot =
           await FirebaseFirestore.instance.collection('users').where('grade_id', isEqualTo: student!.gradeId).get();

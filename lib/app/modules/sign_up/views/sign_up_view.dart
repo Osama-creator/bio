@@ -20,8 +20,7 @@ class SignUpView extends GetView<SignUpController> {
           children: [
             Text(
               "إنشاء حساب جديد",
-              style: context.textTheme.headline5!
-                  .copyWith(color: AppColors.primary),
+              style: context.textTheme.headlineSmall!.copyWith(color: AppColors.primary),
             ),
             SizedBox(
               height: context.height * 0.1,
@@ -57,12 +56,12 @@ class SignUpView extends GetView<SignUpController> {
                   child: ListTile(
                     title: Text(
                       'الصف الدراسي',
-                      style: context.textTheme.headline6!
-                          .copyWith(fontSize: 14, color: AppColors.primary),
+                      style: context.textTheme.titleLarge!.copyWith(fontSize: 14, color: AppColors.primary),
                     ),
-                    subtitle: Text(controller.selectedGrade.value?.name ?? ''),
+                    subtitle: Text(controller.selectedGrade?.name ?? ''),
                     onTap: () {
                       controller.showGradeSelectionBottomSheet(context);
+                      controller.update();
                     },
                   ),
                 ),
@@ -72,9 +71,7 @@ class SignUpView extends GetView<SignUpController> {
                 init: controller,
                 builder: (_) {
                   return Padding(
-                    padding: EdgeInsets.symmetric(
-                        horizontal: context.width * 0.1,
-                        vertical: context.height * 0.05),
+                    padding: EdgeInsets.symmetric(horizontal: context.width * 0.1, vertical: context.height * 0.05),
                     child: SizedBox(
                       height: context.height * 0.06,
                       width: context.width,
@@ -86,7 +83,7 @@ class SignUpView extends GetView<SignUpController> {
                               )
                             : Text(
                                 'إنشاء حساب',
-                                style: context.textTheme.headline6!.copyWith(
+                                style: context.textTheme.titleLarge!.copyWith(
                                   fontSize: 18,
                                 ),
                               ),
