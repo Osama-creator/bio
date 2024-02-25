@@ -24,8 +24,7 @@ class CreateGroupController extends GetxController {
           name: studentName,
           id: UniqueKey().toString(),
           absence: 0,
-          price: studentPrice ??
-              groupPrice!, // set the student's price to either the entered price or the group price
+          price: studentPrice ?? groupPrice!, // set the student's price to either the entered price or the group price
         ),
       );
       studentNameController.clear();
@@ -45,26 +44,24 @@ class CreateGroupController extends GetxController {
     int? groupPrice = int.tryParse(groupPriceController.text.trim());
     String? groupSessionsNumber = groupSeminarsController.text.trim();
     List<Studen>? groupStudents = students.isNotEmpty
-        ? students
-            .toList()
-            .map((e) => Studen(
-                name: e.name, id: e.id, absence: e.absence, price: e.price))
-            .toList()
+        ? students.toList().map((e) => Studen(name: e.name, id: e.id, absence: e.absence, price: e.price)).toList()
         : null;
 
-    // Create a new Group object
+    // Generate a unique ID for the group
+    String groupId = FirebaseFirestore.instance.collection('groups').doc().id;
+
+    // Create a new Group object with the generated ID
     Group newGroup = Group(
         name: groupName,
-        id: UniqueKey().toString(),
+        id: groupId,
         price: groupPrice,
         sessions: groupSessionsNumber,
         students: groupStudents,
         currentSession: 0);
 
-    // Add the new Group object to the "group" collection in Firestore
-    CollectionReference groupCollection =
-        FirebaseFirestore.instance.collection('groups');
-    await groupCollection.add(newGroup.toJson());
+    // Add the new Group object to the "groups" collection in Firestore
+    CollectionReference groupCollection = FirebaseFirestore.instance.collection('groups');
+    await groupCollection.doc(groupId).set(newGroup.toJson()); // Use set() instead of add()
 
     // Clear the text fields and update the UI
     groupNameController.clear();

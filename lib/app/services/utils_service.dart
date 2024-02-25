@@ -14,12 +14,8 @@ class UtilsService {
     return groupList;
   }
 
-  Future<List<Group>> deleteGroup(String groupId) async {
-    var groupList = <Group>[];
-
+  Future<void> deleteGroup(String groupId) async {
     await FirebaseFirestore.instance.collection('groups').doc(groupId).delete();
-    groupList.removeWhere((group) => group.id == groupId);
-    return groupList;
   }
 
   Future<void> createGrade(GradeItem grade) async {

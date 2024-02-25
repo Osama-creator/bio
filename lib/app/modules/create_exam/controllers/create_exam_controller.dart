@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:bio/app/mixins/add_exist_questoins.dart';
 import 'package:bio/app/services/exam/exam.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,10 +68,11 @@ class CreateExamController extends GetxController {
         id: const Uuid().v1(),
       ));
     }
+    var examId = FirebaseFirestore.instance.collection('grades').doc(args.id).collection('exams').doc().id;
 
     Exam newExam = Exam(
       name: examName,
-      id: const Uuid().v1(),
+      id: examId,
       date: nowDate,
       questions: examQuestions,
     );

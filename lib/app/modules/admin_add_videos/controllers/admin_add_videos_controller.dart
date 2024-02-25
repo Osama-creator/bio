@@ -3,11 +3,9 @@ import 'dart:developer';
 import 'package:bio/app/data/models/video_model.dart';
 import 'package:bio/app/services/videos.dart';
 import 'package:bio/app/views/text_field.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:uuid/uuid.dart';
-
-import '../../../data/models/grade_item_model.dart';
 
 class AdminAddVideosController extends GetxController {
   final args = Get.arguments as List;
@@ -26,8 +24,9 @@ class AdminAddVideosController extends GetxController {
     try {
       isLoading = true;
       update();
+      String vidID = FirebaseFirestore.instance.collection('grades').doc(args.first.id).collection('videos').doc().id;
       VideoModel video = VideoModel(
-        id: const Uuid().v1(),
+        id: vidID,
         title: vidTitleController.text,
         url: vidUrlController.text,
       );

@@ -45,28 +45,29 @@ class SignUpView extends GetView<SignUpController> {
               labelText: "كلمه السر",
               obscureText: true,
             ),
-            Obx(
-              () => Padding(
-                padding: EdgeInsets.symmetric(horizontal: context.width * 0.09),
-                child: Container(
-                  height: context.height * 0.08,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: AppColors.primary, width: 0.5),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: ListTile(
-                    title: Text(
-                      'الصف الدراسي',
-                      style: context.textTheme.titleLarge!.copyWith(fontSize: 14, color: AppColors.primary),
+            GetBuilder<SignUpController>(
+                init: controller,
+                builder: (_) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: context.width * 0.09),
+                    child: Container(
+                      height: context.height * 0.08,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: AppColors.primary, width: 0.5),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: ListTile(
+                        title: Text(
+                          'الصف الدراسي',
+                          style: context.textTheme.titleLarge!.copyWith(fontSize: 14, color: AppColors.primary),
+                        ),
+                        subtitle: Text(controller.selectedGrade?.name ?? ''),
+                        onTap: () {
+                          controller.showGradeSelectionBottomSheet(context);
+                        },
+                      ),
                     ),
-                    subtitle: Text(controller.selectedGrade?.name ?? ''),
-                    onTap: () {
-                      controller.showGradeSelectionBottomSheet(context);
-                      controller.update();
-                    },
-                  ),
-                ),
-              ),
-            ),
+                  );
+                }),
             GetBuilder<SignUpController>(
                 init: controller,
                 builder: (_) {

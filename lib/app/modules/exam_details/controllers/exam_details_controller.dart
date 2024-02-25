@@ -35,7 +35,6 @@ class ExamDetailsController extends GetxController with AddExistQuestions, Selec
       var examRef = FirebaseFirestore.instance.collection('grades').doc(args[0]).collection('exams').doc(args[1].id);
       var examData = await examRef.get();
       var questionDataList = examData['questions'];
-
       questionDataList[index] = newQuestion.toJson();
 
       await examRef.update({'questions': questionDataList});

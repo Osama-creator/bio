@@ -27,7 +27,9 @@ class GroupsListController extends GetxController {
 
   Future<void> deleteGroup(String groupId) async {
     try {
-      groupList = await utilsService.deleteGroup(groupId);
+      print(groupId);
+      await utilsService.deleteGroup(groupId);
+      groupList.removeWhere((group) => group.id == groupId);
       update();
       Get.snackbar('Success', 'تم حذف المجموعه بنجاح');
     } catch (e) {

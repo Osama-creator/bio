@@ -19,6 +19,22 @@ class MarksAndLeague {
     return marksList;
   }
 
+  Future<void> deleteAllMarks({required String gradeId, required String examId}) async {
+    QuerySnapshot marksSnapshot = await FirebaseFirestore.instance
+        .collection('grades')
+        .doc(gradeId)
+        .collection('exams')
+        .doc(examId)
+        .collection('markes')
+        .get();
+
+    // Delete each mark document one by one
+    for (DocumentSnapshot doc in marksSnapshot.docs) {
+      await doc.reference.delete();
+    }
+    log('All marks deleted successfully');
+  }
+
   Future<void> updateMark(Map<String, dynamic>? userData, String documentId) async {
     try {
       if (userData != null) {

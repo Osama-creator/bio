@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bio/app/services/utils_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -13,6 +15,7 @@ class CreateSessionController extends GetxController {
   bool checked = false;
   @override
   void onInit() {
+    log(group.id);
     icCurrentSessions();
     super.onInit();
   }

@@ -27,6 +27,7 @@ class HomeController extends GetxController {
   final marksService = MarksAndLeague();
   Future<void> getMarks() async {
     try {
+      log("loading");
       final userSnapshot =
           await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: student!.email).get();
       final documentId = userSnapshot.docs[0].id;
@@ -36,6 +37,7 @@ class HomeController extends GetxController {
     } catch (e) {
       log(e.toString());
     }
+    log("loaded");
   }
 
   Future<void> getExamsData() async {
@@ -82,8 +84,9 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onInit() {
-    getExamsData();
+  void onInit() async {
+    await getExamsData();
+    await getMarks();
     super.onInit();
   }
 }
